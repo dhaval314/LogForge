@@ -1,0 +1,1847 @@
+2025-08-27 12:39:50 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:41:59 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:42:05 | ERROR    | llm_analysis:_initialize_client:62 - Failed to initialize Granite LLM: Model 'ibm/granite-13b-chat-v2' is not supported for this environment. Supported models: ['cross-encoder/ms-marco-minilm-l-12-v2', 'elyza/elyza-japanese-llama-2-7b-instruct', 'google/flan-t5-xl', 'ibm/granite-13b-instruct-v2', 'ibm/granite-3-2b-instruct', 'ibm/granite-3-8b-instruct', 'ibm/granite-embedding-107m-multilingual', 'ibm/granite-embedding-278m-multilingual', 'ibm/granite-ttm-1024-96-r2', 'ibm/granite-ttm-1536-96-r2', 'ibm/granite-ttm-512-96-r2', 'ibm/slate-125m-english-rtrvr', 'ibm/slate-125m-english-rtrvr-v2', 'ibm/slate-30m-english-rtrvr', 'ibm/slate-30m-english-rtrvr-v2', 'intfloat/multilingual-e5-large', 'meta-llama/llama-2-13b-chat', 'meta-llama/llama-3-2-11b-vision-instruct', 'meta-llama/llama-3-3-70b-instruct', 'meta-llama/llama-4-maverick-17b-128e-instruct-fp8', 'meta-llama/llama-guard-3-11b-vision', 'mistralai/mistral-medium-2505', 'mistralai/mistral-small-3-1-24b-instruct-2503', 'sentence-transformers/all-minilm-l12-v2', 'sentence-transformers/all-minilm-l6-v2']
+2025-08-27 12:43:45 | INFO     | rag_enrichment:_populate_sample_data:117 - Populated ChromaDB with sample cybersecurity knowledge
+2025-08-27 12:43:45 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 12:43:46 | INFO     | rag_enrichment:_initialize_kendra:190 - AWS Kendra client initialized
+2025-08-27 12:43:46 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 12:43:46 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 12:43:46 | INFO     | utilities:_create_sample_rules:267 - Created sample YARA rules: yara_rules\sample_rules.yar
+2025-08-27 12:43:46 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 12:43:46 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 12:43:57 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:44:05 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 12:44:05 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 12:44:05 | INFO     | rag_enrichment:_initialize_kendra:190 - AWS Kendra client initialized
+2025-08-27 12:44:05 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 12:44:05 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 12:44:05 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 12:44:05 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 12:44:48 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:44:55 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 12:44:56 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 12:44:56 | INFO     | rag_enrichment:_initialize_kendra:190 - AWS Kendra client initialized
+2025-08-27 12:44:56 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 12:44:56 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 12:44:56 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 12:44:56 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 12:47:11 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:47:23 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 12:47:23 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 12:47:23 | INFO     | rag_enrichment:_initialize_kendra:190 - AWS Kendra client initialized
+2025-08-27 12:47:23 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 12:47:23 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 12:47:23 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 12:47:23 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 12:47:27 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:47:36 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 12:47:37 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 12:47:37 | INFO     | rag_enrichment:_initialize_kendra:190 - AWS Kendra client initialized
+2025-08-27 12:47:37 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 12:47:37 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 12:47:37 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 12:47:37 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 12:47:37 | INFO     | agents:investigate:415 - Starting forensic investigation: CASE_A53A00BB
+2025-08-27 12:47:37 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 12:47:37 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmp_ahto4gy_dhcp.log
+2025-08-27 12:47:37 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmp_ahto4gy_dhcp.log
+2025-08-27 12:47:37 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmp_ahto4gy_dhcp.log
+2025-08-27 12:47:37 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 12:47:37 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 12:47:37 | INFO     | llm_analysis:analyze_logs:76 - Analyzing 1502 log entries with Granite LLM
+2025-08-27 12:47:38 | ERROR    | llm_analysis:analyze_logs:99 - Error during Granite LLM analysis: Failure during generate. (POST https://jp-tok.ml.cloud.ibm.com/ml/v1/text/generation?version=2025-06-25)
+Status code: 403, body: {"errors":[{"code":"no_associated_service_instance_error","message":"project_id 729d6c69-4088-4a35-92c5-8265b8129129 is not associated with a WML instance","more_info":"https://cloud.ibm.com/apidocs/watsonx-ai#text-generation"}],"trace":"379703b4af0d9cddeba8d54ce7eb3e3c","status_code":403}
+2025-08-27 12:47:38 | INFO     | llm_analysis:_mock_analysis:220 - Using mock analysis - Granite LLM not available
+2025-08-27 12:47:38 | INFO     | agents:execute:148 - Initial analysis completed: 1 IOCs, severity: SeverityLevel.LOW
+2025-08-27 12:47:38 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 12:47:38 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 12:47:40 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 12:47:40 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 12:47:40 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 4 entries
+2025-08-27 12:47:40 | ERROR    | rag_enrichment:query:227 - Unexpected error querying Kendra: Parameter validation failed:
+Invalid length for parameter IndexId, value: 20, valid min length: 36
+2025-08-27 12:47:40 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 12:47:40 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 12:47:40 | DEBUG    | utilities:check_ioc:72 - Checking ip 255.255.255.255 with VirusTotal
+2025-08-27 12:47:56 | ERROR    | utilities:check_ioc:107 - VirusTotal API error for 255.255.255.255: ('WrongCredentialsError', 'Wrong API key')
+2025-08-27 12:47:56 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 12:47:56 | INFO     | agents:execute:219 - Enrichment completed: 4 enrichments added
+2025-08-27 12:47:56 | INFO     | agents:execute:235 - Starting report generation
+2025-08-27 12:47:56 | INFO     | agents:execute:278 - Report generation completed successfully
+2025-08-27 12:47:56 | ERROR    | agents:investigate:448 - Investigation failed: Investigation failed to generate final report
+2025-08-27 12:47:56 | ERROR    | dashboard:_render_upload_tab:340 - Dashboard analysis error
+Traceback (most recent call last):
+
+  File "C:\Dhaval\LogForge\agents.py", line 445, in investigate
+    raise Exception("Investigation failed to generate final report")
+
+Exception: Investigation failed to generate final report
+
+
+During handling of the above exception, another exception occurred:
+
+
+Traceback (most recent call last):
+
+  File "C:\Users\bonde\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x0000023C86F10860>
+    └ <Thread(ScriptRunner.scriptThread, started 1360)>
+  File "C:\Users\bonde\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x0000023C86F10540>
+    └ <Thread(ScriptRunner.scriptThread, started 1360)>
+  File "C:\Users\bonde\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(ScriptRunner.scriptThread, started 1360)>
+    │    │        │    └ ()
+    │    │        └ <Thread(ScriptRunner.scriptThread, started 1360)>
+    │    └ <bound method ScriptRunner._run_script_thread of ScriptRunner(_session_id='fc292347-4ba7-4256-b158-60462817f50c', _main_scrip...
+    └ <Thread(ScriptRunner.scriptThread, started 1360)>
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 378, in _run_script_thread
+    self._run_script(request.rerun_data)
+    │    │           │       └ <property object at 0x0000023C8963D710>
+    │    │           └ ScriptRequest(type=<ScriptRequestType.RERUN: 'RERUN'>, _rerun_data=RerunData(widget_states=widgets {
+    │    │               id: "$$ID-76e66e7b08d9...
+    │    └ <function ScriptRunner._run_script at 0x0000023C8970DEE0>
+    └ ScriptRunner(_session_id='fc292347-4ba7-4256-b158-60462817f50c', _main_script_path='main.py', _session_state={$$ID-76e66e7b08...
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 685, in _run_script
+    ) = exec_func_with_error_handling(code_to_exec, ctx)
+        │                             │             └ ScriptRunContext(session_id='fc292347-4ba7-4256-b158-60462817f50c', _enqueue=<bound method ScriptRunner._enqueue_forward_msg ...
+        │                             └ <function ScriptRunner._run_script.<locals>.code_to_exec at 0x0000023CC170EDE0>
+        └ <function exec_func_with_error_handling at 0x0000023C896A68E0>
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+             └ <function ScriptRunner._run_script.<locals>.code_to_exec at 0x0000023CC170EDE0>
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+         │     │      └ <member '__dict__' of 'module' objects>
+         │     └ <module '__main__' from 'main.py'>
+         └ <code object <module> at 0x0000023C89B06160, file "C:\Dhaval\LogForge\main.py", line 1>
+
+  File "C:\Dhaval\LogForge\main.py", line 570, in <module>
+    exit_code = main()
+                └ <function main at 0x0000023CC171CEA0>
+
+  File "C:\Dhaval\LogForge\main.py", line 558, in main
+    return handle_dashboard_command(args)
+           │                        └ Namespace(log_level='INFO', config_file=None, command='dashboard', port=8501, host='localhost')
+           └ <function handle_dashboard_command at 0x0000023CC171CA40>
+
+  File "C:\Dhaval\LogForge\main.py", line 232, in handle_dashboard_command
+    dashboard_main()
+    └ <function main at 0x0000023CBC5F31A0>
+
+  File "C:\Dhaval\LogForge\dashboard.py", line 656, in main
+    ForensicDashboard().run()
+    └ <class 'dashboard.ForensicDashboard'>
+
+  File "C:\Dhaval\LogForge\dashboard.py", line 232, in run
+    self._render_upload_tab()
+    │    └ <function ForensicDashboard._render_upload_tab at 0x0000023CBD653A60>
+    └ <dashboard.ForensicDashboard object at 0x0000023CBD1976B0>
+
+> File "C:\Dhaval\LogForge\dashboard.py", line 317, in _render_upload_tab
+    report = self.orchestrator.investigate(temp_files, case_id or None)
+             │    │            │           │           └ ''
+             │    │            │           └ ['C:\\Users\\bonde\\AppData\\Local\\Temp\\tmp_ahto4gy_dhcp.log']
+             │    │            └ <function ForensicOrchestrator.investigate at 0x0000023CBBF096C0>
+             │    └ <agents.ForensicOrchestrator object at 0x0000023CC06EAB70>
+             └ <dashboard.ForensicDashboard object at 0x0000023CBD1976B0>
+
+  File "C:\Dhaval\LogForge\agents.py", line 456, in investigate
+    severity=SeverityLevel.INFO,
+
+NameError: name 'SeverityLevel' is not defined
+2025-08-27 12:49:00 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:49:09 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 12:49:09 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 12:49:09 | INFO     | rag_enrichment:_initialize_kendra:190 - AWS Kendra client initialized
+2025-08-27 12:49:09 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 12:49:09 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 12:49:09 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 12:49:09 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 12:49:09 | INFO     | agents:investigate:415 - Starting forensic investigation: CASE_600E9E5D
+2025-08-27 12:49:09 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 12:49:09 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmp6ythkmw0_dhcp.log
+2025-08-27 12:49:09 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmp6ythkmw0_dhcp.log
+2025-08-27 12:49:09 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmp6ythkmw0_dhcp.log
+2025-08-27 12:49:09 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 12:49:09 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 12:49:09 | INFO     | llm_analysis:analyze_logs:76 - Analyzing 1502 log entries with Granite LLM
+2025-08-27 12:49:10 | ERROR    | llm_analysis:analyze_logs:99 - Error during Granite LLM analysis: Failure during generate. (POST https://jp-tok.ml.cloud.ibm.com/ml/v1/text/generation?version=2025-06-25)
+Status code: 403, body: {"errors":[{"code":"no_associated_service_instance_error","message":"project_id 729d6c69-4088-4a35-92c5-8265b8129129 is not associated with a WML instance","more_info":"https://cloud.ibm.com/apidocs/watsonx-ai#text-generation"}],"trace":"ea8fe75da8a9f5399ce8b815801492c8","status_code":403}
+2025-08-27 12:49:10 | INFO     | llm_analysis:_mock_analysis:220 - Using mock analysis - Granite LLM not available
+2025-08-27 12:49:10 | INFO     | agents:execute:148 - Initial analysis completed: 1 IOCs, severity: SeverityLevel.LOW
+2025-08-27 12:49:10 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 12:49:10 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 12:49:11 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 12:49:12 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 12:49:12 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 4 entries
+2025-08-27 12:49:12 | ERROR    | rag_enrichment:query:227 - Unexpected error querying Kendra: Parameter validation failed:
+Invalid length for parameter IndexId, value: 20, valid min length: 36
+2025-08-27 12:49:12 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 12:49:12 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 12:49:12 | DEBUG    | utilities:check_ioc:72 - Checking ip 255.255.255.255 with VirusTotal
+2025-08-27 12:49:27 | ERROR    | utilities:check_ioc:107 - VirusTotal API error for 255.255.255.255: ('WrongCredentialsError', 'Wrong API key')
+2025-08-27 12:49:27 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 12:49:27 | INFO     | agents:execute:219 - Enrichment completed: 4 enrichments added
+2025-08-27 12:49:27 | INFO     | agents:execute:235 - Starting report generation
+2025-08-27 12:49:27 | INFO     | agents:execute:278 - Report generation completed successfully
+2025-08-27 12:49:27 | ERROR    | agents:investigate:448 - Investigation failed: Investigation failed to generate final report
+2025-08-27 12:49:27 | ERROR    | dashboard:_render_upload_tab:340 - Dashboard analysis error
+Traceback (most recent call last):
+
+  File "C:\Dhaval\LogForge\agents.py", line 445, in investigate
+    raise Exception("Investigation failed to generate final report")
+
+Exception: Investigation failed to generate final report
+
+
+During handling of the above exception, another exception occurred:
+
+
+Traceback (most recent call last):
+
+  File "C:\Users\bonde\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x0000023C86F10860>
+    └ <Thread(ScriptRunner.scriptThread, started 27392)>
+  File "C:\Users\bonde\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x0000023C86F10540>
+    └ <Thread(ScriptRunner.scriptThread, started 27392)>
+  File "C:\Users\bonde\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(ScriptRunner.scriptThread, started 27392)>
+    │    │        │    └ ()
+    │    │        └ <Thread(ScriptRunner.scriptThread, started 27392)>
+    │    └ <bound method ScriptRunner._run_script_thread of ScriptRunner(_session_id='fc292347-4ba7-4256-b158-60462817f50c', _main_scrip...
+    └ <Thread(ScriptRunner.scriptThread, started 27392)>
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 378, in _run_script_thread
+    self._run_script(request.rerun_data)
+    │    │           │       └ <property object at 0x0000023C8963D710>
+    │    │           └ ScriptRequest(type=<ScriptRequestType.RERUN: 'RERUN'>, _rerun_data=RerunData(widget_states=widgets {
+    │    │               id: "$$ID-76e66e7b08d9...
+    │    └ <function ScriptRunner._run_script at 0x0000023C8970DEE0>
+    └ ScriptRunner(_session_id='fc292347-4ba7-4256-b158-60462817f50c', _main_script_path='main.py', _session_state={$$ID-76e66e7b08...
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 685, in _run_script
+    ) = exec_func_with_error_handling(code_to_exec, ctx)
+        │                             │             └ ScriptRunContext(session_id='fc292347-4ba7-4256-b158-60462817f50c', _enqueue=<bound method ScriptRunner._enqueue_forward_msg ...
+        │                             └ <function ScriptRunner._run_script.<locals>.code_to_exec at 0x0000023CC17B0400>
+        └ <function exec_func_with_error_handling at 0x0000023C896A68E0>
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+             └ <function ScriptRunner._run_script.<locals>.code_to_exec at 0x0000023CC17B0400>
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+         │     │      └ <member '__dict__' of 'module' objects>
+         │     └ <module '__main__' from 'main.py'>
+         └ <code object <module> at 0x0000023C89B06160, file "C:\Dhaval\LogForge\main.py", line 1>
+
+  File "C:\Dhaval\LogForge\main.py", line 570, in <module>
+    exit_code = main()
+                └ <function main at 0x0000023CC1A72D40>
+
+  File "C:\Dhaval\LogForge\main.py", line 558, in main
+    return handle_dashboard_command(args)
+           │                        └ Namespace(log_level='INFO', config_file=None, command='dashboard', port=8501, host='localhost')
+           └ <function handle_dashboard_command at 0x0000023CC1A728E0>
+
+  File "C:\Dhaval\LogForge\main.py", line 232, in handle_dashboard_command
+    dashboard_main()
+    └ <function main at 0x0000023CBC5F31A0>
+
+  File "C:\Dhaval\LogForge\dashboard.py", line 656, in main
+    ForensicDashboard().run()
+    └ <class 'dashboard.ForensicDashboard'>
+
+  File "C:\Dhaval\LogForge\dashboard.py", line 232, in run
+    self._render_upload_tab()
+    │    └ <function ForensicDashboard._render_upload_tab at 0x0000023CBD653A60>
+    └ <dashboard.ForensicDashboard object at 0x0000023CBC693FE0>
+
+> File "C:\Dhaval\LogForge\dashboard.py", line 317, in _render_upload_tab
+    report = self.orchestrator.investigate(temp_files, case_id or None)
+             │    │            │           │           └ ''
+             │    │            │           └ ['C:\\Users\\bonde\\AppData\\Local\\Temp\\tmp6ythkmw0_dhcp.log']
+             │    │            └ <function ForensicOrchestrator.investigate at 0x0000023CBBF096C0>
+             │    └ <agents.ForensicOrchestrator object at 0x0000023CC31A84D0>
+             └ <dashboard.ForensicDashboard object at 0x0000023CBC693FE0>
+
+  File "C:\Dhaval\LogForge\agents.py", line 456, in investigate
+    severity=SeverityLevel.INFO,
+
+NameError: name 'SeverityLevel' is not defined
+2025-08-27 12:49:56 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:50:08 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 12:50:08 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 12:50:08 | INFO     | rag_enrichment:_initialize_kendra:190 - AWS Kendra client initialized
+2025-08-27 12:50:08 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 12:50:08 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 12:50:08 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 12:50:08 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 12:50:13 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:50:20 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 12:50:20 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 12:50:20 | INFO     | rag_enrichment:_initialize_kendra:190 - AWS Kendra client initialized
+2025-08-27 12:50:20 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 12:50:20 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 12:50:20 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 12:50:20 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 12:50:23 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:50:30 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 12:50:30 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 12:50:30 | INFO     | rag_enrichment:_initialize_kendra:190 - AWS Kendra client initialized
+2025-08-27 12:50:30 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 12:50:30 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 12:50:30 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 12:50:30 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 12:50:30 | INFO     | agents:investigate:415 - Starting forensic investigation: CASE_1C0A4C99
+2025-08-27 12:50:30 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 12:50:30 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmpowqnvv_m_dhcp.log
+2025-08-27 12:50:30 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmpowqnvv_m_dhcp.log
+2025-08-27 12:50:30 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmpowqnvv_m_dhcp.log
+2025-08-27 12:50:30 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 12:50:30 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 12:50:30 | INFO     | llm_analysis:analyze_logs:76 - Analyzing 1502 log entries with Granite LLM
+2025-08-27 12:50:30 | ERROR    | llm_analysis:analyze_logs:99 - Error during Granite LLM analysis: Failure during generate. (POST https://jp-tok.ml.cloud.ibm.com/ml/v1/text/generation?version=2025-06-25)
+Status code: 403, body: {"errors":[{"code":"no_associated_service_instance_error","message":"project_id 729d6c69-4088-4a35-92c5-8265b8129129 is not associated with a WML instance","more_info":"https://cloud.ibm.com/apidocs/watsonx-ai#text-generation"}],"trace":"cea49e48728bbe881867f7e416cb1015","status_code":403}
+2025-08-27 12:50:30 | INFO     | llm_analysis:_mock_analysis:220 - Using mock analysis - Granite LLM not available
+2025-08-27 12:50:31 | INFO     | agents:execute:148 - Initial analysis completed: 1 IOCs, severity: SeverityLevel.LOW
+2025-08-27 12:50:31 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 12:50:31 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 12:50:31 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 12:50:31 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 12:50:31 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 4 entries
+2025-08-27 12:50:31 | ERROR    | rag_enrichment:query:227 - Unexpected error querying Kendra: Parameter validation failed:
+Invalid length for parameter IndexId, value: 20, valid min length: 36
+2025-08-27 12:50:31 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 12:50:31 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 12:50:31 | DEBUG    | utilities:check_ioc:72 - Checking ip 255.255.255.255 with VirusTotal
+2025-08-27 12:50:47 | ERROR    | utilities:check_ioc:107 - VirusTotal API error for 255.255.255.255: ('WrongCredentialsError', 'Wrong API key')
+2025-08-27 12:50:47 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 12:50:47 | INFO     | agents:execute:219 - Enrichment completed: 4 enrichments added
+2025-08-27 12:50:47 | INFO     | agents:execute:235 - Starting report generation
+2025-08-27 12:50:47 | INFO     | agents:execute:278 - Report generation completed successfully
+2025-08-27 12:50:47 | ERROR    | agents:investigate:448 - Investigation failed: Investigation failed to generate final report
+2025-08-27 12:50:47 | ERROR    | dashboard:_render_upload_tab:340 - Dashboard analysis error
+Traceback (most recent call last):
+
+  File "C:\Dhaval\LogForge\agents.py", line 445, in investigate
+    raise Exception("Investigation failed to generate final report")
+
+Exception: Investigation failed to generate final report
+
+
+During handling of the above exception, another exception occurred:
+
+
+Traceback (most recent call last):
+
+  File "C:\Users\bonde\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x0000023C86F10860>
+    └ <Thread(ScriptRunner.scriptThread, started 26968)>
+  File "C:\Users\bonde\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x0000023C86F10540>
+    └ <Thread(ScriptRunner.scriptThread, started 26968)>
+  File "C:\Users\bonde\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(ScriptRunner.scriptThread, started 26968)>
+    │    │        │    └ ()
+    │    │        └ <Thread(ScriptRunner.scriptThread, started 26968)>
+    │    └ <bound method ScriptRunner._run_script_thread of ScriptRunner(_session_id='e2d4c347-e65f-43e2-9491-4980c0ef23b6', _main_scrip...
+    └ <Thread(ScriptRunner.scriptThread, started 26968)>
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 378, in _run_script_thread
+    self._run_script(request.rerun_data)
+    │    │           │       └ <property object at 0x0000023C8963D710>
+    │    │           └ ScriptRequest(type=<ScriptRequestType.RERUN: 'RERUN'>, _rerun_data=RerunData(widget_states=widgets {
+    │    │               id: "$$ID-57de3345fb50...
+    │    └ <function ScriptRunner._run_script at 0x0000023C8970DEE0>
+    └ ScriptRunner(_session_id='e2d4c347-e65f-43e2-9491-4980c0ef23b6', _main_script_path='main.py', _session_state={$$ID-76e66e7b08...
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 685, in _run_script
+    ) = exec_func_with_error_handling(code_to_exec, ctx)
+        │                             │             └ ScriptRunContext(session_id='e2d4c347-e65f-43e2-9491-4980c0ef23b6', _enqueue=<bound method ScriptRunner._enqueue_forward_msg ...
+        │                             └ <function ScriptRunner._run_script.<locals>.code_to_exec at 0x0000023CC4A84400>
+        └ <function exec_func_with_error_handling at 0x0000023C896A68E0>
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+             └ <function ScriptRunner._run_script.<locals>.code_to_exec at 0x0000023CC4A84400>
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+         │     │      └ <member '__dict__' of 'module' objects>
+         │     └ <module '__main__' from 'main.py'>
+         └ <code object <module> at 0x0000023CBE02BEE0, file "C:\Dhaval\LogForge\main.py", line 1>
+
+  File "C:\Dhaval\LogForge\main.py", line 570, in <module>
+    exit_code = main()
+                └ <function main at 0x0000023CC4A847C0>
+
+  File "C:\Dhaval\LogForge\main.py", line 558, in main
+    return handle_dashboard_command(args)
+           │                        └ Namespace(log_level='INFO', config_file=None, command='dashboard', port=8501, host='localhost')
+           └ <function handle_dashboard_command at 0x0000023CC4A876A0>
+
+  File "C:\Dhaval\LogForge\main.py", line 232, in handle_dashboard_command
+    dashboard_main()
+    └ <function main at 0x0000023CBC5F31A0>
+
+  File "C:\Dhaval\LogForge\dashboard.py", line 656, in main
+    ForensicDashboard().run()
+    └ <class 'dashboard.ForensicDashboard'>
+
+  File "C:\Dhaval\LogForge\dashboard.py", line 232, in run
+    self._render_upload_tab()
+    │    └ <function ForensicDashboard._render_upload_tab at 0x0000023CBD653A60>
+    └ <dashboard.ForensicDashboard object at 0x0000023CC4A95850>
+
+> File "C:\Dhaval\LogForge\dashboard.py", line 317, in _render_upload_tab
+    report = self.orchestrator.investigate(temp_files, case_id or None)
+             │    │            │           │           └ ''
+             │    │            │           └ ['C:\\Users\\bonde\\AppData\\Local\\Temp\\tmpowqnvv_m_dhcp.log']
+             │    │            └ <function ForensicOrchestrator.investigate at 0x0000023CBBF096C0>
+             │    └ <agents.ForensicOrchestrator object at 0x0000023CC4A966F0>
+             └ <dashboard.ForensicDashboard object at 0x0000023CC4A95850>
+
+  File "C:\Dhaval\LogForge\agents.py", line 456, in investigate
+    severity=SeverityLevel.INFO,
+
+NameError: name 'SeverityLevel' is not defined
+2025-08-27 12:51:19 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:51:28 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 12:51:28 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 12:51:28 | INFO     | rag_enrichment:_initialize_kendra:190 - AWS Kendra client initialized
+2025-08-27 12:51:28 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 12:51:28 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 12:51:28 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 12:51:28 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 12:51:32 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:51:40 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 12:51:40 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 12:51:40 | INFO     | rag_enrichment:_initialize_kendra:190 - AWS Kendra client initialized
+2025-08-27 12:51:40 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 12:51:40 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 12:51:40 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 12:51:40 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 12:55:32 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:55:32 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:55:32 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:55:42 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 12:55:42 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 12:55:43 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 12:55:43 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 12:55:43 | INFO     | rag_enrichment:_initialize_kendra:190 - AWS Kendra client initialized
+2025-08-27 12:55:43 | INFO     | rag_enrichment:_initialize_kendra:190 - AWS Kendra client initialized
+2025-08-27 12:55:43 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 12:55:43 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 12:55:43 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 12:55:43 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 12:55:43 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 12:55:43 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 12:55:43 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 12:55:43 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 12:55:48 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:55:50 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 12:55:50 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 12:55:50 | INFO     | rag_enrichment:_initialize_kendra:190 - AWS Kendra client initialized
+2025-08-27 12:55:50 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 12:55:50 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 12:55:50 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 12:55:50 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 12:55:54 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 12:55:54 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 12:55:54 | INFO     | rag_enrichment:_initialize_kendra:190 - AWS Kendra client initialized
+2025-08-27 12:55:54 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 12:55:54 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 12:55:54 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 12:55:54 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 12:55:56 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:56:02 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 12:56:02 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 12:56:02 | INFO     | rag_enrichment:_initialize_kendra:190 - AWS Kendra client initialized
+2025-08-27 12:56:02 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 12:56:02 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 12:56:02 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 12:56:02 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 12:56:02 | INFO     | agents:investigate:415 - Starting forensic investigation: CASE_FF2F1CAA
+2025-08-27 12:56:02 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 12:56:02 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmpsqng8zgk_dhcp.log
+2025-08-27 12:56:02 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmpsqng8zgk_dhcp.log
+2025-08-27 12:56:02 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmpsqng8zgk_dhcp.log
+2025-08-27 12:56:02 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 12:56:02 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 12:56:02 | INFO     | llm_analysis:analyze_logs:76 - Analyzing 1502 log entries with Granite LLM
+2025-08-27 12:56:03 | ERROR    | llm_analysis:analyze_logs:99 - Error during Granite LLM analysis: Failure during generate. (POST https://jp-tok.ml.cloud.ibm.com/ml/v1/text/generation?version=2025-06-25)
+Status code: 403, body: {"errors":[{"code":"no_associated_service_instance_error","message":"project_id 729d6c69-4088-4a35-92c5-8265b8129129 is not associated with a WML instance","more_info":"https://cloud.ibm.com/apidocs/watsonx-ai#text-generation"}],"trace":"696829364e4b26f8b92e31721514fdd0","status_code":403}
+2025-08-27 12:56:03 | INFO     | llm_analysis:_mock_analysis:220 - Using mock analysis - Granite LLM not available
+2025-08-27 12:56:03 | INFO     | agents:execute:148 - Initial analysis completed: 1 IOCs, severity: SeverityLevel.LOW
+2025-08-27 12:56:03 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 12:56:03 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 12:56:04 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 12:56:05 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 12:56:05 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 4 entries
+2025-08-27 12:56:05 | ERROR    | rag_enrichment:query:227 - Unexpected error querying Kendra: Parameter validation failed:
+Invalid length for parameter IndexId, value: 20, valid min length: 36
+2025-08-27 12:56:05 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 12:56:05 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 12:56:05 | DEBUG    | utilities:check_ioc:72 - Checking ip 255.255.255.255 with VirusTotal
+2025-08-27 12:56:21 | ERROR    | utilities:check_ioc:107 - VirusTotal API error for 255.255.255.255: ('WrongCredentialsError', 'Wrong API key')
+2025-08-27 12:56:21 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 12:56:21 | INFO     | agents:execute:219 - Enrichment completed: 4 enrichments added
+2025-08-27 12:56:21 | INFO     | agents:execute:235 - Starting report generation
+2025-08-27 12:56:21 | INFO     | agents:execute:278 - Report generation completed successfully
+2025-08-27 12:56:21 | ERROR    | agents:investigate:448 - Investigation failed: Investigation failed to generate final report
+2025-08-27 12:56:21 | ERROR    | dashboard:_render_upload_tab:340 - Dashboard analysis error
+Traceback (most recent call last):
+
+  File "C:\Users\bonde\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x000001F44E0A0860>
+    └ <Thread(ScriptRunner.scriptThread, started 16156)>
+  File "C:\Users\bonde\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x000001F44E0A0540>
+    └ <Thread(ScriptRunner.scriptThread, started 16156)>
+  File "C:\Users\bonde\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(ScriptRunner.scriptThread, started 16156)>
+    │    │        │    └ ()
+    │    │        └ <Thread(ScriptRunner.scriptThread, started 16156)>
+    │    └ <bound method ScriptRunner._run_script_thread of ScriptRunner(_session_id='7f3f62ca-a830-45f1-9d65-0238a9d50d65', _main_scrip...
+    └ <Thread(ScriptRunner.scriptThread, started 16156)>
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 378, in _run_script_thread
+    self._run_script(request.rerun_data)
+    │    │           │       └ <property object at 0x000001F450805710>
+    │    │           └ ScriptRequest(type=<ScriptRequestType.RERUN: 'RERUN'>, _rerun_data=RerunData(widget_states=widgets {
+    │    │               id: "$$ID-76e66e7b08d9...
+    │    └ <function ScriptRunner._run_script at 0x000001F4508CDEE0>
+    └ ScriptRunner(_session_id='7f3f62ca-a830-45f1-9d65-0238a9d50d65', _main_script_path='main.py', _session_state={$$ID-57de3345fb...
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 685, in _run_script
+    ) = exec_func_with_error_handling(code_to_exec, ctx)
+        │                             │             └ ScriptRunContext(session_id='7f3f62ca-a830-45f1-9d65-0238a9d50d65', _enqueue=<bound method ScriptRunner._enqueue_forward_msg ...
+        │                             └ <function ScriptRunner._run_script.<locals>.code_to_exec at 0x000001F453AD5940>
+        └ <function exec_func_with_error_handling at 0x000001F4508668E0>
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+             └ <function ScriptRunner._run_script.<locals>.code_to_exec at 0x000001F453AD5940>
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+         │     │      └ <member '__dict__' of 'module' objects>
+         │     └ <module '__main__' from 'main.py'>
+         └ <code object <module> at 0x000001F450D849C0, file "C:\Dhaval\LogForge\main.py", line 1>
+
+  File "C:\Dhaval\LogForge\main.py", line 570, in <module>
+    exit_code = main()
+                └ <function main at 0x000001F408B449A0>
+
+  File "C:\Dhaval\LogForge\main.py", line 558, in main
+    return handle_dashboard_command(args)
+           │                        └ Namespace(log_level='INFO', config_file=None, command='dashboard', port=8501, host='localhost')
+           └ <function handle_dashboard_command at 0x000001F407A58540>
+
+  File "C:\Dhaval\LogForge\main.py", line 232, in handle_dashboard_command
+    dashboard_main()
+    └ <function main at 0x000001F4046BE340>
+
+  File "C:\Dhaval\LogForge\dashboard.py", line 656, in main
+    ForensicDashboard().run()
+    └ <class 'dashboard.ForensicDashboard'>
+
+  File "C:\Dhaval\LogForge\dashboard.py", line 232, in run
+    self._render_upload_tab()
+    │    └ <function ForensicDashboard._render_upload_tab at 0x000001F4049B4AE0>
+    └ <dashboard.ForensicDashboard object at 0x000001F405B1EE40>
+
+> File "C:\Dhaval\LogForge\dashboard.py", line 317, in _render_upload_tab
+    report = self.orchestrator.investigate(temp_files, case_id or None)
+             │    │            │           │           └ ''
+             │    │            │           └ ['C:\\Users\\bonde\\AppData\\Local\\Temp\\tmpsqng8zgk_dhcp.log']
+             │    │            └ <function ForensicOrchestrator.investigate at 0x000001F40227E7A0>
+             │    └ <agents.ForensicOrchestrator object at 0x000001F405B1ED50>
+             └ <dashboard.ForensicDashboard object at 0x000001F405B1EE40>
+
+  File "C:\Dhaval\LogForge\agents.py", line 452, in investigate
+    minimal_analysis = InitialAnalysis(
+                       └ <class 'data_models.InitialAnalysis'>
+
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\pydantic\main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     │    │                      │               │                   └ InitialAnalysis()
+                     │    │                      │               └ {'summary': 'Investigation failed: Investigation failed to generate final report', 'iocs': [], 'mitre_mappings': [], 'confide...
+                     │    │                      └ <method 'validate_python' of 'pydantic_core._pydantic_core.SchemaValidator' objects>
+                     │    └ SchemaValidator(title="InitialAnalysis", validator=Model(
+                     │          ModelValidator {
+                     │              revalidate: Never,
+                     │              validator: ...
+                     └ InitialAnalysis()
+
+pydantic_core._pydantic_core.ValidationError: 1 validation error for InitialAnalysis
+severity
+  Field required [type=missing, input_value={'summary': 'Investigatio...uspicious_patterns': []}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/missing
+2025-08-27 12:59:18 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:59:24 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 12:59:24 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 12:59:25 | INFO     | rag_enrichment:_initialize_kendra:190 - AWS Kendra client initialized
+2025-08-27 12:59:25 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 12:59:25 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 12:59:25 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 12:59:25 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 12:59:31 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:59:37 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 12:59:37 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 12:59:37 | INFO     | rag_enrichment:_initialize_kendra:190 - AWS Kendra client initialized
+2025-08-27 12:59:37 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 12:59:37 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 12:59:37 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 12:59:37 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 12:59:48 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 12:59:54 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 12:59:54 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 12:59:54 | INFO     | rag_enrichment:_initialize_kendra:190 - AWS Kendra client initialized
+2025-08-27 12:59:54 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 12:59:54 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 12:59:54 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 12:59:54 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 12:59:54 | INFO     | agents:investigate:415 - Starting forensic investigation: CASE_FCA1D1AA
+2025-08-27 12:59:54 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 12:59:54 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmpog0o7vwx_dhcp.log
+2025-08-27 12:59:54 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmpog0o7vwx_dhcp.log
+2025-08-27 12:59:54 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmpog0o7vwx_dhcp.log
+2025-08-27 12:59:54 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 12:59:54 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 12:59:55 | INFO     | llm_analysis:analyze_logs:76 - Analyzing 1502 log entries with Granite LLM
+2025-08-27 12:59:55 | ERROR    | llm_analysis:analyze_logs:99 - Error during Granite LLM analysis: Failure during generate. (POST https://jp-tok.ml.cloud.ibm.com/ml/v1/text/generation?version=2025-06-25)
+Status code: 403, body: {"errors":[{"code":"no_associated_service_instance_error","message":"project_id 729d6c69-4088-4a35-92c5-8265b8129129 is not associated with a WML instance","more_info":"https://cloud.ibm.com/apidocs/watsonx-ai#text-generation"}],"trace":"80dca2ffb541924b7c5e6702521e6115","status_code":403}
+2025-08-27 12:59:55 | INFO     | llm_analysis:_mock_analysis:220 - Using mock analysis - Granite LLM not available
+2025-08-27 12:59:55 | INFO     | agents:execute:148 - Initial analysis completed: 1 IOCs, severity: SeverityLevel.LOW
+2025-08-27 12:59:55 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 12:59:55 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 12:59:57 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 12:59:58 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 12:59:58 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 4 entries
+2025-08-27 12:59:58 | ERROR    | rag_enrichment:query:227 - Unexpected error querying Kendra: Parameter validation failed:
+Invalid length for parameter IndexId, value: 20, valid min length: 36
+2025-08-27 12:59:58 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 12:59:58 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 12:59:58 | DEBUG    | utilities:check_ioc:72 - Checking ip 255.255.255.255 with VirusTotal
+2025-08-27 13:00:13 | ERROR    | utilities:check_ioc:107 - VirusTotal API error for 255.255.255.255: ('WrongCredentialsError', 'Wrong API key')
+2025-08-27 13:00:13 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 13:00:13 | INFO     | agents:execute:219 - Enrichment completed: 4 enrichments added
+2025-08-27 13:00:13 | INFO     | agents:execute:235 - Starting report generation
+2025-08-27 13:00:13 | INFO     | agents:execute:278 - Report generation completed successfully
+2025-08-27 13:00:13 | ERROR    | agents:investigate:448 - Investigation failed: Investigation failed to generate final report
+2025-08-27 13:00:13 | ERROR    | dashboard:_render_attack_chain:645 - PyVis render failed, falling back to table
+Traceback (most recent call last):
+
+  File "C:\Users\bonde\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1032, in _bootstrap
+    self._bootstrap_inner()
+    │    └ <function Thread._bootstrap_inner at 0x000001728D220860>
+    └ <Thread(ScriptRunner.scriptThread, started 13108)>
+  File "C:\Users\bonde\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+    │    └ <function Thread.run at 0x000001728D220540>
+    └ <Thread(ScriptRunner.scriptThread, started 13108)>
+  File "C:\Users\bonde\AppData\Local\Programs\Python\Python312\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {}
+    │    │        │    │        └ <Thread(ScriptRunner.scriptThread, started 13108)>
+    │    │        │    └ ()
+    │    │        └ <Thread(ScriptRunner.scriptThread, started 13108)>
+    │    └ <bound method ScriptRunner._run_script_thread of ScriptRunner(_session_id='39b885f4-51b8-4307-a1dc-a375c6482d10', _main_scrip...
+    └ <Thread(ScriptRunner.scriptThread, started 13108)>
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 378, in _run_script_thread
+    self._run_script(request.rerun_data)
+    │    │           │       └ <property object at 0x000001728F9CD710>
+    │    │           └ ScriptRequest(type=<ScriptRequestType.RERUN: 'RERUN'>, _rerun_data=RerunData(widget_states=widgets {
+    │    │               id: "$$ID-57de3345fb50...
+    │    └ <function ScriptRunner._run_script at 0x000001728FA9DEE0>
+    └ ScriptRunner(_session_id='39b885f4-51b8-4307-a1dc-a375c6482d10', _main_script_path='main.py', _session_state={analysis_comple...
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 685, in _run_script
+    ) = exec_func_with_error_handling(code_to_exec, ctx)
+        │                             │             └ ScriptRunContext(session_id='39b885f4-51b8-4307-a1dc-a375c6482d10', _enqueue=<bound method ScriptRunner._enqueue_forward_msg ...
+        │                             └ <function ScriptRunner._run_script.<locals>.code_to_exec at 0x0000017293409E40>
+        └ <function exec_func_with_error_handling at 0x000001728FA368E0>
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\exec_code.py", line 128, in exec_func_with_error_handling
+    result = func()
+             └ <function ScriptRunner._run_script.<locals>.code_to_exec at 0x0000017293409E40>
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\script_runner.py", line 669, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+         │     │      └ <member '__dict__' of 'module' objects>
+         │     └ <module '__main__' from 'main.py'>
+         └ <code object <module> at 0x00000172903F9180, file "C:\Dhaval\LogForge\main.py", line 1>
+
+  File "C:\Dhaval\LogForge\main.py", line 570, in <module>
+    exit_code = main()
+                └ <function main at 0x00000172C79F23E0>
+
+  File "C:\Dhaval\LogForge\main.py", line 558, in main
+    return handle_dashboard_command(args)
+           │                        └ Namespace(log_level='INFO', config_file=None, command='dashboard', port=8501, host='localhost')
+           └ <function handle_dashboard_command at 0x00000172C79F22A0>
+
+  File "C:\Dhaval\LogForge\main.py", line 232, in handle_dashboard_command
+    dashboard_main()
+    └ <function main at 0x00000172C2958040>
+
+  File "C:\Dhaval\LogForge\dashboard.py", line 656, in main
+    ForensicDashboard().run()
+    └ <class 'dashboard.ForensicDashboard'>
+
+  File "C:\Dhaval\LogForge\dashboard.py", line 234, in run
+    self._render_analysis_tab()
+    │    └ <function ForensicDashboard._render_analysis_tab at 0x00000172C3963C40>
+    └ <dashboard.ForensicDashboard object at 0x00000172C4A02B10>
+
+  File "C:\Dhaval\LogForge\dashboard.py", line 445, in _render_analysis_tab
+    self._render_attack_chain(chain)
+    │    │                    └ ['Investigation incomplete']
+    │    └ <function ForensicDashboard._render_attack_chain at 0x00000172C3963E20>
+    └ <dashboard.ForensicDashboard object at 0x00000172C4A02B10>
+
+> File "C:\Dhaval\LogForge\dashboard.py", line 640, in _render_attack_chain
+    net.show(tmp.name)
+    │   │    │   └ 'C:\\Users\\bonde\\AppData\\Local\\Temp\\tmpddjjpvan_attack_chain.html'
+    │   │    └ <tempfile._TemporaryFileWrapper object at 0x00000172C7EE9E80>
+    │   └ <function Network.show at 0x00000172C3688180>
+    └ <class 'pyvis.network.Network'> |N|=1 |E|=0
+
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\pyvis\network.py", line 546, in show
+    self.write_html(name, open_browser=False,notebook=True)
+    │    │          └ 'C:\\Users\\bonde\\AppData\\Local\\Temp\\tmpddjjpvan_attack_chain.html'
+    │    └ <function Network.write_html at 0x00000172C36880E0>
+    └ <class 'pyvis.network.Network'> |N|=1 |E|=0
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\pyvis\network.py", line 515, in write_html
+    self.html = self.generate_html(notebook=notebook)
+    │    │      │    │                      └ True
+    │    │      │    └ <function Network.generate_html at 0x00000172C3688040>
+    │    │      └ <class 'pyvis.network.Network'> |N|=1 |E|=0
+    │    └ ''
+    └ <class 'pyvis.network.Network'> |N|=1 |E|=0
+  File "c:\Dhaval\LogForge\.venv\Lib\site-packages\pyvis\network.py", line 479, in generate_html
+    self.html = template.render(height=height,
+    │    │      │                      └ '520px'
+    │    │      └ None
+    │    └ ''
+    └ <class 'pyvis.network.Network'> |N|=1 |E|=0
+
+AttributeError: 'NoneType' object has no attribute 'render'
+2025-08-27 13:02:32 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 13:02:32 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 13:02:32 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 13:02:39 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 13:02:39 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 13:02:40 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 13:02:40 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 13:02:40 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 13:02:40 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 13:02:40 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 13:02:40 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 13:02:40 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 13:02:40 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 13:02:40 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 13:02:40 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 13:02:40 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 13:02:40 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 13:02:40 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 13:02:40 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 13:02:40 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 13:02:40 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 13:02:40 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 13:02:40 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 13:02:40 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 13:02:40 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 13:02:40 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 13:02:40 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 13:02:40 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 13:02:40 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 13:02:40 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 13:02:40 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 13:03:06 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 13:03:14 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 13:03:14 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 13:03:14 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 13:03:14 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 13:03:14 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 13:03:14 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 13:03:14 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 13:03:15 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 13:03:21 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 13:03:21 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 13:03:21 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 13:03:21 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 13:03:21 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 13:03:21 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 13:03:21 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 13:03:21 | INFO     | agents:investigate:415 - Starting forensic investigation: CASE_B90B4772
+2025-08-27 13:03:21 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 13:03:21 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmpcfvh3s2w_dhcp.log
+2025-08-27 13:03:21 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmpcfvh3s2w_dhcp.log
+2025-08-27 13:03:21 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmpcfvh3s2w_dhcp.log
+2025-08-27 13:03:21 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 13:03:21 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 13:03:21 | INFO     | llm_analysis:analyze_logs:76 - Analyzing 1502 log entries with Granite LLM
+2025-08-27 13:03:22 | ERROR    | llm_analysis:analyze_logs:99 - Error during Granite LLM analysis: Failure during generate. (POST https://jp-tok.ml.cloud.ibm.com/ml/v1/text/generation?version=2025-06-25)
+Status code: 403, body: {"errors":[{"code":"no_associated_service_instance_error","message":"project_id 729d6c69-4088-4a35-92c5-8265b8129129 is not associated with a WML instance","more_info":"https://cloud.ibm.com/apidocs/watsonx-ai#text-generation"}],"trace":"5f1ea0814e3ae647a005432bdc51c7b5","status_code":403}
+2025-08-27 13:03:22 | INFO     | llm_analysis:_mock_analysis:220 - Using mock analysis - Granite LLM not available
+2025-08-27 13:03:22 | INFO     | agents:execute:148 - Initial analysis completed: 1 IOCs, severity: SeverityLevel.LOW
+2025-08-27 13:03:22 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 13:03:22 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 13:03:24 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 13:03:24 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 13:03:24 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 4 entries
+2025-08-27 13:03:24 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 13:03:24 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 13:03:24 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 13:03:24 | DEBUG    | utilities:check_ioc:72 - Checking ip 255.255.255.255 with VirusTotal
+2025-08-27 13:03:40 | ERROR    | utilities:check_ioc:107 - VirusTotal API error for 255.255.255.255: ('WrongCredentialsError', 'Wrong API key')
+2025-08-27 13:03:40 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 13:03:40 | INFO     | agents:execute:219 - Enrichment completed: 4 enrichments added
+2025-08-27 13:03:40 | INFO     | agents:execute:235 - Starting report generation
+2025-08-27 13:03:40 | INFO     | agents:execute:278 - Report generation completed successfully
+2025-08-27 13:03:40 | WARNING  | agents:investigate:436 - Workflow produced no final report; falling back to sequential execution
+2025-08-27 13:03:40 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 13:03:40 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmpcfvh3s2w_dhcp.log
+2025-08-27 13:03:40 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmpcfvh3s2w_dhcp.log
+2025-08-27 13:03:40 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmpcfvh3s2w_dhcp.log
+2025-08-27 13:03:40 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 13:03:40 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 13:03:40 | INFO     | llm_analysis:analyze_logs:76 - Analyzing 1502 log entries with Granite LLM
+2025-08-27 13:03:41 | ERROR    | llm_analysis:analyze_logs:99 - Error during Granite LLM analysis: Failure during generate. (POST https://jp-tok.ml.cloud.ibm.com/ml/v1/text/generation?version=2025-06-25)
+Status code: 403, body: {"errors":[{"code":"no_associated_service_instance_error","message":"project_id 729d6c69-4088-4a35-92c5-8265b8129129 is not associated with a WML instance","more_info":"https://cloud.ibm.com/apidocs/watsonx-ai#text-generation"}],"trace":"b12c901b9356ce60f2e5f4584a23f0e4","status_code":403}
+2025-08-27 13:03:41 | INFO     | llm_analysis:_mock_analysis:220 - Using mock analysis - Granite LLM not available
+2025-08-27 13:03:41 | INFO     | agents:execute:148 - Initial analysis completed: 1 IOCs, severity: SeverityLevel.LOW
+2025-08-27 13:03:41 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 13:03:41 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 13:03:42 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 13:03:42 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 13:03:42 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 4 entries
+2025-08-27 13:03:42 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 13:03:42 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 13:03:42 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 13:03:42 | DEBUG    | utilities:check_ioc:72 - Checking ip 255.255.255.255 with VirusTotal
+2025-08-27 13:03:57 | ERROR    | utilities:check_ioc:107 - VirusTotal API error for 255.255.255.255: ('WrongCredentialsError', 'Wrong API key')
+2025-08-27 13:03:57 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 13:03:57 | INFO     | agents:execute:219 - Enrichment completed: 4 enrichments added
+2025-08-27 13:03:57 | INFO     | agents:execute:235 - Starting report generation
+2025-08-27 13:03:57 | INFO     | agents:execute:278 - Report generation completed successfully
+2025-08-27 13:03:57 | INFO     | agents:investigate:446 - Investigation completed successfully: CASE_B90B4772
+2025-08-27 13:17:12 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 13:17:26 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 13:17:26 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 13:17:26 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 13:17:26 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 13:17:26 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 13:17:26 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 13:17:26 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 13:17:34 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 13:17:43 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 13:17:43 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 13:17:43 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 13:17:43 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 13:17:43 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 13:17:43 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 13:17:43 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 13:17:45 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 13:17:55 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 13:17:56 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 13:17:56 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 13:17:56 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 13:17:56 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 13:17:56 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 13:17:56 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 13:17:56 | INFO     | agents:investigate:415 - Starting forensic investigation: CASE_DC8AD720
+2025-08-27 13:17:56 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 13:17:56 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmp36g8c1um_dhcp.log
+2025-08-27 13:17:56 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmp36g8c1um_dhcp.log
+2025-08-27 13:17:56 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmp36g8c1um_dhcp.log
+2025-08-27 13:17:56 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 13:17:56 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 13:17:56 | INFO     | llm_analysis:analyze_logs:76 - Analyzing 1502 log entries with Granite LLM
+2025-08-27 13:18:11 | INFO     | llm_analysis:analyze_logs:95 - Granite LLM analysis completed
+2025-08-27 13:18:11 | INFO     | agents:execute:148 - Initial analysis completed: 2 IOCs, severity: SeverityLevel.CRITICAL
+2025-08-27 13:18:11 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 13:18:11 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 13:18:13 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 13:18:13 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 13:18:13 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 13:18:13 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 13:18:13 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 13:18:13 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 10 entries
+2025-08-27 13:18:13 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 13:18:13 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 13:18:13 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 13:18:13 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 13:18:13 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 13:18:13 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.76, 192.168.202.97, 192.168.202.102, 192.168.202.103, 192.168.202.105, 192.168.202.106, 192.168.202.107, 192.168.202.108, 192.168.202.109, 192.168.202.110, 192.168.202.111, 192.168.202.112, 192.168.202.113 with VirusTotal
+2025-08-27 13:18:29 | DEBUG    | utilities:check_ioc:105 - IOC 192.168.202.76, 192.168.202.97, 192.168.202.102, 192.168.202.103, 192.168.202.105, 192.168.202.106, 192.168.202.107, 192.168.202.108, 192.168.202.109, 192.168.202.110, 192.168.202.111, 192.168.202.112, 192.168.202.113 not found in VirusTotal
+2025-08-27 13:18:29 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 13:18:29 | INFO     | agents:execute:219 - Enrichment completed: 10 enrichments added
+2025-08-27 13:18:29 | INFO     | agents:execute:235 - Starting report generation
+2025-08-27 13:18:29 | INFO     | agents:execute:278 - Report generation completed successfully
+2025-08-27 13:18:29 | WARNING  | agents:investigate:436 - Workflow produced no final report; falling back to sequential execution
+2025-08-27 13:18:29 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 13:18:29 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmp36g8c1um_dhcp.log
+2025-08-27 13:18:29 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmp36g8c1um_dhcp.log
+2025-08-27 13:18:29 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmp36g8c1um_dhcp.log
+2025-08-27 13:18:29 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 13:18:29 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 13:18:29 | INFO     | llm_analysis:analyze_logs:76 - Analyzing 1502 log entries with Granite LLM
+2025-08-27 13:18:44 | INFO     | llm_analysis:analyze_logs:95 - Granite LLM analysis completed
+2025-08-27 13:18:44 | INFO     | agents:execute:148 - Initial analysis completed: 2 IOCs, severity: SeverityLevel.CRITICAL
+2025-08-27 13:18:44 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 13:18:44 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 13:18:45 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 13:18:46 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 13:18:46 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 13:18:47 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 13:18:48 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 13:18:48 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 10 entries
+2025-08-27 13:18:48 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 13:18:48 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 13:18:48 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 13:18:48 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 13:18:48 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 13:18:48 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.76, 192.168.202.97, 192.168.202.102, 192.168.202.103, 192.168.202.105, 192.168.202.106, 192.168.202.107, 192.168.202.108, 192.168.202.109, 192.168.202.110, 192.168.202.111, 192.168.202.112, 192.168.202.113 with VirusTotal
+2025-08-27 13:19:04 | DEBUG    | utilities:check_ioc:105 - IOC 192.168.202.76, 192.168.202.97, 192.168.202.102, 192.168.202.103, 192.168.202.105, 192.168.202.106, 192.168.202.107, 192.168.202.108, 192.168.202.109, 192.168.202.110, 192.168.202.111, 192.168.202.112, 192.168.202.113 not found in VirusTotal
+2025-08-27 13:19:04 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 13:19:04 | INFO     | agents:execute:219 - Enrichment completed: 10 enrichments added
+2025-08-27 13:19:04 | INFO     | agents:execute:235 - Starting report generation
+2025-08-27 13:19:04 | INFO     | agents:execute:278 - Report generation completed successfully
+2025-08-27 13:19:04 | INFO     | agents:investigate:446 - Investigation completed successfully: CASE_DC8AD720
+2025-08-27 13:22:24 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 13:22:33 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 13:22:33 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 13:22:33 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 13:22:33 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 13:22:33 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 13:22:33 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 13:22:33 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 13:22:42 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 13:22:50 | INFO     | llm_analysis:_initialize_client:59 - Granite LLM initialized successfully
+2025-08-27 13:22:51 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 13:22:51 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 13:22:51 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 13:22:51 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 13:22:51 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 13:22:51 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 14:54:12 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 14:54:21 | INFO     | llm_analysis:_initialize_client:76 - IBM Granite LLM initialized successfully
+2025-08-27 14:54:22 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 14:54:22 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 14:54:22 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 14:54:22 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 14:54:22 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 14:54:22 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 14:54:43 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 14:55:01 | INFO     | llm_analysis:_initialize_client:76 - IBM Granite LLM initialized successfully
+2025-08-27 14:55:01 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 14:55:01 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 14:55:01 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 14:55:01 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 14:55:01 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 14:55:01 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 14:55:25 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 14:55:52 | INFO     | llm_analysis:_initialize_client:76 - IBM Granite LLM initialized successfully
+2025-08-27 14:55:52 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 14:55:52 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 14:55:52 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 14:55:52 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 14:55:52 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 14:55:52 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 14:55:52 | INFO     | agents:investigate:415 - Starting forensic investigation: CASE_0C367182
+2025-08-27 14:55:52 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 14:55:52 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmp25eygnn5_dhcp.log
+2025-08-27 14:55:52 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmp25eygnn5_dhcp.log
+2025-08-27 14:55:52 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmp25eygnn5_dhcp.log
+2025-08-27 14:55:52 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 14:55:52 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 14:55:52 | INFO     | llm_analysis:analyze_logs:93 - Analyzing 1502 log entries with provider: ibm
+2025-08-27 14:56:10 | INFO     | llm_analysis:analyze_logs:118 - Granite LLM analysis completed
+2025-08-27 14:56:10 | INFO     | agents:execute:148 - Initial analysis completed: 13 IOCs, severity: SeverityLevel.CRITICAL
+2025-08-27 14:56:10 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 14:56:10 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 14:56:12 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 14:56:12 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 14:56:13 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 14:56:13 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 14:56:13 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 14:56:13 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 10 entries
+2025-08-27 14:56:13 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 14:56:13 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 14:56:13 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 14:56:13 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 14:56:13 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 14:56:13 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.76 with VirusTotal
+2025-08-27 14:56:29 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.76
+2025-08-27 14:56:29 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.102 with VirusTotal
+2025-08-27 14:56:45 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.102
+2025-08-27 14:56:45 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.97 with VirusTotal
+2025-08-27 14:57:00 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.97
+2025-08-27 14:57:00 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.203.61 with VirusTotal
+2025-08-27 14:57:16 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.203.61
+2025-08-27 14:57:16 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.203.62 with VirusTotal
+2025-08-27 14:57:31 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.203.62
+2025-08-27 14:57:31 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.75 with VirusTotal
+2025-08-27 14:57:46 | ERROR    | utilities:check_ioc:110 - Error checking VirusTotal for 192.168.202.75: cannot schedule new futures after shutdown
+2025-08-27 14:57:46 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.105 with VirusTotal
+2025-08-27 14:58:01 | ERROR    | utilities:check_ioc:110 - Error checking VirusTotal for 192.168.202.105: cannot schedule new futures after shutdown
+2025-08-27 14:58:01 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.106 with VirusTotal
+2025-08-27 14:58:16 | ERROR    | utilities:check_ioc:110 - Error checking VirusTotal for 192.168.202.106: cannot schedule new futures after shutdown
+2025-08-27 14:58:16 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.107 with VirusTotal
+2025-08-27 15:00:21 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:00:21 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: ibm
+2025-08-27 15:00:21 | ERROR    | llm_analysis:_initialize_client:84 - Failed to initialize IBM Granite LLM: `apikey` value cannot be ''. Pass a valid apikey for IAM token.
+2025-08-27 15:00:24 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:00:24 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:00:24 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:00:24 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:00:24 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:00:24 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:00:58 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:00:58 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: ibm
+2025-08-27 15:00:58 | ERROR    | llm_analysis:_initialize_client:84 - Failed to initialize IBM Granite LLM: `apikey` value cannot be ''. Pass a valid apikey for IAM token.
+2025-08-27 15:00:58 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:00:58 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:00:58 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:00:58 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:00:58 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:00:58 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:01:00 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:01:00 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: ibm
+2025-08-27 15:01:00 | ERROR    | llm_analysis:_initialize_client:84 - Failed to initialize IBM Granite LLM: `apikey` value cannot be ''. Pass a valid apikey for IAM token.
+2025-08-27 15:01:00 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:01:00 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:01:00 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:01:00 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:01:00 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:01:00 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:01:00 | INFO     | agents:investigate:415 - Starting forensic investigation: CASE_65500AB1
+2025-08-27 15:01:00 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 15:01:00 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmptbwly36f_dhcp.log
+2025-08-27 15:01:00 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmptbwly36f_dhcp.log
+2025-08-27 15:01:00 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmptbwly36f_dhcp.log
+2025-08-27 15:01:00 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 15:01:00 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 15:01:00 | INFO     | llm_analysis:analyze_logs:104 - Analyzing 1502 log entries with provider: ibm
+2025-08-27 15:01:00 | WARNING  | llm_analysis:analyze_logs:113 - IBM Granite LLM not available, using mock analysis
+2025-08-27 15:01:00 | INFO     | llm_analysis:_mock_analysis:282 - Using mock analysis - Granite LLM not available
+2025-08-27 15:01:00 | INFO     | agents:execute:148 - Initial analysis completed: 1 IOCs, severity: SeverityLevel.LOW
+2025-08-27 15:01:00 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 15:01:00 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 15:01:01 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:01:01 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:01:01 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 4 entries
+2025-08-27 15:01:01 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:01:01 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 15:01:01 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 15:01:01 | DEBUG    | utilities:check_ioc:72 - Checking ip 255.255.255.255 with VirusTotal
+2025-08-27 15:01:17 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 255.255.255.255
+2025-08-27 15:01:17 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 15:01:17 | INFO     | agents:execute:219 - Enrichment completed: 5 enrichments added
+2025-08-27 15:01:17 | INFO     | agents:execute:235 - Starting report generation
+2025-08-27 15:01:17 | INFO     | agents:execute:278 - Report generation completed successfully
+2025-08-27 15:01:17 | WARNING  | agents:investigate:436 - Workflow produced no final report; falling back to sequential execution
+2025-08-27 15:01:17 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 15:01:17 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmptbwly36f_dhcp.log
+2025-08-27 15:01:17 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmptbwly36f_dhcp.log
+2025-08-27 15:01:17 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmptbwly36f_dhcp.log
+2025-08-27 15:01:17 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 15:01:17 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 15:01:17 | INFO     | llm_analysis:analyze_logs:104 - Analyzing 1502 log entries with provider: ibm
+2025-08-27 15:01:17 | WARNING  | llm_analysis:analyze_logs:113 - IBM Granite LLM not available, using mock analysis
+2025-08-27 15:01:17 | INFO     | llm_analysis:_mock_analysis:282 - Using mock analysis - Granite LLM not available
+2025-08-27 15:01:17 | INFO     | agents:execute:148 - Initial analysis completed: 1 IOCs, severity: SeverityLevel.LOW
+2025-08-27 15:01:17 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 15:01:17 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 15:01:18 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:01:18 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:01:18 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 4 entries
+2025-08-27 15:01:18 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:01:18 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 15:01:18 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 15:01:18 | DEBUG    | utilities:check_ioc:72 - Checking ip 255.255.255.255 with VirusTotal
+2025-08-27 15:01:33 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 255.255.255.255
+2025-08-27 15:01:34 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 15:01:34 | INFO     | agents:execute:219 - Enrichment completed: 5 enrichments added
+2025-08-27 15:01:34 | INFO     | agents:execute:235 - Starting report generation
+2025-08-27 15:01:34 | INFO     | agents:execute:278 - Report generation completed successfully
+2025-08-27 15:01:34 | INFO     | agents:investigate:446 - Investigation completed successfully: CASE_65500AB1
+2025-08-27 15:03:10 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:03:10 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: ibm
+2025-08-27 15:03:10 | ERROR    | llm_analysis:_initialize_client:84 - Failed to initialize IBM Granite LLM: `apikey` value cannot be ''. Pass a valid apikey for IAM token.
+2025-08-27 15:03:10 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:03:10 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:03:10 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:03:10 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:03:10 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:03:10 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:03:22 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:03:22 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:03:22 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:03:22 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: ibm
+2025-08-27 15:03:22 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:03:22 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: ibm
+2025-08-27 15:03:22 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: ibm
+2025-08-27 15:03:22 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:03:22 | ERROR    | llm_analysis:_initialize_client:84 - Failed to initialize IBM Granite LLM: `apikey` value cannot be ''. Pass a valid apikey for IAM token.
+2025-08-27 15:03:22 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:03:22 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: ibm
+2025-08-27 15:03:22 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: ibm
+2025-08-27 15:03:22 | ERROR    | llm_analysis:_initialize_client:84 - Failed to initialize IBM Granite LLM: `apikey` value cannot be ''. Pass a valid apikey for IAM token.
+2025-08-27 15:03:22 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: ibm
+2025-08-27 15:03:22 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: ibm
+2025-08-27 15:03:22 | ERROR    | llm_analysis:_initialize_client:84 - Failed to initialize IBM Granite LLM: `apikey` value cannot be ''. Pass a valid apikey for IAM token.
+2025-08-27 15:03:22 | ERROR    | llm_analysis:_initialize_client:84 - Failed to initialize IBM Granite LLM: `apikey` value cannot be ''. Pass a valid apikey for IAM token.
+2025-08-27 15:03:22 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: ibm
+2025-08-27 15:03:22 | ERROR    | llm_analysis:_initialize_client:84 - Failed to initialize IBM Granite LLM: `apikey` value cannot be ''. Pass a valid apikey for IAM token.
+2025-08-27 15:03:22 | ERROR    | llm_analysis:_initialize_client:84 - Failed to initialize IBM Granite LLM: `apikey` value cannot be ''. Pass a valid apikey for IAM token.
+2025-08-27 15:03:22 | ERROR    | llm_analysis:_initialize_client:84 - Failed to initialize IBM Granite LLM: `apikey` value cannot be ''. Pass a valid apikey for IAM token.
+2025-08-27 15:03:22 | ERROR    | llm_analysis:_initialize_client:84 - Failed to initialize IBM Granite LLM: `apikey` value cannot be ''. Pass a valid apikey for IAM token.
+2025-08-27 15:03:22 | ERROR    | llm_analysis:_initialize_client:84 - Failed to initialize IBM Granite LLM: `apikey` value cannot be ''. Pass a valid apikey for IAM token.
+2025-08-27 15:03:23 | ERROR    | rag_enrichment:_initialize_db:72 - Failed to initialize ChromaDB: Could not connect to tenant default_tenant. Are you sure it exists?
+2025-08-27 15:03:23 | ERROR    | rag_enrichment:_initialize_db:72 - Failed to initialize ChromaDB: Could not connect to tenant default_tenant. Are you sure it exists?
+2025-08-27 15:03:23 | ERROR    | rag_enrichment:_initialize_db:72 - Failed to initialize ChromaDB: Could not connect to tenant default_tenant. Are you sure it exists?
+2025-08-27 15:03:23 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:03:23 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:03:23 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:03:23 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:03:23 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:03:23 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:03:23 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:03:23 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:03:23 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:03:23 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:03:23 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:03:23 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:03:23 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:03:23 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:03:23 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:03:23 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:03:23 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:03:23 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:03:23 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:03:23 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:03:23 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:03:23 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:03:23 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:03:23 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:03:23 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:03:23 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:03:23 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:03:23 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:03:23 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:03:23 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:03:23 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:03:23 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:03:23 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:03:23 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:03:23 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:03:23 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:03:23 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:03:23 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:03:23 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:03:23 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:03:23 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:03:23 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:03:23 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:03:23 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:03:23 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:03:23 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:03:23 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:03:23 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:03:23 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:03:23 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:03:23 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:03:24 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: ibm
+2025-08-27 15:03:24 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: ibm
+2025-08-27 15:03:24 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: ibm
+2025-08-27 15:03:24 | ERROR    | llm_analysis:_initialize_client:84 - Failed to initialize IBM Granite LLM: `apikey` value cannot be ''. Pass a valid apikey for IAM token.
+2025-08-27 15:03:24 | ERROR    | llm_analysis:_initialize_client:84 - Failed to initialize IBM Granite LLM: `apikey` value cannot be ''. Pass a valid apikey for IAM token.
+2025-08-27 15:03:24 | ERROR    | llm_analysis:_initialize_client:84 - Failed to initialize IBM Granite LLM: `apikey` value cannot be ''. Pass a valid apikey for IAM token.
+2025-08-27 15:04:15 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:04:15 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:04:15 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:04:15 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:04:15 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:04:15 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:04:15 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:04:16 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:04:16 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:04:16 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:04:16 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:04:16 | ERROR    | rag_enrichment:_initialize_db:72 - Failed to initialize ChromaDB: Could not connect to tenant default_tenant. Are you sure it exists?
+2025-08-27 15:04:16 | ERROR    | rag_enrichment:_initialize_db:72 - Failed to initialize ChromaDB: Could not connect to tenant default_tenant. Are you sure it exists?
+2025-08-27 15:04:16 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:04:16 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:04:16 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:04:16 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:04:16 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:04:16 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:04:16 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:04:16 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:04:16 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:04:16 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:04:16 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:04:16 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:04:16 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:04:16 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:04:16 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:04:16 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:04:16 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:04:16 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:04:16 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:04:16 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:04:16 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:04:16 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:04:17 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:04:17 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:04:17 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:04:17 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:04:25 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:04:25 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:04:26 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:04:26 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:04:26 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:04:26 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:04:26 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:04:26 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:04:26 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:04:26 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:04:27 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:04:32 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:04:32 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:04:39 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:04:40 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:04:40 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:04:40 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:04:40 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:04:40 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:04:40 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:04:40 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:04:40 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:04:40 | INFO     | agents:investigate:415 - Starting forensic investigation: CASE_30557F44
+2025-08-27 15:04:40 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 15:04:40 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmpxm_1b0wa_dhcp.log
+2025-08-27 15:04:40 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmpxm_1b0wa_dhcp.log
+2025-08-27 15:04:40 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmpxm_1b0wa_dhcp.log
+2025-08-27 15:04:40 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 15:04:40 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 15:04:40 | INFO     | llm_analysis:analyze_logs:104 - Analyzing 1502 log entries with provider: groq
+2025-08-27 15:04:42 | INFO     | llm_analysis:_analyze_with_groq:158 - Groq analysis completed
+2025-08-27 15:04:42 | INFO     | agents:execute:148 - Initial analysis completed: 6 IOCs, severity: SeverityLevel.MEDIUM
+2025-08-27 15:04:42 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 15:04:42 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 15:04:43 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:04:44 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:04:44 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:04:44 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:04:44 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:04:44 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 10 entries
+2025-08-27 15:04:44 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:04:44 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:04:44 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:04:44 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 15:04:44 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 15:04:44 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.76 with VirusTotal
+2025-08-27 15:05:00 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.76
+2025-08-27 15:05:00 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.97 with VirusTotal
+2025-08-27 15:05:16 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.97
+2025-08-27 15:05:16 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.102 with VirusTotal
+2025-08-27 15:05:31 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.102
+2025-08-27 15:05:31 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.109 with VirusTotal
+2025-08-27 15:05:47 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.109
+2025-08-27 15:05:47 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.111 with VirusTotal
+2025-08-27 15:06:02 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.111
+2025-08-27 15:06:02 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.113 with VirusTotal
+2025-08-27 15:06:18 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.113
+2025-08-27 15:06:18 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 15:06:18 | INFO     | agents:execute:219 - Enrichment completed: 16 enrichments added
+2025-08-27 15:06:18 | INFO     | agents:execute:235 - Starting report generation
+2025-08-27 15:06:18 | INFO     | agents:execute:278 - Report generation completed successfully
+2025-08-27 15:06:18 | WARNING  | agents:investigate:436 - Workflow produced no final report; falling back to sequential execution
+2025-08-27 15:06:18 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 15:06:18 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmpxm_1b0wa_dhcp.log
+2025-08-27 15:06:18 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmpxm_1b0wa_dhcp.log
+2025-08-27 15:06:18 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmpxm_1b0wa_dhcp.log
+2025-08-27 15:06:18 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 15:06:18 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 15:06:18 | INFO     | llm_analysis:analyze_logs:104 - Analyzing 1502 log entries with provider: groq
+2025-08-27 15:06:20 | INFO     | llm_analysis:_analyze_with_groq:158 - Groq analysis completed
+2025-08-27 15:06:20 | INFO     | agents:execute:148 - Initial analysis completed: 8 IOCs, severity: SeverityLevel.MEDIUM
+2025-08-27 15:06:20 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 15:06:20 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 15:06:21 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:06:21 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:06:21 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:06:22 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:06:22 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:06:22 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 10 entries
+2025-08-27 15:06:22 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:06:22 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:06:22 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:06:22 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 15:06:22 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 15:06:22 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.76 with VirusTotal
+2025-08-27 15:06:38 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.76
+2025-08-27 15:06:38 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.97 with VirusTotal
+2025-08-27 15:06:53 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.97
+2025-08-27 15:06:53 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.102 with VirusTotal
+2025-08-27 15:07:08 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:07:08 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:07:08 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.102
+2025-08-27 15:07:08 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.109 with VirusTotal
+2025-08-27 15:07:08 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:07:09 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:07:09 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:07:09 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:07:09 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:07:09 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:07:09 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:07:09 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:07:09 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:07:09 | INFO     | agents:investigate:415 - Starting forensic investigation: CASE_19A13B96
+2025-08-27 15:07:09 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 15:07:09 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmp4_sa_nno_dhcp.log
+2025-08-27 15:07:09 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmp4_sa_nno_dhcp.log
+2025-08-27 15:07:09 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmp4_sa_nno_dhcp.log
+2025-08-27 15:07:09 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 15:07:09 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 15:07:09 | INFO     | llm_analysis:analyze_logs:104 - Analyzing 1502 log entries with provider: groq
+2025-08-27 15:07:11 | INFO     | llm_analysis:_analyze_with_groq:158 - Groq analysis completed
+2025-08-27 15:07:11 | INFO     | agents:execute:148 - Initial analysis completed: 5 IOCs, severity: SeverityLevel.MEDIUM
+2025-08-27 15:07:11 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 15:07:11 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 15:07:11 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:07:11 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:07:12 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:07:12 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:07:12 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:07:12 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 10 entries
+2025-08-27 15:07:12 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:07:12 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:07:12 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:07:12 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 15:07:12 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 15:07:12 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.76 with VirusTotal
+2025-08-27 15:07:24 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.109
+2025-08-27 15:07:24 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.113 with VirusTotal
+2025-08-27 15:07:28 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.76
+2025-08-27 15:07:28 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.97 with VirusTotal
+2025-08-27 15:07:39 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.113
+2025-08-27 15:07:39 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.111 with VirusTotal
+2025-08-27 15:07:43 | ERROR    | utilities:check_ioc:110 - Error checking VirusTotal for 192.168.202.97: cannot schedule new futures after shutdown
+2025-08-27 15:07:43 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.102 with VirusTotal
+2025-08-27 15:07:55 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.111
+2025-08-27 15:07:55 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.112 with VirusTotal
+2025-08-27 15:07:58 | ERROR    | utilities:check_ioc:110 - Error checking VirusTotal for 192.168.202.102: cannot schedule new futures after shutdown
+2025-08-27 15:07:58 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.109 with VirusTotal
+2025-08-27 15:08:10 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.112
+2025-08-27 15:08:10 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.86 with VirusTotal
+2025-08-27 15:08:13 | ERROR    | utilities:check_ioc:110 - Error checking VirusTotal for 192.168.202.109: cannot schedule new futures after shutdown
+2025-08-27 15:08:13 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.113 with VirusTotal
+2025-08-27 15:08:26 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.86
+2025-08-27 15:08:26 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 15:08:26 | INFO     | agents:execute:219 - Enrichment completed: 18 enrichments added
+2025-08-27 15:08:26 | INFO     | agents:execute:235 - Starting report generation
+2025-08-27 15:08:26 | INFO     | agents:execute:278 - Report generation completed successfully
+2025-08-27 15:08:26 | INFO     | agents:investigate:446 - Investigation completed successfully: CASE_30557F44
+2025-08-27 15:08:28 | ERROR    | utilities:check_ioc:110 - Error checking VirusTotal for 192.168.202.113: cannot schedule new futures after shutdown
+2025-08-27 15:08:28 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 15:08:28 | INFO     | agents:execute:219 - Enrichment completed: 11 enrichments added
+2025-08-27 15:08:28 | ERROR    | agents:_run_langgraph_workflow:497 - LangGraph workflow execution failed: cannot schedule new futures after shutdown
+2025-08-27 15:08:28 | ERROR    | agents:investigate:452 - Investigation failed: cannot schedule new futures after shutdown
+2025-08-27 15:08:39 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:08:39 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:08:39 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:08:39 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:08:39 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:08:39 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:08:39 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:08:39 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:08:39 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:08:39 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:08:39 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:08:39 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:08:39 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:08:39 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:08:39 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:08:39 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:08:39 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:08:39 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:08:39 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:08:39 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:08:39 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:08:39 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:08:39 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:08:39 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:08:39 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:08:39 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:08:39 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:08:39 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:08:39 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:08:39 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:08:39 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:08:39 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:08:39 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:08:39 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:08:40 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:08:40 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:08:40 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:08:40 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:09:19 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:09:19 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:09:19 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:09:19 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:09:19 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:09:19 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:09:19 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:09:19 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:09:19 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:09:19 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:09:20 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:09:30 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:09:30 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:09:30 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:09:30 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:09:30 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:09:30 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:09:31 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:09:31 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:09:31 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:09:31 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:09:31 | ERROR    | rag_enrichment:_initialize_db:72 - Failed to initialize ChromaDB: Could not connect to tenant default_tenant. Are you sure it exists?
+2025-08-27 15:09:31 | ERROR    | rag_enrichment:_initialize_db:72 - Failed to initialize ChromaDB: Could not connect to tenant default_tenant. Are you sure it exists?
+2025-08-27 15:09:31 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:09:31 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:09:31 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:09:31 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:09:31 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:09:31 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:09:31 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:09:31 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:09:31 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:09:31 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:09:31 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:09:31 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:09:31 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:09:31 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:09:31 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:09:31 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:09:31 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:09:31 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:09:31 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:09:31 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:09:31 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:09:31 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:09:32 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:09:32 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:09:32 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:09:32 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:09:58 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:09:58 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:09:59 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:09:59 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:09:59 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:09:59 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:09:59 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:09:59 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:09:59 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:09:59 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:10:00 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:10:02 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:10:02 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:10:03 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:10:03 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:10:03 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:10:03 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:10:03 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:10:03 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:10:03 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:10:03 | INFO     | llm_analysis:_initialize_client:45 - LLM provider selected: groq
+2025-08-27 15:10:04 | INFO     | llm_analysis:_initialize_client:55 - Groq client initialized successfully
+2025-08-27 15:10:04 | INFO     | agents:investigate:415 - Starting forensic investigation: CASE_80136E91
+2025-08-27 15:10:04 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 15:10:04 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmp84b_1g12_dhcp.log
+2025-08-27 15:10:04 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmp84b_1g12_dhcp.log
+2025-08-27 15:10:04 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmp84b_1g12_dhcp.log
+2025-08-27 15:10:04 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 15:10:04 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 15:10:04 | INFO     | llm_analysis:analyze_logs:104 - Analyzing 1502 log entries with provider: groq
+2025-08-27 15:10:06 | INFO     | llm_analysis:_analyze_with_groq:158 - Groq analysis completed
+2025-08-27 15:10:06 | INFO     | agents:execute:148 - Initial analysis completed: 3 IOCs, severity: SeverityLevel.MEDIUM
+2025-08-27 15:10:06 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 15:10:06 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 15:10:08 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:10:08 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:10:09 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:10:09 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:10:09 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:10:09 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 10 entries
+2025-08-27 15:10:09 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:10:09 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:10:09 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:10:09 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 15:10:09 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 15:10:09 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.76 with VirusTotal
+2025-08-27 15:10:25 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.76
+2025-08-27 15:10:25 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.97 with VirusTotal
+2025-08-27 15:10:40 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.97
+2025-08-27 15:10:40 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.102 with VirusTotal
+2025-08-27 15:10:56 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.102
+2025-08-27 15:10:56 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 15:10:56 | INFO     | agents:execute:219 - Enrichment completed: 13 enrichments added
+2025-08-27 15:10:56 | INFO     | agents:execute:235 - Starting report generation
+2025-08-27 15:10:56 | INFO     | agents:execute:278 - Report generation completed successfully
+2025-08-27 15:10:56 | WARNING  | agents:investigate:436 - Workflow produced no final report; falling back to sequential execution
+2025-08-27 15:10:56 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 15:10:56 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmp84b_1g12_dhcp.log
+2025-08-27 15:10:56 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmp84b_1g12_dhcp.log
+2025-08-27 15:10:56 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmp84b_1g12_dhcp.log
+2025-08-27 15:10:56 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 15:10:56 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 15:10:56 | INFO     | llm_analysis:analyze_logs:104 - Analyzing 1502 log entries with provider: groq
+2025-08-27 15:10:58 | INFO     | llm_analysis:_analyze_with_groq:158 - Groq analysis completed
+2025-08-27 15:10:58 | INFO     | agents:execute:148 - Initial analysis completed: 3 IOCs, severity: SeverityLevel.MEDIUM
+2025-08-27 15:10:58 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 15:10:58 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 15:10:58 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:10:58 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:10:59 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:10:59 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:10:59 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:10:59 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 10 entries
+2025-08-27 15:10:59 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:10:59 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:10:59 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:10:59 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 15:10:59 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 15:10:59 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.76 with VirusTotal
+2025-08-27 15:11:15 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.76
+2025-08-27 15:11:15 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.97 with VirusTotal
+2025-08-27 15:11:30 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.97
+2025-08-27 15:11:30 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.102 with VirusTotal
+2025-08-27 15:11:45 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.102
+2025-08-27 15:11:45 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 15:11:45 | INFO     | agents:execute:219 - Enrichment completed: 13 enrichments added
+2025-08-27 15:11:45 | INFO     | agents:execute:235 - Starting report generation
+2025-08-27 15:11:45 | INFO     | agents:execute:278 - Report generation completed successfully
+2025-08-27 15:11:45 | INFO     | agents:investigate:446 - Investigation completed successfully: CASE_80136E91
+2025-08-27 15:13:56 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:13:56 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:13:56 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:13:56 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:13:56 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:13:56 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:13:56 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:13:56 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:13:56 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:13:56 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:13:56 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:13:56 | ERROR    | rag_enrichment:_initialize_db:72 - Failed to initialize ChromaDB: Could not connect to tenant default_tenant. Are you sure it exists?
+2025-08-27 15:13:56 | ERROR    | rag_enrichment:_initialize_db:72 - Failed to initialize ChromaDB: Could not connect to tenant default_tenant. Are you sure it exists?
+2025-08-27 15:13:56 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:13:56 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:13:56 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:13:56 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:13:56 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:13:56 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:13:56 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:13:56 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:13:56 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:13:56 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:13:57 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:13:57 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:13:57 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:13:57 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:13:57 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:13:57 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:13:57 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:13:57 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:13:57 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:13:57 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:13:57 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:13:57 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:13:57 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:13:57 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:13:58 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:13:58 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:14:02 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:14:02 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:14:03 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:14:03 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:14:03 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:14:03 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:14:03 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:14:03 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:14:03 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:14:03 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: ibm
+2025-08-27 15:14:06 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:14:06 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: ibm
+2025-08-27 15:14:13 | INFO     | llm_analysis:_initialize_client:84 - IBM Granite LLM initialized successfully
+2025-08-27 15:14:14 | INFO     | llm_analysis:_initialize_client:84 - IBM Granite LLM initialized successfully
+2025-08-27 15:14:14 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:14:14 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:14:14 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:14:14 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:14:14 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:14:14 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:14:14 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: ibm
+2025-08-27 15:14:20 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:14:20 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: ibm
+2025-08-27 15:14:21 | INFO     | llm_analysis:_initialize_client:84 - IBM Granite LLM initialized successfully
+2025-08-27 15:14:30 | INFO     | llm_analysis:_initialize_client:84 - IBM Granite LLM initialized successfully
+2025-08-27 15:14:30 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:14:30 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:14:30 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:14:30 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:14:30 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:14:30 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:14:30 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:14:31 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:14:37 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:14:37 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:14:37 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:14:37 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:14:37 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:14:37 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:14:37 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:14:37 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:14:38 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:14:38 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:14:38 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:14:40 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:14:40 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:14:40 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:14:40 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:14:40 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:14:40 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:14:40 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:14:40 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:14:40 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:14:40 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:14:41 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:14:41 | INFO     | agents:investigate:415 - Starting forensic investigation: CASE_0A6506D1
+2025-08-27 15:14:41 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 15:14:41 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmpvyduo2ep_dhcp.log
+2025-08-27 15:14:41 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmpvyduo2ep_dhcp.log
+2025-08-27 15:14:41 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmpvyduo2ep_dhcp.log
+2025-08-27 15:14:41 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 15:14:41 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 15:14:41 | INFO     | llm_analysis:analyze_logs:106 - Analyzing 1502 log entries with provider: groq
+2025-08-27 15:14:43 | INFO     | llm_analysis:_analyze_with_groq:179 - Groq analysis completed
+2025-08-27 15:14:43 | INFO     | agents:execute:148 - Initial analysis completed: 3 IOCs, severity: SeverityLevel.MEDIUM
+2025-08-27 15:14:43 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 15:14:43 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 15:14:44 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:14:44 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:14:45 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:14:45 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:14:45 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:14:45 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 10 entries
+2025-08-27 15:14:45 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:14:45 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:14:45 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:14:45 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 15:14:45 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 15:14:45 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.76 with VirusTotal
+2025-08-27 15:15:01 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.76
+2025-08-27 15:15:01 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.97 with VirusTotal
+2025-08-27 15:15:16 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.97
+2025-08-27 15:15:16 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.204.69 with VirusTotal
+2025-08-27 15:15:32 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.204.69
+2025-08-27 15:15:32 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 15:15:32 | INFO     | agents:execute:219 - Enrichment completed: 13 enrichments added
+2025-08-27 15:15:32 | INFO     | agents:execute:235 - Starting report generation
+2025-08-27 15:15:32 | INFO     | agents:execute:278 - Report generation completed successfully
+2025-08-27 15:15:32 | WARNING  | agents:investigate:436 - Workflow produced no final report; falling back to sequential execution
+2025-08-27 15:15:32 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 15:15:32 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmpvyduo2ep_dhcp.log
+2025-08-27 15:15:32 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmpvyduo2ep_dhcp.log
+2025-08-27 15:15:32 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmpvyduo2ep_dhcp.log
+2025-08-27 15:15:32 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 15:15:32 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 15:15:32 | INFO     | llm_analysis:analyze_logs:106 - Analyzing 1502 log entries with provider: groq
+2025-08-27 15:15:34 | INFO     | llm_analysis:_analyze_with_groq:179 - Groq analysis completed
+2025-08-27 15:15:34 | INFO     | agents:execute:148 - Initial analysis completed: 3 IOCs, severity: SeverityLevel.MEDIUM
+2025-08-27 15:15:34 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 15:15:34 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 15:15:34 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:15:34 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:15:34 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:15:35 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:15:35 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:15:35 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 10 entries
+2025-08-27 15:15:35 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:15:35 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:15:35 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:15:35 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 15:15:35 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 15:15:35 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.76 with VirusTotal
+2025-08-27 15:15:51 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.76
+2025-08-27 15:15:51 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.97 with VirusTotal
+2025-08-27 15:16:06 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.97
+2025-08-27 15:16:06 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.204.69 with VirusTotal
+2025-08-27 15:16:21 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.204.69
+2025-08-27 15:16:22 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 15:16:22 | INFO     | agents:execute:219 - Enrichment completed: 13 enrichments added
+2025-08-27 15:16:22 | INFO     | agents:execute:235 - Starting report generation
+2025-08-27 15:16:22 | INFO     | agents:execute:278 - Report generation completed successfully
+2025-08-27 15:16:22 | INFO     | agents:investigate:446 - Investigation completed successfully: CASE_0A6506D1
+2025-08-27 15:19:58 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:19:58 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:19:58 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:19:58 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:19:58 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:19:58 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:19:58 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:19:59 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:19:59 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:19:59 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:19:59 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:19:59 | ERROR    | rag_enrichment:_initialize_db:72 - Failed to initialize ChromaDB: Could not connect to tenant default_tenant. Are you sure it exists?
+2025-08-27 15:19:59 | ERROR    | rag_enrichment:_initialize_db:72 - Failed to initialize ChromaDB: Could not connect to tenant default_tenant. Are you sure it exists?
+2025-08-27 15:19:59 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:19:59 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:19:59 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:19:59 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:19:59 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:19:59 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:19:59 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:19:59 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:19:59 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:19:59 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:19:59 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:19:59 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:19:59 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:19:59 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:19:59 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:19:59 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:19:59 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:19:59 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:19:59 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:19:59 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:19:59 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:19:59 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:20:00 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:20:00 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:20:00 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:20:00 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:20:12 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:20:12 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:20:13 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:20:13 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:20:13 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:20:13 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:20:13 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:20:13 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:20:14 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:20:15 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:20:15 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:20:16 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:20:16 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:20:16 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:20:16 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:20:16 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:20:16 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:20:16 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:20:19 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:20:19 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:20:20 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:20:20 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:20:20 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:20:20 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:20:20 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:20:20 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:20:20 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:20:22 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:20:22 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:20:23 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:20:23 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:20:23 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:20:23 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:20:23 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:20:23 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:20:23 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
+2025-08-27 15:20:23 | INFO     | agents:investigate:415 - Starting forensic investigation: CASE_8C85206A
+2025-08-27 15:20:23 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 15:20:23 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmp1xdvbf0s_dhcp.log
+2025-08-27 15:20:23 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmp1xdvbf0s_dhcp.log
+2025-08-27 15:20:23 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmp1xdvbf0s_dhcp.log
+2025-08-27 15:20:23 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 15:20:23 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 15:20:23 | INFO     | llm_analysis:analyze_logs:106 - Analyzing 1502 log entries with provider: groq
+2025-08-27 15:20:25 | INFO     | llm_analysis:_analyze_with_groq:179 - Groq analysis completed
+2025-08-27 15:20:25 | INFO     | agents:execute:148 - Initial analysis completed: 3 IOCs, severity: SeverityLevel.MEDIUM
+2025-08-27 15:20:25 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 15:20:25 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 15:20:28 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:20:28 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:20:29 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:20:29 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:20:30 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:20:30 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 10 entries
+2025-08-27 15:20:30 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:20:30 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:20:30 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:20:30 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 15:20:30 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 15:20:30 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.76 with VirusTotal
+2025-08-27 15:20:46 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.76
+2025-08-27 15:20:46 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.97 with VirusTotal
+2025-08-27 15:21:01 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.97
+2025-08-27 15:21:01 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.204.69 with VirusTotal
+2025-08-27 15:21:17 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.204.69
+2025-08-27 15:21:17 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 15:21:17 | INFO     | agents:execute:219 - Enrichment completed: 13 enrichments added
+2025-08-27 15:21:17 | INFO     | agents:execute:235 - Starting report generation
+2025-08-27 15:21:17 | INFO     | agents:execute:278 - Report generation completed successfully
+2025-08-27 15:21:17 | WARNING  | agents:investigate:436 - Workflow produced no final report; falling back to sequential execution
+2025-08-27 15:21:17 | INFO     | agents:execute:70 - Starting log parsing process
+2025-08-27 15:21:17 | INFO     | data_prep:parse_logs:45 - Parsing log file: C:\Users\bonde\AppData\Local\Temp\tmp1xdvbf0s_dhcp.log
+2025-08-27 15:21:17 | INFO     | data_prep:_parse_generic_text:203 - Parsed 1502 lines from text file: C:\Users\bonde\AppData\Local\Temp\tmp1xdvbf0s_dhcp.log
+2025-08-27 15:21:17 | INFO     | agents:execute:86 - Parsed 1502 entries from C:\Users\bonde\AppData\Local\Temp\tmp1xdvbf0s_dhcp.log
+2025-08-27 15:21:17 | INFO     | agents:execute:106 - Log parsing completed: 1502 total entries
+2025-08-27 15:21:17 | INFO     | agents:execute:122 - Starting initial analysis
+2025-08-27 15:21:17 | INFO     | llm_analysis:analyze_logs:106 - Analyzing 1502 log entries with provider: groq
+2025-08-27 15:21:19 | INFO     | llm_analysis:_analyze_with_groq:179 - Groq analysis completed
+2025-08-27 15:21:19 | INFO     | agents:execute:148 - Initial analysis completed: 3 IOCs, severity: SeverityLevel.MEDIUM
+2025-08-27 15:21:19 | INFO     | agents:execute:166 - Starting enrichment process
+2025-08-27 15:21:19 | INFO     | rag_enrichment:enrich_analysis:261 - Starting RAG enrichment process
+2025-08-27 15:21:20 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:21:20 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:21:21 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:21:21 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:21:22 | DEBUG    | rag_enrichment:query:142 - Local KB query returned 2 results
+2025-08-27 15:21:22 | DEBUG    | rag_enrichment:_query_local_knowledge:342 - Local KB enrichment added 10 entries
+2025-08-27 15:21:22 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:21:22 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:21:22 | WARNING  | rag_enrichment:query:199 - Kendra client not available, returning empty results
+2025-08-27 15:21:22 | DEBUG    | rag_enrichment:_query_enterprise_sources:385 - Enterprise enrichment added 0 entries
+2025-08-27 15:21:22 | INFO     | rag_enrichment:enrich_analysis:291 - RAG enrichment completed successfully
+2025-08-27 15:21:22 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.76 with VirusTotal
+2025-08-27 15:21:37 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.76
+2025-08-27 15:21:37 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.202.97 with VirusTotal
+2025-08-27 15:21:53 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.202.97
+2025-08-27 15:21:53 | DEBUG    | utilities:check_ioc:72 - Checking ip 192.168.204.69 with VirusTotal
+2025-08-27 15:22:08 | DEBUG    | utilities:check_ioc:100 - VirusTotal check completed for 192.168.204.69
+2025-08-27 15:22:08 | INFO     | utilities:scan_for_patterns:303 - YARA scanning completed: 0 matches found
+2025-08-27 15:22:09 | INFO     | agents:execute:219 - Enrichment completed: 13 enrichments added
+2025-08-27 15:22:09 | INFO     | agents:execute:235 - Starting report generation
+2025-08-27 15:22:09 | INFO     | agents:execute:278 - Report generation completed successfully
+2025-08-27 15:22:09 | INFO     | agents:investigate:446 - Investigation completed successfully: CASE_8C85206A
+2025-08-27 15:22:25 | INFO     | __main__:setup_logging:44 - Logging configured at level: INFO
+2025-08-27 15:22:25 | INFO     | llm_analysis:_initialize_client:47 - LLM provider selected: groq
+2025-08-27 15:22:26 | INFO     | llm_analysis:_initialize_client:57 - Groq client initialized successfully
+2025-08-27 15:22:26 | INFO     | rag_enrichment:_initialize_db:69 - ChromaDB initialized with 5 documents
+2025-08-27 15:22:26 | WARNING  | rag_enrichment:_initialize_kendra:179 - AWS Kendra not configured or boto3 not available
+2025-08-27 15:22:26 | INFO     | rag_enrichment:_initialize_components:247 - RAG pipeline components initialized
+2025-08-27 15:22:26 | INFO     | utilities:_initialize_client:52 - VirusTotal client initialized
+2025-08-27 15:22:26 | INFO     | utilities:_initialize_rules:214 - YARA rules compiled from yara_rules\sample_rules.yar
+2025-08-27 15:22:26 | INFO     | agents:_initialize_workflow:396 - LangGraph workflow initialized successfully
