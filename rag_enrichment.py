@@ -15,13 +15,10 @@ except ImportError:
     logger.warning("ChromaDB not available")
     chromadb = None
 
-# AWS SDK for Kendra integration
-try:
-    import boto3
-    from botocore.exceptions import ClientError
-except ImportError:
-    logger.warning("Boto3 not available for AWS integration")
-    boto3 = None
+# AWS SDK for DynamoDB + Bedrock integration
+import boto3
+from botocore.exceptions import ClientError
+import json
 
 # LangChain for RAG pipeline
 try:
@@ -166,65 +163,156 @@ class LocalKnowledgeBase:
             logger.error(f"Error adding document to knowledge base: {e}")
 
 class EnterpriseRetrieval:
-    """Enterprise-scale retrieval using AWS Kendra."""
+    """Enterprise-scale retrieval using DynamoDB + Bedrock embeddings."""
     
     def __init__(self):
-        self.kendra_client = None
-        self.index_id = Config.KENDRA_INDEX_ID
-        self._initialize_kendra()
+        self.ddb_client = None
+        self.bedrock_client = None
+        self.table_name = Config.DYNAMODB_TABLE_NAME or "SecurityLogs"
+        self.embedding_model = Config.BEDROCK_EMBEDDING_MODEL or "amazon.titan-embed-text-v2:0"
+        self._initialize_clients()
     
-    def _initialize_kendra(self):
-        """Initialize AWS Kendra client."""
-        if not boto3 or not self.index_id or len(str(self.index_id)) < 36:
-            logger.warning("AWS Kendra not configured or boto3 not available")
-            return
-        
+    def _initialize_clients(self):
+        """Initialize DynamoDB and Bedrock clients."""
         try:
-            self.kendra_client = boto3.client(
-                'kendra',
+            # Initialize DynamoDB client
+            self.ddb_client = boto3.client(
+                'dynamodb',
                 region_name=Config.AWS_REGION,
                 aws_access_key_id=Config.AWS_ACCESS_KEY_ID,
                 aws_secret_access_key=Config.AWS_SECRET_ACCESS_KEY
             )
             
-            logger.info("AWS Kendra client initialized")
+            # Initialize Bedrock client
+            self.bedrock_client = boto3.client(
+                'bedrock-runtime',
+                region_name=Config.AWS_REGION,
+                aws_access_key_id=Config.AWS_ACCESS_KEY_ID,
+                aws_secret_access_key=Config.AWS_SECRET_ACCESS_KEY
+            )
+            
+            logger.info("DynamoDB + Bedrock clients initialized")
             
         except Exception as e:
-            logger.error(f"Failed to initialize Kendra client: {e}")
-            self.kendra_client = None
+            logger.error(f"Failed to initialize DynamoDB/Bedrock clients: {e}")
+            self.ddb_client = None
+            self.bedrock_client = None
     
-    def query(self, query_text: str, max_results: int = 5) -> List[Dict[str, Any]]:
-        """Query AWS Kendra for relevant documents."""
-        if not self.kendra_client:
-            logger.warning("Kendra client not available, returning empty results")
+    def _generate_embedding(self, text: str) -> List[float]:
+        """Generate embedding vector using Bedrock."""
+        if not self.bedrock_client:
+            logger.warning("Bedrock client not available")
             return []
         
         try:
-            response = self.kendra_client.query(
-                IndexId=self.index_id,
-                QueryText=query_text,
-                PageSize=max_results
+            payload = {"inputText": text}
+            response = self.bedrock_client.invoke_model(
+                modelId=self.embedding_model,
+                body=json.dumps(payload).encode("utf-8"),
+                contentType="application/json",
+                accept="application/json",
             )
+            body = json.loads(response["body"].read())
+            vector = body.get("embedding") or body.get("embeddings", {}).get("values")
+            if not vector:
+                raise RuntimeError("Bedrock response missing 'embedding'.")
+            return vector
             
-            # Format Kendra results
-            formatted_results = []
-            for item in response.get('ResultItems', []):
-                formatted_results.append({
-                    'title': item.get('DocumentTitle', ''),
-                    'excerpt': item.get('DocumentExcerpt', ''),
-                    'uri': item.get('DocumentURI', ''),
-                    'confidence': item.get('ScoreAttributes', {}).get('ScoreConfidence', 'LOW'),
-                    'type': item.get('Type', 'DOCUMENT')
-                })
+        except Exception as e:
+            logger.error(f"Error generating embedding: {e}")
+            return []
+    
+    def _cosine_similarity(self, vec_a: List[float], vec_b: List[float]) -> float:
+        """Compute cosine similarity between two vectors."""
+        if len(vec_a) != len(vec_b) or not vec_a or not vec_b:
+            return 0.0
+        
+        import math
+        norm_a = math.sqrt(sum(x * x for x in vec_a))
+        norm_b = math.sqrt(sum(y * y for y in vec_b))
+        if norm_a == 0.0 or norm_b == 0.0:
+            return 0.0
+        
+        dot = sum(x * y for x, y in zip(vec_a, vec_b))
+        return dot / (norm_a * norm_b)
+    
+    def query(self, query_text: str, max_results: int = 5) -> List[Dict[str, Any]]:
+        """Query DynamoDB for semantically similar logs using vector similarity."""
+        if not self.ddb_client or not self.bedrock_client:
+            logger.warning("DynamoDB/Bedrock clients not available, returning empty results")
+            return []
+        
+        try:
+            # Generate embedding for query
+            query_embedding = self._generate_embedding(query_text)
+            if not query_embedding:
+                logger.warning("Failed to generate query embedding")
+                return []
             
-            logger.debug(f"Kendra query returned {len(formatted_results)} results")
-            return formatted_results
+            # Scan DynamoDB table for logs
+            results = []
+            kwargs = {
+                "TableName": self.table_name,
+                "ProjectionExpression": "#id, #txt, #emb",
+                "ExpressionAttributeNames": {
+                    "#id": "logId", 
+                    "#txt": "logText", 
+                    "#emb": "embedding"
+                }
+            }
+            
+            while True:
+                response = self.ddb_client.scan(**kwargs)
+                
+                for item in response.get("Items", []):
+                    # Extract item data
+                    log_id = item.get("logId", {}).get("S", "")
+                    log_text = item.get("logText", {}).get("S", "")
+                    embedding = item.get("embedding", {}).get("L", [])
+                    
+                    if not log_id or not log_text or not embedding:
+                        continue
+                    
+                    # Convert embedding to float list
+                    try:
+                        item_embedding = [float(v.get("N", 0)) for v in embedding]
+                        if len(item_embedding) != len(query_embedding):
+                            continue
+                    except (ValueError, TypeError):
+                        continue
+                    
+                    # Compute similarity score
+                    score = self._cosine_similarity(query_embedding, item_embedding)
+                    
+                    results.append({
+                        'title': f"Log Entry {log_id[:8]}...",
+                        'excerpt': log_text[:200] + "..." if len(log_text) > 200 else log_text,
+                        'uri': f"dynamodb://{self.table_name}/{log_id}",
+                        'confidence': 'HIGH' if score > 0.8 else 'MEDIUM' if score > 0.6 else 'LOW',
+                        'type': 'SECURITY_LOG',
+                        'score': score,
+                        'log_id': log_id,
+                        'full_text': log_text
+                    })
+                
+                # Check for pagination
+                last_key = response.get("LastEvaluatedKey")
+                if not last_key:
+                    break
+                kwargs["ExclusiveStartKey"] = last_key
+            
+            # Sort by similarity score and return top results
+            results.sort(key=lambda x: x.get('score', 0), reverse=True)
+            top_results = results[:max_results]
+            
+            logger.debug(f"DynamoDB query returned {len(top_results)} results")
+            return top_results
             
         except ClientError as e:
-            logger.error(f"Kendra query error: {e}")
+            logger.error(f"DynamoDB query error: {e}")
             return []
         except Exception as e:
-            logger.error(f"Unexpected error querying Kendra: {e}")
+            logger.error(f"Unexpected error querying DynamoDB: {e}")
             return []
 
 class RAGPipeline:
@@ -370,13 +458,14 @@ class RAGPipeline:
                 
                 for result in results:
                     enrichment = EnrichmentData(
-                        source="enterprise_kendra",
+                        source="enterprise_dynamodb_bedrock",
                         ioc_value=query,
                         additional_context={
                             "title": result.get("title", ""),
                             "excerpt": result.get("excerpt", ""),
                             "uri": result.get("uri", ""),
-                            "confidence": result.get("confidence", "LOW")
+                            "confidence": result.get("confidence", "LOW"),
+                            "similarity_score": result.get("score", 0.0)
                         },
                         last_updated=datetime.now()
                     )
@@ -405,7 +494,7 @@ class RAGPipeline:
                         content = ctx.additional_context.get("content", "")[:200]
                         enhanced_parts.append(f"  • {content}...")
                 
-                enterprise_contexts = [e for e in enrichments if e.source == "enterprise_kendra"]
+                enterprise_contexts = [e for e in enrichments if e.source == "enterprise_dynamodb_bedrock"]
                 if enterprise_contexts:
                     enhanced_parts.append("- Enterprise sources indicate:")
                     for ctx in enterprise_contexts[:2]:

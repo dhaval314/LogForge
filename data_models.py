@@ -59,7 +59,7 @@ class InitialAnalysis(BaseModel):
 
 class EnrichmentData(BaseModel):
     """Data from enrichment sources."""
-    source: str = Field(description="Enrichment source (VirusTotal, Kendra, etc.)")
+    source: str = Field(description="Enrichment source (VirusTotal, DynamoDB+Bedrock, etc.)")
     ioc_value: str = Field(description="IOC that was enriched")
     reputation_score: Optional[float] = Field(None, description="Reputation score if available")
     additional_context: Dict[str, Any] = Field(description="Additional context data")

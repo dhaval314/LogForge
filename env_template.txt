@@ -1,0 +1,37 @@
+# Copy this content to your .env file and fill in the values
+
+# AWS Configuration
+AWS_REGION=us-east-1
+AWS_ACCESS_KEY_ID=your_access_key_here
+AWS_SECRET_ACCESS_KEY=your_secret_key_here
+
+# DynamoDB + Bedrock Configuration (replaces Kendra)
+DYNAMODB_TABLE_NAME=SecurityLogs
+BEDROCK_EMBEDDING_MODEL=amazon.titan-embed-text-v2:0
+
+# LLM Provider Selection
+LLM_PROVIDER=ibm  # "ibm" or "groq"
+
+# IBM Watsonx.ai Configuration
+IBM_API_KEY=your_ibm_api_key_here
+IBM_PROJECT_ID=your_ibm_project_id_here
+IBM_URL=https://us-south.ml.cloud.ibm.com
+
+# Groq Cloud Configuration
+GROQ_API_KEY=your_groq_api_key_here
+GROQ_MODEL_ID=llama-3.1-8b-instant
+GROQ_MAX_TOKENS=2000
+GROQ_TEMPERATURE=0.1
+
+# VirusTotal Configuration
+VT_API_KEY=your_virustotal_api_key_here
+
+# Application Settings
+LOG_LEVEL=INFO
+MAX_LOG_ENTRIES=10000
+
+# ChromaDB Settings
+CHROMA_PERSIST_DIR=./chroma_db
+
+# Granite LLM Configuration
+GRANITE_MODEL_ID=ibm/granite-3-8b-instruct
