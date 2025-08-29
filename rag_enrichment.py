@@ -2,6 +2,8 @@
 RAG (Retrieval-Augmented Generation) Module for enriching analysis with context.
 """
 import os
+import time
+import threading
 from typing import List, Dict, Any, Optional
 from datetime import datetime
 from pathlib import Path
@@ -14,11 +16,6 @@ try:
 except ImportError:
     logger.warning("ChromaDB not available")
     chromadb = None
-
-# AWS SDK for DynamoDB + Bedrock integration
-import boto3
-from botocore.exceptions import ClientError
-import json
 
 # LangChain for RAG pipeline
 try:
@@ -33,6 +30,42 @@ except ImportError:
 
 from data_models import InitialAnalysis, EnrichmentData, EnrichedAnalysis, SeverityLevel
 from config import Config
+
+
+def timeout_handler(timeout_seconds=10):
+    """Cross-platform timeout decorator for functions that might hang."""
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            result = [None]  # Use list to store result from thread
+            exception = [None]  # Use list to store exception from thread
+            
+            def target():
+                try:
+                    result[0] = func(*args, **kwargs)
+                except Exception as e:
+                    exception[0] = e
+            
+            # Create and start thread
+            thread = threading.Thread(target=target)
+            thread.daemon = True
+            thread.start()
+            
+            # Wait for completion or timeout
+            thread.join(timeout_seconds)
+            
+            if thread.is_alive():
+                logger.warning(f"Function {func.__name__} timed out after {timeout_seconds} seconds")
+                return [] if func.__name__ in ['query', '_query_local_knowledge', '_query_enterprise_sources'] else ""
+            
+            if exception[0]:
+                logger.error(f"Error in {func.__name__}: {exception[0]}")
+                return [] if func.__name__ in ['query', '_query_local_knowledge', '_query_enterprise_sources'] else ""
+            
+            return result[0]
+        
+        return wrapper
+    return decorator
+
 
 class LocalKnowledgeBase:
     """Local vector database using ChromaDB for cybersecurity knowledge."""
@@ -136,7 +169,6 @@ class LocalKnowledgeBase:
                     'distance': results['distances'][0][i] if 'distances' in results else 0.0
                 })
             
-            logger.debug(f"Local KB query returned {len(formatted_results)} results")
             return formatted_results
             
         except Exception as e:
@@ -162,158 +194,78 @@ class LocalKnowledgeBase:
         except Exception as e:
             logger.error(f"Error adding document to knowledge base: {e}")
 
+
 class EnterpriseRetrieval:
-    """Enterprise-scale retrieval using DynamoDB + Bedrock embeddings."""
+    """Enterprise-scale retrieval using ChromaDB."""
     
     def __init__(self):
-        self.ddb_client = None
-        self.bedrock_client = None
-        self.table_name = Config.DYNAMODB_TABLE_NAME or "SecurityLogs"
-        self.embedding_model = Config.BEDROCK_EMBEDDING_MODEL or "amazon.titan-embed-text-v2:0"
-        self._initialize_clients()
+        self.client = None
+        self.collection = None
+        self.collection_name = "security_logs"
+        self._initialize_client()
     
-    def _initialize_clients(self):
-        """Initialize DynamoDB and Bedrock clients."""
+    def _initialize_client(self):
+        """Initialize ChromaDB client and collection."""
         try:
-            # Initialize DynamoDB client
-            self.ddb_client = boto3.client(
-                'dynamodb',
-                region_name=Config.AWS_REGION,
-                aws_access_key_id=Config.AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=Config.AWS_SECRET_ACCESS_KEY
+            # Initialize ChromaDB client
+            self.client = chromadb.PersistentClient(path=Config.CHROMA_PERSIST_DIR)
+            
+            # Get or create collection
+            self.collection = self.client.get_or_create_collection(
+                name=self.collection_name,
+                metadata={"hnsw:space": "cosine"}
             )
             
-            # Initialize Bedrock client
-            self.bedrock_client = boto3.client(
-                'bedrock-runtime',
-                region_name=Config.AWS_REGION,
-                aws_access_key_id=Config.AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=Config.AWS_SECRET_ACCESS_KEY
-            )
-            
-            logger.info("DynamoDB + Bedrock clients initialized")
+            logger.info("ChromaDB client initialized")
             
         except Exception as e:
-            logger.error(f"Failed to initialize DynamoDB/Bedrock clients: {e}")
-            self.ddb_client = None
-            self.bedrock_client = None
-    
-    def _generate_embedding(self, text: str) -> List[float]:
-        """Generate embedding vector using Bedrock."""
-        if not self.bedrock_client:
-            logger.warning("Bedrock client not available")
-            return []
-        
-        try:
-            payload = {"inputText": text}
-            response = self.bedrock_client.invoke_model(
-                modelId=self.embedding_model,
-                body=json.dumps(payload).encode("utf-8"),
-                contentType="application/json",
-                accept="application/json",
-            )
-            body = json.loads(response["body"].read())
-            vector = body.get("embedding") or body.get("embeddings", {}).get("values")
-            if not vector:
-                raise RuntimeError("Bedrock response missing 'embedding'.")
-            return vector
-            
-        except Exception as e:
-            logger.error(f"Error generating embedding: {e}")
-            return []
-    
-    def _cosine_similarity(self, vec_a: List[float], vec_b: List[float]) -> float:
-        """Compute cosine similarity between two vectors."""
-        if len(vec_a) != len(vec_b) or not vec_a or not vec_b:
-            return 0.0
-        
-        import math
-        norm_a = math.sqrt(sum(x * x for x in vec_a))
-        norm_b = math.sqrt(sum(y * y for y in vec_b))
-        if norm_a == 0.0 or norm_b == 0.0:
-            return 0.0
-        
-        dot = sum(x * y for x, y in zip(vec_a, vec_b))
-        return dot / (norm_a * norm_b)
+            logger.error(f"Failed to initialize ChromaDB client: {e}")
+            self.client = None
+            self.collection = None
     
     def query(self, query_text: str, max_results: int = 5) -> List[Dict[str, Any]]:
-        """Query DynamoDB for semantically similar logs using vector similarity."""
-        if not self.ddb_client or not self.bedrock_client:
-            logger.warning("DynamoDB/Bedrock clients not available, returning empty results")
+        """Query ChromaDB for semantically similar logs using vector similarity."""
+        if not self.collection:
+            logger.warning("ChromaDB client not available, returning empty results")
             return []
         
         try:
-            # Generate embedding for query
-            query_embedding = self._generate_embedding(query_text)
-            if not query_embedding:
-                logger.warning("Failed to generate query embedding")
-                return []
+            # Use ChromaDB's built-in similarity search
+            results = self.collection.query(
+                query_texts=[query_text],
+                n_results=max_results
+            )
             
-            # Scan DynamoDB table for logs
-            results = []
-            kwargs = {
-                "TableName": self.table_name,
-                "ProjectionExpression": "#id, #txt, #emb",
-                "ExpressionAttributeNames": {
-                    "#id": "logId", 
-                    "#txt": "logText", 
-                    "#emb": "embedding"
-                }
-            }
-            
-            while True:
-                response = self.ddb_client.scan(**kwargs)
-                
-                for item in response.get("Items", []):
-                    # Extract item data
-                    log_id = item.get("logId", {}).get("S", "")
-                    log_text = item.get("logText", {}).get("S", "")
-                    embedding = item.get("embedding", {}).get("L", [])
+            # Format results
+            formatted_results = []
+            if results["ids"] and results["ids"][0]:
+                for i, doc_id in enumerate(results["ids"][0]):
+                    # Convert distance to similarity score (ChromaDB returns distances, we want similarities)
+                    distance = results["distances"][0][i] if results["distances"] and results["distances"][0] else 1.0
+                    similarity_score = 1.0 - distance  # Convert distance to similarity
                     
-                    if not log_id or not log_text or not embedding:
-                        continue
+                    log_text = results["documents"][0][i] if results["documents"] and results["documents"][0] else ""
+                    metadata = results["metadatas"][0][i] if results["metadatas"] and results["metadatas"][0] else {}
                     
-                    # Convert embedding to float list
-                    try:
-                        item_embedding = [float(v.get("N", 0)) for v in embedding]
-                        if len(item_embedding) != len(query_embedding):
-                            continue
-                    except (ValueError, TypeError):
-                        continue
-                    
-                    # Compute similarity score
-                    score = self._cosine_similarity(query_embedding, item_embedding)
-                    
-                    results.append({
-                        'title': f"Log Entry {log_id[:8]}...",
+                    formatted_results.append({
+                        'title': f"Log Entry {doc_id[:8]}...",
                         'excerpt': log_text[:200] + "..." if len(log_text) > 200 else log_text,
-                        'uri': f"dynamodb://{self.table_name}/{log_id}",
-                        'confidence': 'HIGH' if score > 0.8 else 'MEDIUM' if score > 0.6 else 'LOW',
+                        'uri': f"chromadb://{self.collection_name}/{doc_id}",
+                        'confidence': 'HIGH' if similarity_score > 0.8 else 'MEDIUM' if similarity_score > 0.6 else 'LOW',
                         'type': 'SECURITY_LOG',
-                        'score': score,
-                        'log_id': log_id,
-                        'full_text': log_text
+                        'score': similarity_score,
+                        'log_id': doc_id,
+                        'full_text': log_text,
+                        'metadata': metadata
                     })
-                
-                # Check for pagination
-                last_key = response.get("LastEvaluatedKey")
-                if not last_key:
-                    break
-                kwargs["ExclusiveStartKey"] = last_key
             
-            # Sort by similarity score and return top results
-            results.sort(key=lambda x: x.get('score', 0), reverse=True)
-            top_results = results[:max_results]
+            logger.debug(f"ChromaDB query returned {len(formatted_results)} results")
+            return formatted_results
             
-            logger.debug(f"DynamoDB query returned {len(top_results)} results")
-            return top_results
-            
-        except ClientError as e:
-            logger.error(f"DynamoDB query error: {e}")
-            return []
         except Exception as e:
-            logger.error(f"Unexpected error querying DynamoDB: {e}")
+            logger.error(f"ChromaDB query error: {e}")
             return []
+
 
 class RAGPipeline:
     """Main RAG pipeline orchestrator using LangChain."""
@@ -347,25 +299,33 @@ class RAGPipeline:
             EnrichedAnalysis with additional context
         """
         logger.info("Starting RAG enrichment process")
+        start_time = time.time()
         
         enrichments = []
         
         try:
-            # Query local knowledge base
+            # Query local knowledge base with timeout
+            logger.debug("Querying local knowledge base...")
             local_enrichments = self._query_local_knowledge(initial_analysis)
             enrichments.extend(local_enrichments)
+            logger.debug(f"Local KB enrichment completed: {len(local_enrichments)} items")
             
-            # Query enterprise sources
+            # Query enterprise sources with timeout
+            logger.debug("Querying enterprise sources...")
             enterprise_enrichments = self._query_enterprise_sources(initial_analysis)
             enrichments.extend(enterprise_enrichments)
+            logger.debug(f"Enterprise enrichment completed: {len(enterprise_enrichments)} items")
             
             # Generate enhanced summary
+            logger.debug("Generating enhanced summary...")
             enhanced_summary = self._generate_enhanced_summary(initial_analysis, enrichments)
             
             # Reconstruct attack chain
+            logger.debug("Reconstructing attack chain...")
             attack_chain = self._reconstruct_attack_chain(initial_analysis, enrichments)
             
             # Generate recommendations
+            logger.debug("Generating recommendations...")
             recommendations = self._generate_recommendations(initial_analysis, enrichments)
             
             enriched_analysis = EnrichedAnalysis(
@@ -376,7 +336,8 @@ class RAGPipeline:
                 recommendations=recommendations
             )
             
-            logger.info("RAG enrichment completed successfully")
+            elapsed_time = time.time() - start_time
+            logger.info(f"RAG enrichment completed successfully in {elapsed_time:.2f} seconds")
             return enriched_analysis
             
         except Exception as e:

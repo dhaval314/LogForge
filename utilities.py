@@ -48,8 +48,22 @@ class VirusTotalEnricher:
             return
         
         try:
+            # Validate API key format (basic check)
+            if len(self.api_key) < 10:
+                raise ValueError("VirusTotal API key appears to be invalid (too short)")
+            
             self.client = vt.Client(self.api_key)
-            logger.info("VirusTotal client initialized")
+            
+            # Test the connection with a simple query
+            try:
+                # Test with a known safe IP
+                test_ip = "8.8.8.8"
+                self.client.get_object(f"/ip_addresses/{test_ip}")
+                logger.info("VirusTotal client initialized and tested successfully")
+            except Exception as test_error:
+                logger.warning(f"VirusTotal connection test failed: {test_error}")
+                # Don't fail completely, just warn
+                
         except Exception as e:
             logger.error(f"Failed to initialize VirusTotal client: {e}")
             self.client = None

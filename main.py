@@ -21,15 +21,19 @@ def setup_logging(log_level: str = None):
     # Remove default logger
     logger.remove()
     
-    # Add console logger
+    # Add console logger with conditional colorization
+    console_format = "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>"
+    if not Config.DEBUG_MODE:
+        console_format = "{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} - {message}"
+    
     logger.add(
         sys.stderr,
         level=level,
-        format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>",
-        colorize=True
+        format=console_format,
+        colorize=Config.DEBUG_MODE
     )
     
-    # Add file logger
+    # Add file logger with better rotation settings
     log_file = Path("logs") / "forensic_analyzer.log"
     log_file.parent.mkdir(exist_ok=True)
     
@@ -37,11 +41,24 @@ def setup_logging(log_level: str = None):
         str(log_file),
         level="DEBUG",
         format="{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} - {message}",
+        rotation="50 MB",
+        retention="30 days",
+        compression="zip"
+    )
+    
+    # Add error log file for critical errors
+    error_log_file = Path("logs") / "errors.log"
+    logger.add(
+        str(error_log_file),
+        level="ERROR",
+        format="{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} - {message}",
         rotation="10 MB",
-        retention="1 week"
+        retention="90 days",
+        compression="zip"
     )
     
     logger.info(f"Logging configured at level: {level}")
+    logger.info(f"Debug mode: {Config.DEBUG_MODE}")
 
 class ForensicAnalyzerCLI:
     """Command-line interface for the Forensic AI Log Analyzer."""
@@ -249,7 +266,7 @@ def handle_config_command(args) -> int:
             
             config_status = Config.validate_config()
             for service, status in config_status.items():
-                status_icon = "✅" if status else "❌"
+                status_icon = "✓" if status else "✗"
                 service_name = service.replace("_", " ").title()
                 print(f"{status_icon} {service_name}")
             
@@ -264,11 +281,11 @@ def handle_config_command(args) -> int:
                         from llm_analysis import GraniteAnalyzer
                         analyzer = GraniteAnalyzer()
                         if analyzer.client:
-                            print("✅ IBM Watson ML connection successful")
+                            print("IBM Watson ML connection successful")
                         else:
-                            print("❌ IBM Watson ML connection failed")
+                            print("IBM Watson ML connection failed")
                     except Exception as e:
-                        print(f"❌ IBM Watson ML validation error: {e}")
+                        print(f"IBM Watson ML validation error: {e}")
                 
                 # Test AWS connection
                 if config_status.get("aws_configured"):
@@ -277,13 +294,13 @@ def handle_config_command(args) -> int:
                         session = boto3.Session(
                             aws_access_key_id=Config.AWS_ACCESS_KEY_ID,
                             aws_secret_access_key=Config.AWS_SECRET_ACCESS_KEY,
-                            region_name=Config.AWS_REGION
+                            region_name=Config.AWS_DEFAULT_REGION
                         )
                         sts = session.client('sts')
                         sts.get_caller_identity()
-                        print("✅ AWS credentials valid")
+                        print("AWS credentials valid")
                     except Exception as e:
-                        print(f"❌ AWS validation error: {e}")
+                        print(f"AWS validation error: {e}")
                 
                 # Test VirusTotal connection
                 if config_status.get("vt_configured"):
@@ -291,11 +308,11 @@ def handle_config_command(args) -> int:
                         from utilities import VirusTotalEnricher
                         vt = VirusTotalEnricher()
                         if vt.client:
-                            print("✅ VirusTotal API key configured")
+                            print("VirusTotal API key configured")
                         else:
-                            print("❌ VirusTotal API connection failed")
+                            print("VirusTotal API connection failed")
                     except Exception as e:
-                        print(f"❌ VirusTotal validation error: {e}")
+                        print(f"VirusTotal validation error: {e}")
         
         return 0
         

@@ -54,7 +54,13 @@ class GraniteAnalyzer:
                 if not Config.GROQ_API_KEY:
                     raise ValueError("GROQ_API_KEY is not set")
                 self.groq_client = Groq(api_key=Config.GROQ_API_KEY)
-                logger.info("Groq client initialized successfully")
+                # Test the connection
+                self.groq_client.chat.completions.create(
+                    model=Config.GROQ_MODEL_ID,
+                    messages=[{"role": "user", "content": "test"}],
+                    max_tokens=1
+                )
+                logger.info("Groq client initialized and tested successfully")
             except Exception as e:
                 logger.error(f"Failed to initialize Groq client: {e}")
                 self.groq_client = None
@@ -65,6 +71,11 @@ class GraniteAnalyzer:
             logger.warning("IBM Watson ML SDK not available")
             return
         try:
+            if not Config.IBM_API_KEY:
+                raise ValueError("IBM_API_KEY is not set")
+            if not Config.IBM_PROJECT_ID:
+                raise ValueError("IBM_PROJECT_ID is not set")
+                
             wml_credentials = {
                 "url": Config.IBM_URL,
                 "apikey": Config.IBM_API_KEY

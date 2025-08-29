@@ -1,37 +1,56 @@
+# Production Environment Configuration for Forensic AI Log Analyzer
 # Copy this content to your .env file and fill in the values
 
-# AWS Configuration
-AWS_REGION=us-east-1
-AWS_ACCESS_KEY_ID=your_access_key_here
-AWS_SECRET_ACCESS_KEY=your_secret_key_here
+# =============================================================================
+# REQUIRED SETTINGS (Must be configured for production)
+# =============================================================================
 
-# DynamoDB + Bedrock Configuration (replaces Kendra)
-DYNAMODB_TABLE_NAME=SecurityLogs
-BEDROCK_EMBEDDING_MODEL=amazon.titan-embed-text-v2:0
+# LLM Provider Selection (IBM Granite only)
+LLM_PROVIDER=ibm_granite
 
-# LLM Provider Selection
-LLM_PROVIDER=ibm  # "ibm" or "groq"
-
-# IBM Watsonx.ai Configuration
+# IBM Watsonx.ai Configuration (Required)
 IBM_API_KEY=your_ibm_api_key_here
 IBM_PROJECT_ID=your_ibm_project_id_here
 IBM_URL=https://us-south.ml.cloud.ibm.com
 
-# Groq Cloud Configuration
-GROQ_API_KEY=your_groq_api_key_here
-GROQ_MODEL_ID=llama-3.1-8b-instant
-GROQ_MAX_TOKENS=2000
-GROQ_TEMPERATURE=0.1
+# AWS S3 Configuration (Optional - for file storage only)
+AWS_ACCESS_KEY_ID=your_aws_access_key_here
+AWS_SECRET_ACCESS_KEY=your_aws_secret_key_here
+AWS_DEFAULT_REGION=ap-south-1
+AWS_S3_BUCKET=your_s3_bucket_name
 
-# VirusTotal Configuration
+# Security Settings (Required for production)
+SECRET_KEY=your_32_character_secret_key_here
+DEBUG_MODE=false
+ALLOWED_HOSTS=localhost,127.0.0.1,your-domain.com
+CORS_ORIGINS=https://your-domain.com,http://localhost:8501
+
+# =============================================================================
+# OPTIONAL SETTINGS (Configure as needed)
+# =============================================================================
+
+# VirusTotal Configuration (Optional - for IOC enrichment)
 VT_API_KEY=your_virustotal_api_key_here
+
+# ChromaDB Configuration
+CHROMA_PERSIST_DIR=./chroma_db
+CHROMA_COLLECTION_NAME=security_logs
 
 # Application Settings
 LOG_LEVEL=INFO
 MAX_LOG_ENTRIES=10000
 
-# ChromaDB Settings
-CHROMA_PERSIST_DIR=./chroma_db
+# Rate Limiting (Optional)
+RATE_LIMIT_REQUESTS=100
+RATE_LIMIT_WINDOW=3600
 
-# Granite LLM Configuration
-GRANITE_MODEL_ID=ibm/granite-3-8b-instruct
+# =============================================================================
+# PRODUCTION NOTES
+# =============================================================================
+# 1. IBM Granite is the ONLY LLM provider supported
+# 2. Ensure your IBM Watsonx.ai account has access to Granite models
+# 3. Set DEBUG_MODE=false in production
+# 4. Use a strong SECRET_KEY (32+ characters)
+# 5. Configure proper ALLOWED_HOSTS and CORS_ORIGINS for your domain
+# 6. Optional: Configure VirusTotal API for IOC enrichment
+# 7. Optional: Configure AWS S3 for file storage

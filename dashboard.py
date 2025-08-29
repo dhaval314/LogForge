@@ -40,6 +40,7 @@ from data_models import ForensicReport, LogEntry, SeverityLevel  # type: ignore
 from agents import ForensicOrchestrator  # type: ignore
 from config import Config  # type: ignore
 from llm_analysis import GraniteAnalyzer  # type: ignore
+from aws_s3_utils import get_s3_utils, is_s3_available  # type: ignore
 
 
 # -----------------------------------------------------------------------------
@@ -222,12 +223,13 @@ class ForensicDashboard:
         self._render_sidebar()
 
         # Tabs
-        tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
+        tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
             "Upload & Analyze",
             "Analysis Results",
             "Timeline View",
             "Reports",
             "Semantic Search",
+            "Saved Results",
             "File History",
         ])
 
@@ -242,6 +244,8 @@ class ForensicDashboard:
         with tab5:
             self._render_semantic_search_tab()
         with tab6:
+            self._render_saved_results_tab()
+        with tab7:
             self._render_file_history_tab()
 
     # ---------------------------------------------
@@ -301,48 +305,259 @@ class ForensicDashboard:
     def _render_upload_tab(self):
         st.header("Upload Log Files")
 
+        # S3 Status and Configuration
+        s3_available = is_s3_available()
+        if s3_available:
+            st.success("✅ AWS S3 is configured and available")
+        else:
+            st.info("ℹ️ AWS S3 is not configured. Files will be processed locally only.")
+            st.info("To enable S3, set AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and AWS_S3_BUCKET environment variables.")
+
+        # S3 File Selection (if available)
+        if s3_available:
+            st.subheader("📁 Select Files from S3")
+            
+            s3_utils = get_s3_utils()
+            s3_files = s3_utils.list_files()
+            
+            if s3_files:
+                selected_s3_file = st.selectbox(
+                    "Choose a file from S3",
+                    options=[""] + s3_files,
+                    format_func=lambda x: "Select a file..." if x == "" else x,
+                    help="Select a file from your S3 bucket to analyze"
+                )
+                
+                if selected_s3_file:
+                    col1, col2 = st.columns([3, 1])
+                    with col1:
+                        st.info(f"Selected: {selected_s3_file}")
+                    with col2:
+                        if st.button("Download & Analyze", key="s3_download_analyze"):
+                            with st.spinner(f"Downloading {selected_s3_file} from S3..."):
+                                try:
+                                    downloaded_path = s3_utils.download_file(key=selected_s3_file)
+                                    if downloaded_path:
+                                        st.success(f"Downloaded to: {downloaded_path}")
+                                        # Add to temp_files for analysis
+                                        if 'temp_files' not in st.session_state:
+                                            st.session_state.temp_files = []
+                                        st.session_state.temp_files.append(downloaded_path)
+                                        
+                                        # Add file info
+                                        if 'file_info' not in st.session_state:
+                                            st.session_state.file_info = []
+                                        file_info_item = {
+                                            "Name": selected_s3_file,
+                                            "Size": "Unknown",
+                                            "Type": "S3 File",
+                                            "Source": "S3 Bucket"
+                                        }
+                                        st.session_state.file_info.append(file_info_item)
+                                        st.rerun()
+                                    else:
+                                        st.error("Failed to download file from S3")
+                                except Exception as e:
+                                    st.error(f"Error downloading file: {e}")
+                                    logger.exception("S3 download error")
+            else:
+                st.info("No files found in S3 bucket")
+
+        # File upload section
+        st.subheader("📤 Upload Files")
+        
+        # ZIP file upload
+        zip_file = st.file_uploader(
+            "Upload ZIP file containing log files",
+            type=["zip"],
+            help="Upload a ZIP file containing multiple log files (network, system, process, services, etc.)",
+            key="zip_uploader"
+        )
+        
+        # Individual file upload
         uploaded_files = st.file_uploader(
-            "Choose log files",
+            "Or upload individual log files",
             accept_multiple_files=True,
             type=["csv", "json", "evtx", "log", "txt"],
             help="Supported formats: CSV, JSON, EVTX, LOG, TXT",
+            key="file_uploader"
         )
 
+        # Process uploaded files
+        temp_files: List[str] = []
+        file_info = []
+        zip_processor = None
+        zip_results = None
+        
+        # Add S3 files from session state
+        if 'temp_files' in st.session_state and st.session_state.temp_files:
+            temp_files.extend(st.session_state.temp_files)
+        if 'file_info' in st.session_state and st.session_state.file_info:
+            file_info.extend(st.session_state.file_info)
+        
+        # Handle ZIP file upload
+        if zip_file:
+            st.subheader("ZIP File Processing")
+            
+            try:
+                # Save ZIP file to temporary location
+                with tempfile.NamedTemporaryFile(delete=False, suffix=".zip") as tmp_zip:
+                    tmp_zip.write(zip_file.getbuffer())
+                    zip_path = tmp_zip.name
+                
+                # Process ZIP file
+                from zip_processor import ZIPProcessor
+                zip_processor = ZIPProcessor(max_file_size_mb=100, max_total_size_mb=500)
+                zip_results = zip_processor.extract_and_categorize(zip_path)
+                
+                if zip_results["success"]:
+                    st.success(f"Successfully extracted {zip_results['file_count']} files from ZIP")
+                    
+                    # Display ZIP summary
+                    with st.expander("ZIP Extraction Summary", expanded=True):
+                        st.text(zip_processor.generate_summary_report(zip_results))
+                    
+                    # Display categorized files
+                    st.subheader("Extracted Files by Category")
+                    
+                    for category, files in zip_results["categorized_files"].items():
+                        with st.expander(f"{category.title()} ({len(files)} files)", expanded=True):
+                            category_df = pd.DataFrame([
+                                {
+                                    "Name": f["name"],
+                                    "Size": f"{f['size_mb']:.2f} MB",
+                                    "Path": f["relative_path"]
+                                }
+                                for f in files
+                            ])
+                            st.dataframe(category_df, width='stretch')
+                    
+                    # Get readable files for analysis
+                    readable_files = zip_processor.get_readable_files(zip_results["extracted_files"])
+                    temp_files.extend(readable_files)
+                    
+                    # Add file info for display
+                    for file_info_item in zip_results["extracted_files"]:
+                        file_info.append({
+                            "Name": file_info_item["name"],
+                            "Size": f"{file_info_item['size_mb']:.2f} MB",
+                            "Type": file_info_item["category"].title(),
+                            "Source": "ZIP Archive"
+                        })
+                    
+                    # Upload ZIP contents to S3 if requested
+                    if s3_available and st.checkbox("Upload ZIP contents to S3", value=False, key="zip_s3_upload"):
+                        s3_utils = get_s3_utils()
+                        uploaded_count = 0
+                        for file_path in readable_files:
+                            try:
+                                file_name = Path(file_path).name
+                                s3_key = f"zip_extracts/{datetime.now().strftime('%Y%m%d_%H%M%S')}/{file_name}"
+                                if s3_utils.upload_file(file_path, key=s3_key):
+                                    uploaded_count += 1
+                            except Exception as e:
+                                logger.warning(f"Failed to upload {file_path} to S3: {e}")
+                        
+                        if uploaded_count > 0:
+                            st.success(f"✅ Uploaded {uploaded_count} files from ZIP to S3")
+                    
+                    # Clean up temporary ZIP file
+                    os.unlink(zip_path)
+                    
+                else:
+                    st.error(f"Failed to extract ZIP file: {zip_results['error']}")
+                    if zip_results["temp_dir"]:
+                        zip_processor.cleanup_temp_dir(zip_results["temp_dir"])
+                    
+            except Exception as e:
+                st.error(f"Error processing ZIP file: {str(e)}")
+                logger.exception("ZIP processing error")
+        
+        # Handle individual file uploads
         if uploaded_files:
-            st.subheader("Uploaded Files")
-
-            file_info = []
-            temp_files: List[str] = []
+            st.subheader("Individual Files")
+            
+            # S3 upload option
+            if s3_available:
+                upload_to_s3 = st.checkbox(
+                    "Upload files to S3 after processing",
+                    value=False,
+                    help="Upload processed files to your S3 bucket for future access"
+                )
+            else:
+                upload_to_s3 = False
+            
             for uploaded_file in uploaded_files:
                 with tempfile.NamedTemporaryFile(delete=False, suffix=f"_{uploaded_file.name}") as tmp_file:
                     tmp_file.write(uploaded_file.getbuffer())
                     temp_files.append(tmp_file.name)
+                    
+                    # Upload to S3 if requested
+                    if upload_to_s3 and s3_available:
+                        try:
+                            s3_utils = get_s3_utils()
+                            s3_key = f"uploads/{datetime.now().strftime('%Y%m%d_%H%M%S')}_{uploaded_file.name}"
+                            if s3_utils.upload_file(tmp_file.name, key=s3_key):
+                                st.success(f"✅ Uploaded {uploaded_file.name} to S3 as {s3_key}")
+                            else:
+                                st.warning(f"⚠️ Failed to upload {uploaded_file.name} to S3")
+                        except Exception as e:
+                            st.warning(f"⚠️ S3 upload error for {uploaded_file.name}: {e}")
+                            logger.exception(f"S3 upload error for {uploaded_file.name}")
 
                 file_info.append(
                     {
                         "Name": uploaded_file.name,
                         "Size": f"{len(uploaded_file.getbuffer()) / 1024:.1f} KB",
                         "Type": uploaded_file.type or "Unknown",
+                        "Source": "Direct Upload"
                     }
                 )
-
+        
+        # Display all files if any were uploaded
+        if file_info:
+            st.subheader("All Files for Analysis")
             df_files = pd.DataFrame(file_info)
             st.dataframe(df_files, width='stretch')
+            
+            # Check for EVTX files and show warning
+            evtx_files = [f for f in file_info if f["Type"].lower() == "evtx"]
+            if evtx_files and not skip_evtx:
+                st.warning("**EVTX files detected**: Windows Event Log files (.evtx) can cause parsing delays or timeouts. If analysis gets stuck, try enabling 'Skip EVTX Files' option above.")
+            
+            # Show file statistics
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.metric("Total Files", len(file_info))
+            with col2:
+                total_size = sum(float(f["Size"].split()[0]) for f in file_info if "MB" in f["Size"])
+                st.metric("Total Size", f"{total_size:.2f} MB")
+            with col3:
+                categories = set(f["Type"] for f in file_info)
+                st.metric("Categories", len(categories))
 
-            col1, col2, col3, col4 = st.columns([2, 1, 1, 1])
+            # Analysis controls
+            st.markdown("---")
+            st.subheader("Analysis Configuration")
+            
+            col1, col2, col3, col4, col5, col6 = st.columns([2, 1, 1, 1, 1, 1])
             with col1:
                 case_id = st.text_input("Case ID (optional)", placeholder="CASE_2025_001")
             with col2:
-                skip_dynamodb = st.checkbox("Skip DynamoDB", value=False, help="Skip storing logs for semantic search to speed up analysis")
+                skip_chromadb = st.checkbox("Skip ChromaDB", value=False, help="Skip storing logs for semantic search to speed up analysis")
             with col3:
+                skip_evtx = st.checkbox("Skip EVTX Files", value=False, help="Skip Windows Event Log files to avoid parsing issues. Enable if analysis gets stuck on .evtx files.")
+            with col4:
+                skip_rag = st.checkbox("Skip RAG Enrichment", value=False, help="Skip RAG enrichment to avoid hanging. Enable if analysis gets stuck at 'RAG enrichment completed successfully'.")
+            with col5:
                 processing_mode = st.selectbox(
                     "Processing Mode",
                     ["High Performance", "Standard"],
                     help="High Performance: Parallel processing for large datasets. Standard: Sequential processing for smaller datasets."
                 )
-            with col4:
+            with col6:
                 st.write("")
-                analyze_button = st.button("Start Analysis", type="primary", use_container_width=True)
+                analyze_button = st.button("Start Analysis", type="primary")
 
             if analyze_button:
                 with st.spinner("Running forensic analysis..."):
@@ -353,23 +568,20 @@ class ForensicDashboard:
                         status_text.text("Parsing log files and storing in DynamoDB...")
                         progress_bar.progress(25)
 
-                        # Store logs in DynamoDB for semantic search
+                        # Store logs in ChromaDB for semantic search
                         try:
-                            from ddb_bedrock_logs import ingest_logs, ingest_logs_high_performance
+                            from chromadb_logs import ingest_logs, ingest_logs_high_performance
                             
-                            # Test DynamoDB connection first
-                            status_text.text("Testing DynamoDB connection...")
+                            # Test ChromaDB connection first
+                            status_text.text("Testing ChromaDB connection...")
                             try:
-                                import boto3
-                                from botocore.exceptions import ClientError, NoCredentialsError
-                                
-                                # Test basic DynamoDB access
-                                ddb_test = boto3.client('dynamodb', region_name=os.getenv('AWS_REGION', 'us-east-1'))
-                                ddb_test.describe_table(TableName=os.getenv('DYNAMODB_TABLE_NAME', 'SecurityLogs'))
-                                st.success("DynamoDB connection verified")
-                            except (ClientError, NoCredentialsError) as e:
-                                st.error(f"DynamoDB connection failed: {str(e)[:100]}...")
-                                st.warning("Please check your AWS credentials and DynamoDB table configuration")
+                                from chromadb_logs import get_log_store
+                                log_store = get_log_store()
+                                stats = log_store.get_collection_stats()
+                                st.success(f"ChromaDB connection verified - {stats.get('total_logs', 0)} existing logs")
+                            except Exception as e:
+                                st.error(f"ChromaDB connection failed: {str(e)[:100]}...")
+                                st.warning("Please check your ChromaDB configuration")
                                 st.session_state["stored_logs_count"] = 0
                                 raise e
                             
@@ -395,9 +607,9 @@ class ForensicDashboard:
                             
                             st.info(f"Parsed {len(log_entries)} valid log entries")
                             
-                            if log_entries and not skip_dynamodb:
-                                # Store in DynamoDB with embeddings
-                                status_text.text("Generating embeddings and storing in DynamoDB...")
+                            if log_entries and not skip_chromadb:
+                                # Store in ChromaDB with embeddings
+                                status_text.text("Generating embeddings and storing in ChromaDB...")
                                 progress_bar.progress(35)
                                 
                                 try:
@@ -419,56 +631,100 @@ class ForensicDashboard:
                                         st.session_state["stored_logs_count"] = successful_count
                                         
                                         if failed_count > 0:
-                                            st.warning(f"Stored {successful_count} logs in DynamoDB, {failed_count} failed")
+                                            st.warning(f"Stored {successful_count} logs in ChromaDB, {failed_count} failed")
                                         else:
-                                            st.success(f"Stored {successful_count} logs in DynamoDB")
+                                            st.success(f"Stored {successful_count} logs in ChromaDB")
                                         
-                                        logger.info(f"Successfully stored {successful_count} log entries in DynamoDB using high-performance batching")
+                                        logger.info(f"Successfully stored {successful_count} log entries in ChromaDB using high-performance batching")
                                         progress_bar.progress(50)
                                     elif stored_items:
                                         # Regular function returned simple list
                                         st.session_state["stored_logs_count"] = len(stored_items)
-                                        logger.info(f"Successfully stored {len(stored_items)} log entries in DynamoDB")
-                                        st.success(f"Stored {len(stored_items)} logs in DynamoDB")
+                                        logger.info(f"Successfully stored {len(stored_items)} log entries in ChromaDB")
+                                        st.success(f"Stored {len(stored_items)} logs in ChromaDB")
                                         progress_bar.progress(50)
                                     else:
-                                        st.warning("No logs were stored in DynamoDB")
+                                        st.warning("No logs were stored in ChromaDB")
                                         st.session_state["stored_logs_count"] = 0
                                         
                                 except Exception as e:
-                                    logger.error(f"Failed to store logs in DynamoDB: {e}")
-                                    st.error(f"Failed to store logs in DynamoDB: {str(e)}")
+                                    logger.error(f"Failed to store logs in ChromaDB: {e}")
+                                    st.error(f"Failed to store logs in ChromaDB: {str(e)}")
                                     st.session_state["stored_logs_count"] = 0
-                                    # Continue with analysis even if DynamoDB fails
-                            elif skip_dynamodb:
-                                st.info("Skipping DynamoDB storage as requested")
+                                    # Continue with analysis even if ChromaDB fails
+                            elif skip_chromadb:
+                                st.info("Skipping ChromaDB storage as requested")
                                 st.session_state["stored_logs_count"] = 0
                             else:
                                 st.warning("No valid log entries found to store")
                                 st.session_state["stored_logs_count"] = 0
                                 
                         except Exception as e:
-                            logger.error(f"Failed to store logs in DynamoDB: {e}")
-                            st.warning("Logs could not be stored in DynamoDB for semantic search")
+                            logger.error(f"Failed to store logs in ChromaDB: {e}")
+                            st.warning("Logs could not be stored in ChromaDB for semantic search")
                             st.session_state["stored_logs_count"] = 0
 
                         # Track file history
-                        self._update_file_history(uploaded_files, case_id, len(log_entries) if 'log_entries' in locals() else 0)
+                        all_uploaded_files = []
+                        if zip_file:
+                            all_uploaded_files.append(zip_file)
+                        if uploaded_files:
+                            all_uploaded_files.extend(uploaded_files)
+                        
+                        self._update_file_history(all_uploaded_files, case_id, len(log_entries) if 'log_entries' in locals() else 0)
 
                         status_text.text("Running forensic investigation...")
                         progress_bar.progress(50)
 
-                        # Run investigation (your orchestrator should support file paths + settings)
-                        report = self.orchestrator.investigate(temp_files, case_id or None)
+                        # Run investigation with EVTX skip option
+                        if skip_evtx:
+                            # Create a new orchestrator with EVTX files skipped
+                            from agents import ForensicOrchestrator
+                            evtx_skip_orchestrator = ForensicOrchestrator(skip_evtx_files=True)
+                            report = evtx_skip_orchestrator.investigate(temp_files, case_id or None, skip_rag)
+                        else:
+                            # Use the default orchestrator
+                            report = self.orchestrator.investigate(temp_files, case_id or None, skip_rag)
 
                         status_text.text("Running AI analysis...")
                         progress_bar.progress(60)
 
+                        # Generate report (timeout handling is now in the RAG pipeline)
                         status_text.text("Generating report...")
                         progress_bar.progress(100)
 
                         st.session_state["forensic_report"] = report
                         st.session_state["analysis_complete"] = True
+
+                        # Save analysis result to database
+                        try:
+                            from results_storage import get_results_storage
+                            storage = get_results_storage()
+                            
+                            # Prepare analysis configuration
+                            analysis_config = {
+                                "processing_mode": processing_mode,
+                                "skip_chromadb": skip_chromadb,
+                                "max_entries": st.session_state.get("max_entries", Config.MAX_LOG_ENTRIES),
+                                "analysis_depth": st.session_state.get("analysis_depth", "Standard")
+                            }
+                            
+                            # Save the result
+                            analysis_id = storage.save_analysis_result(
+                                case_id=case_id or f"auto_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+                                case_name=case_id or "Auto-generated Case",
+                                analysis_result=report,
+                                file_paths=temp_files,
+                                zip_file_path=zip_file.name if zip_file else None,
+                                analysis_config=analysis_config
+                            )
+                            
+                            st.session_state["saved_analysis_id"] = analysis_id
+                            st.success(f"Analysis saved with ID: {analysis_id}")
+                            
+                        except Exception as e:
+                            logger.error(f"Failed to save analysis result: {e}")
+                            st.warning("Analysis completed but could not be saved to database")
 
                         # Cleanup temp files
                         for p in temp_files:
@@ -476,22 +732,66 @@ class ForensicDashboard:
                                 Path(p).unlink(missing_ok=True)
                             except Exception:
                                 pass
+                        
+                        # Cleanup ZIP extraction directory if it exists
+                        if zip_processor and zip_results and zip_results.get("temp_dir"):
+                            zip_processor.cleanup_temp_dir(zip_results["temp_dir"])
+                        
+                        # Cleanup S3 session state
+                        if 'temp_files' in st.session_state:
+                            del st.session_state.temp_files
+                        if 'file_info' in st.session_state:
+                            del st.session_state.file_info
+                        
+                        # Cleanup S3 session state
+                        if 'temp_files' in st.session_state:
+                            del st.session_state.temp_files
+                        if 'file_info' in st.session_state:
+                            del st.session_state.file_info
 
                         status_text.text("Analysis complete.")
                         success_msg = f"Forensic analysis completed. Case ID: {getattr(report, 'case_id', 'N/A')}"
                         if st.session_state.get("stored_logs_count"):
-                            success_msg += f" | {st.session_state['stored_logs_count']} logs stored in DynamoDB"
+                            success_msg += f" | {st.session_state['stored_logs_count']} logs stored in ChromaDB"
                         st.success(success_msg)
                     except Exception as e:  # pragma: no cover
                         st.error(f"Analysis failed: {e}")
                         logger.exception("Dashboard analysis error")
         else:
-            st.info("Upload log files to begin analysis")
+            st.info("Upload log files or a ZIP archive to begin analysis")
+            
+            # Show supported formats
+            st.markdown("---")
+            st.subheader("Supported Formats")
+            
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                st.markdown("**Individual Files:**")
+                st.markdown("• CSV files (.csv)")
+                st.markdown("• JSON files (.json)")
+                st.markdown("• Windows Event Logs (.evtx)")
+                st.markdown("• Log files (.log)")
+                st.markdown("• Text files (.txt)")
+            
+            with col2:
+                st.markdown("**ZIP Archives:**")
+                st.markdown("• Network logs (pcap, netflow)")
+                st.markdown("• System logs (syslog, events)")
+                st.markdown("• Process lists (tasklist, ps)")
+                st.markdown("• Service logs (daemon, init)")
+                st.markdown("• Authentication logs (auth, login)")
+                st.markdown("• Any combination of the above")
 
     # ---------------------------------------------
     # Analysis Results
     # ---------------------------------------------
     def _render_analysis_tab(self):
+        # Check if we're viewing a saved analysis
+        if st.session_state.get("view_analysis_id"):
+            self._render_saved_analysis(st.session_state["view_analysis_id"])
+            return
+        
         if not st.session_state.get("analysis_complete", False):
             st.info("Run analysis first to view results")
             return
@@ -553,7 +853,7 @@ class ForensicDashboard:
 
             if st.session_state.get("enable_charts") and len(df_iocs) > 0:
                 fig_iocs = px.pie(df_iocs, names="Type", title="IOCs by Type")
-                st.plotly_chart(fig_iocs, use_container_width=True)
+                st.plotly_chart(fig_iocs, width='stretch')
         else:
             st.info("No IOCs identified")
 
@@ -672,7 +972,7 @@ class ForensicDashboard:
                     title="Security Events Timeline",
                 )
                 fig.update_layout(height=600)
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width='stretch')
 
             st.subheader("Event Details")
             events_per_page = 10
@@ -749,7 +1049,7 @@ class ForensicDashboard:
         col1, col2 = st.columns(2)
         
         with col1:
-            st.info("**DynamoDB + Bedrock**: Your uploaded security logs with AI-generated embeddings")
+            st.info("**ChromaDB**: Your uploaded security logs with AI-generated embeddings")
             if st.session_state.get("stored_logs_count"):
                 st.success(f"**{st.session_state['stored_logs_count']} logs** available for search")
             else:
@@ -764,24 +1064,24 @@ class ForensicDashboard:
         # Manual log storage for testing
         st.subheader("Store Logs Manually (Testing)")
         
-        # Test DynamoDB connection
+        # Test ChromaDB connection
         col1, col2 = st.columns(2)
         with col1:
-            if st.button("Test DynamoDB Connection"):
+            if st.button("Test ChromaDB Connection"):
                 try:
-                    from ddb_bedrock_logs import search_logs
+                    from chromadb_logs import search_logs
                     # Try a simple search to test connection
                     results = search_logs("test", top_k=1)
-                    st.success("DynamoDB connection working!")
+                    st.success("ChromaDB connection working!")
                     st.info(f"Found {len(results)} existing logs")
                 except Exception as e:
-                    st.error(f"DynamoDB connection failed: {str(e)[:100]}...")
-                    logger.exception("DynamoDB connection test failed")
+                    st.error(f"ChromaDB connection failed: {str(e)[:100]}...")
+                    logger.exception("ChromaDB connection test failed")
         
         with col2:
             if st.button("Store Sample Security Logs"):
                 try:
-                    from ddb_bedrock_logs import ingest_logs
+                    from chromadb_logs import ingest_logs
                     
                     sample_logs = [
                         "2025-01-01 10:00:00 INFO User login succeeded for alice from 10.0.0.1",
@@ -797,7 +1097,7 @@ class ForensicDashboard:
                     with st.spinner("Storing sample logs with embeddings..."):
                         stored_items = ingest_logs(sample_logs)
                         st.session_state["stored_logs_count"] = len(stored_items)
-                        st.success(f"Stored {len(stored_items)} sample logs in DynamoDB")
+                        st.success(f"Stored {len(stored_items)} sample logs in ChromaDB")
                         
                 except Exception as e:
                     st.error(f"Failed to store sample logs: {e}")
@@ -819,10 +1119,10 @@ class ForensicDashboard:
 
         if search_query:
             try:
-                from ddb_bedrock_logs import search_logs
+                from chromadb_logs import search_logs
                 
                 with st.spinner("Searching logs with AI embeddings..."):
-                    # Search DynamoDB for similar logs
+                    # Search ChromaDB for similar logs
                     results = search_logs(search_query, top_k=10)
                 
                 if results:
@@ -956,6 +1256,178 @@ class ForensicDashboard:
 
         # Fallback
         st.dataframe(pd.DataFrame(edges))
+    
+    def _render_saved_analysis(self, analysis_id: int):
+        """Render a saved analysis from the database."""
+        try:
+            from results_storage import get_results_storage
+            storage = get_results_storage()
+            
+            analysis = storage.get_analysis_by_id(analysis_id)
+            if not analysis:
+                st.error(f"Analysis with ID {analysis_id} not found")
+                return
+            
+            # Header with back button
+            col1, col2 = st.columns([3, 1])
+            with col1:
+                st.header(f"Saved Analysis: {analysis['case_name']}")
+            with col2:
+                if st.button("← Back to Saved Results"):
+                    st.session_state.pop("view_analysis_id", None)
+                    st.rerun()
+            
+            st.markdown("---")
+            
+            # Analysis metadata
+            col1, col2, col3, col4 = st.columns(4)
+            with col1:
+                st.metric("Case ID", analysis['case_id'])
+            with col2:
+                st.metric("Analysis Date", analysis['created_at'][:19].replace("T", " "))
+            with col3:
+                st.metric("Files Analyzed", analysis['file_count'])
+            with col4:
+                st.metric("Log Entries", f"{analysis['log_entries_count']:,}")
+            
+            col1, col2, col3, col4 = st.columns(4)
+            with col1:
+                severity = analysis['severity'].upper() if analysis['severity'] else "UNKNOWN"
+                st.metric("Severity", severity)
+            with col2:
+                confidence = f"{analysis['confidence']:.1%}" if analysis['confidence'] else "N/A"
+                st.metric("Confidence", confidence)
+            with col3:
+                st.metric("IOCs Found", analysis['iocs_count'])
+            with col4:
+                st.metric("MITRE Mappings", analysis['mitre_mappings_count'])
+            
+            # Executive Summary
+            st.subheader("📋 Executive Summary")
+            st.info(analysis['executive_summary'])
+            
+            # Detailed Results
+            detailed_results = analysis.get('detailed_results', {})
+            
+            # IOCs
+            if detailed_results.get('iocs'):
+                st.subheader("Indicators of Compromise")
+                ioc_data = []
+                for ioc in detailed_results['iocs']:
+                    ioc_data.append({
+                        "Type": str(ioc.get('type', '')).upper(),
+                        "Value": str(ioc.get('value', '')),
+                        "Confidence": f"{ioc.get('confidence', 0):.1%}" if ioc.get('confidence') else "N/A",
+                        "Context": str(ioc.get('context', '')) or "N/A"
+                    })
+                
+                if ioc_data:
+                    df_iocs = pd.DataFrame(ioc_data)
+                    st.dataframe(df_iocs, width='stretch')
+                else:
+                    st.info("No IOCs identified")
+            
+            # MITRE ATT&CK
+            if detailed_results.get('mitre'):
+                st.subheader("MITRE ATT&CK Mapping")
+                mitre_data = []
+                for mapping in detailed_results['mitre']:
+                    mitre_data.append({
+                        "Tactic ID": mapping.get('tactic_id', ''),
+                        "Tactic": mapping.get('tactic_name', ''),
+                        "Technique ID": mapping.get('technique_id', 'N/A'),
+                        "Technique": mapping.get('technique_name', 'N/A'),
+                        "Confidence": f"{mapping.get('confidence', 0):.1%}" if mapping.get('confidence') else "N/A"
+                    })
+                
+                if mitre_data:
+                    df_mitre = pd.DataFrame(mitre_data)
+                    st.dataframe(df_mitre, width='stretch')
+                else:
+                    st.info("No MITRE ATT&CK mappings identified")
+            
+            # Recommendations
+            if detailed_results.get('recommendations'):
+                st.subheader("💡 Recommendations")
+                for i, rec in enumerate(detailed_results['recommendations'], 1):
+                    st.write(f"{i}. {rec}")
+            else:
+                st.subheader("💡 Recommendations")
+                st.info("No specific recommendations generated")
+            
+            # Timeline
+            if detailed_results.get('timeline'):
+                st.subheader("⏰ Event Timeline")
+                timeline_data = []
+                for event in detailed_results['timeline'][:100]:  # Show first 100 events
+                    timeline_data.append({
+                        "Timestamp": event.get('timestamp', ''),
+                        "Source": event.get('source', ''),
+                        "Severity": event.get('severity', ''),
+                        "Event Type": event.get('event_type', ''),
+                        "Message": event.get('message', '')[:100] + "..." if len(str(event.get('message', ''))) > 100 else event.get('message', '')
+                    })
+                
+                if timeline_data:
+                    df_timeline = pd.DataFrame(timeline_data)
+                    st.dataframe(df_timeline, width='stretch')
+                    
+                    if len(detailed_results['timeline']) > 100:
+                        st.info(f"Showing first 100 of {len(detailed_results['timeline'])} timeline events")
+                else:
+                    st.info("No timeline data available")
+            
+            # File Information
+            if analysis.get('files'):
+                st.subheader("Analyzed Files")
+                file_data = []
+                for file_info in analysis['files']:
+                    file_data.append({
+                        "Name": file_info['original_name'],
+                        "Type": file_info['file_type'],
+                        "Category": file_info['file_category'],
+                        "Size": f"{file_info['file_size'] / (1024*1024):.2f} MB"
+                    })
+                
+                df_files = pd.DataFrame(file_data)
+                st.dataframe(df_files, width='stretch')
+            
+            # Analysis Configuration
+            if analysis.get('analysis_config'):
+                st.subheader("Analysis Configuration")
+                config = analysis['analysis_config']
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.write(f"**Processing Mode:** {config.get('processing_mode', 'N/A')}")
+                    st.write(f"**Skip ChromaDB:** {config.get('skip_chromadb', 'N/A')}")
+                with col2:
+                    st.write(f"**Max Entries:** {config.get('max_entries', 'N/A')}")
+                    st.write(f"**Analysis Depth:** {config.get('analysis_depth', 'N/A')}")
+            
+            # Action buttons
+            st.markdown("---")
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                if st.button("📥 Download Report", key=f"download_saved_{analysis_id}"):
+                    st.info("Download functionality coming soon!")
+            
+            with col2:
+                if st.button("🔄 Re-analyze", key=f"reanalyze_saved_{analysis_id}"):
+                    st.info("Re-analysis functionality coming soon!")
+            
+            with col3:
+                if st.button("Delete Analysis", key=f"delete_saved_{analysis_id}"):
+                    if storage.delete_analysis(analysis_id):
+                        st.success("Analysis deleted successfully!")
+                        st.session_state.pop("view_analysis_id", None)
+                        st.rerun()
+                    else:
+                        st.error("Failed to delete analysis")
+                        
+        except Exception as e:
+            st.error(f"Error loading saved analysis: {e}")
+            logger.exception("Error in saved analysis view")
 
     def _update_file_history(self, uploaded_files, case_id: str, log_count: int):
         """Update file history with newly uploaded files."""
@@ -1009,6 +1481,145 @@ class ForensicDashboard:
         """Get the current file history."""
         return st.session_state.get("file_history", [])
 
+    def _render_saved_results_tab(self):
+        """Render the saved results tab."""
+        st.header("Saved Analysis Results")
+        st.markdown("---")
+        
+        try:
+            from results_storage import get_results_storage
+            storage = get_results_storage()
+            
+            # Get statistics
+            stats = storage.get_statistics()
+            
+            # Display statistics
+            col1, col2, col3, col4 = st.columns(4)
+            with col1:
+                st.metric("Total Analyses", stats.get('total_analyses', 0))
+            with col2:
+                st.metric("Recent (30 days)", stats.get('recent_analyses', 0))
+            with col3:
+                st.metric("Total Files", stats.get('total_files', 0))
+            with col4:
+                st.metric("Total IOCs", stats.get('total_iocs', 0))
+            
+            # Search and filter controls
+            st.markdown("---")
+            col1, col2, col3 = st.columns([2, 1, 1])
+            
+            with col1:
+                search_query = st.text_input(
+                    "Search analyses",
+                    placeholder="Search by case ID, case name, or content...",
+                    help="Search through saved analysis results"
+                )
+            
+            with col2:
+                if st.button("Search"):
+                    st.session_state["search_results"] = storage.search_analyses(search_query) if search_query else []
+                    st.session_state["show_search_results"] = True
+            
+            with col3:
+                if st.button("🔄 Refresh"):
+                    st.rerun()
+            
+            # Display results
+            if st.session_state.get("show_search_results") and st.session_state.get("search_results"):
+                st.subheader(f"Search Results ({len(st.session_state['search_results'])} found)")
+                analyses = st.session_state["search_results"]
+            else:
+                st.subheader("📋 Recent Analyses")
+                analyses = storage.get_all_analyses(limit=20)
+            
+            if analyses:
+                # Create DataFrame for display
+                display_data = []
+                for analysis in analyses:
+                    display_data.append({
+                        "ID": analysis['id'],
+                        "Case ID": analysis['case_id'],
+                        "Case Name": analysis['case_name'],
+                        "Date": analysis['created_at'][:19].replace("T", " "),
+                        "Files": analysis['file_count'],
+                        "Log Entries": f"{analysis['log_entries_count']:,}",
+                        "Severity": analysis['severity'].upper() if analysis['severity'] else "UNKNOWN",
+                        "Confidence": f"{analysis['confidence']:.1%}" if analysis['confidence'] else "N/A",
+                        "IOCs": analysis['iocs_count'],
+                        "MITRE": analysis['mitre_mappings_count']
+                    })
+                
+                df_analyses = pd.DataFrame(display_data)
+                st.dataframe(df_analyses, width='stretch', hide_index=True)
+                
+                # Analysis details
+                st.subheader("📄 Analysis Details")
+                
+                for analysis in analyses:
+                    with st.expander(f"{analysis['case_name']} (ID: {analysis['id']}) - {analysis['created_at'][:19].replace('T', ' ')}"):
+                        col1, col2 = st.columns(2)
+                        
+                        with col1:
+                            st.write(f"**Case ID:** {analysis['case_id']}")
+                            st.write(f"**Analysis Date:** {analysis['created_at'][:19].replace('T', ' ')}")
+                            st.write(f"**Files Analyzed:** {analysis['file_count']}")
+                            st.write(f"**Log Entries:** {analysis['log_entries_count']:,}")
+                            st.write(f"**Severity:** {analysis['severity'].upper() if analysis['severity'] else 'UNKNOWN'}")
+                            st.write(f"**Confidence:** {analysis['confidence']:.1%}" if analysis['confidence'] else "**Confidence:** N/A")
+                        
+                        with col2:
+                            st.write(f"**IOCs Found:** {analysis['iocs_count']}")
+                            st.write(f"**MITRE Mappings:** {analysis['mitre_mappings_count']}")
+                            st.write(f"**Recommendations:** {analysis['recommendations_count']}")
+                            if analysis.get('zip_file_path'):
+                                st.write(f"**ZIP File:** {analysis['zip_file_path']}")
+                            st.write(f"**Status:** {analysis['status']}")
+                        
+                        # Executive summary
+                        st.markdown("---")
+                        st.write("**Executive Summary:**")
+                        st.info(analysis['executive_summary'])
+                        
+                        # Action buttons
+                        col1, col2, col3 = st.columns(3)
+                        
+                        with col1:
+                            if st.button(f"View Full Report", key=f"view_{analysis['id']}"):
+                                st.session_state["view_analysis_id"] = analysis['id']
+                                st.rerun()
+                        
+                        with col2:
+                            if st.button(f"📥 Download Report", key=f"download_{analysis['id']}"):
+                                # TODO: Implement download functionality
+                                st.info("Download functionality coming soon!")
+                        
+                        with col3:
+                            if st.button(f"Delete", key=f"delete_{analysis['id']}"):
+                                if storage.delete_analysis(analysis['id']):
+                                    st.success(f"Analysis {analysis['id']} deleted successfully!")
+                                    st.rerun()
+                                else:
+                                    st.error("Failed to delete analysis")
+            
+            else:
+                st.info("📭 No saved analyses found. Run an analysis first to see results here.")
+                
+                # Show example of what will be saved
+                st.markdown("---")
+                st.subheader("💡 What gets saved?")
+                st.markdown("""
+                When you run an analysis, the following information is automatically saved:
+                - **Case details** (ID, name, date)
+                - **Analysis results** (IOCs, MITRE mappings, recommendations)
+                - **File information** (names, types, categories)
+                - **Timeline data** (event sequences)
+                - **Configuration** (analysis settings used)
+                """)
+                
+        except Exception as e:
+            st.error(f"Error loading saved results: {e}")
+            logger.exception("Error in saved results tab")
+    
     def _render_file_history_tab(self):
         """Render the file history tab."""
         st.header("File History")
@@ -1021,11 +1632,11 @@ class ForensicDashboard:
             st.subheader("Previously Uploaded Files")
         
         with col2:
-            if st.button("Refresh History", use_container_width=True):
+            if st.button("Refresh History"):
                 st.rerun()
         
         with col3:
-            if st.button("Clear History", use_container_width=True):
+            if st.button("Clear History"):
                 if st.session_state.get("file_history"):
                     st.session_state["file_history"] = []
                     st.success("File history cleared!")
@@ -1110,7 +1721,7 @@ class ForensicDashboard:
                 })
             
             df_files = pd.DataFrame(display_data)
-            st.dataframe(df_files, use_container_width=True, hide_index=True)
+            st.dataframe(df_files, width='stretch', hide_index=True)
             
             # File details in expandable sections
             st.subheader("File Details")
@@ -1129,7 +1740,7 @@ class ForensicDashboard:
                         st.write(f"**Upload Time:** {file_info['upload_time'][:19].replace('T', ' ')}")
                         st.write(f"**Log Entries:** {file_info['log_entries_processed']:,}")
                         st.write(f"**Analysis Status:** {file_info['status']}")
-                        st.write(f"**Analysis Completed:** {'✅ Yes' if file_info['analysis_completed'] else '❌ No'}")
+                        st.write(f"**Analysis Completed:** {'Yes' if file_info['analysis_completed'] else 'No'}")
                     
                     # Action buttons
                     col1, col2, col3 = st.columns(3)
@@ -1167,7 +1778,7 @@ class ForensicDashboard:
                     data=csv_data,
                     file_name=f"file_history_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
                     mime="text/csv",
-                    use_container_width=True
+                    width='stretch'
                 )
         
         with col2:
@@ -1179,7 +1790,7 @@ class ForensicDashboard:
                     data=json_data,
                     file_name=f"file_history_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
                     mime="application/json",
-                    use_container_width=True
+                    width='stretch'
                 )
 
 

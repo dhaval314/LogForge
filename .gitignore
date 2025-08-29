@@ -1,3 +1,152 @@
+# Environment and configuration files
 .env
+.env.local
+.env.production
+.env.staging
+*.env
+
+# Python
 __pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# IDE and editor files
 .vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+logs/
+*.log
+*.log.*
+temp/
+tmp/
+.tmp/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+chroma_db/
+forensic_results.db
+
+# Data and analysis files
+demo_data/
+reports/
+output/
+results/
+*.csv
+*.json
+*.xml
+*.yaml
+*.yml
+
+# Security and sensitive files
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+secrets/
+credentials/
+api_keys.txt
+
+# AWS and cloud files
+.aws/
+aws_credentials
+aws_config
+
+# Backup files
+*.backup
+*.bak
+*.old
+*.orig
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Application specific
+chroma_db/
+forensic_results.db
+logs/
+demo_data/
+reports/
+temp/
+uploads/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# PEP 582
+__pypackages__/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Production deployment files
+docker-compose.override.yml
+docker-compose.prod.yml

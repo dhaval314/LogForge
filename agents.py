@@ -61,9 +61,9 @@ class BaseAgent:
 class LogParserAgent(BaseAgent):
     """Agent responsible for parsing and normalizing log files."""
     
-    def __init__(self):
+    def __init__(self, skip_evtx_files=False):
         super().__init__("Log_Parser_Agent")
-        self.parser = LogParser()
+        self.parser = LogParser(skip_evtx_files=skip_evtx_files)
     
     def execute(self, state: InvestigationState) -> InvestigationState:
         """Parse log files and normalize them."""
@@ -172,8 +172,23 @@ class EnrichmentAgent(BaseAgent):
                 self.log_error("No initial analysis available for enrichment", state)
                 return state
             
-            # RAG enrichment
-            enriched_analysis = self.rag_pipeline.enrich_analysis(initial_analysis)
+            # Check if RAG enrichment should be skipped
+            skip_rag = state.get("skip_rag", False)
+            
+            if skip_rag:
+                self.logger.info("Skipping RAG enrichment as requested")
+                # Create minimal enriched analysis without RAG
+                from data_models import EnrichedAnalysis
+                enriched_analysis = EnrichedAnalysis(
+                    initial_analysis=initial_analysis,
+                    enrichments=[],
+                    enhanced_summary=initial_analysis.summary,
+                    attack_chain=["Attack chain analysis skipped"],
+                    recommendations=["Manual review recommended due to RAG enrichment being disabled"]
+                )
+            else:
+                # RAG enrichment
+                enriched_analysis = self.rag_pipeline.enrich_analysis(initial_analysis)
             
             # VirusTotal enrichment for IOCs
             for ioc in initial_analysis.iocs:
@@ -285,8 +300,15 @@ class ReportingAgent(BaseAgent):
     def _create_event_timeline(self, parsed_logs: List[LogEntry]) -> List[Dict[str, Any]]:
         """Create a chronological timeline of events."""
         try:
-            # Sort logs by timestamp
-            sorted_logs = sorted(parsed_logs, key=lambda x: x.timestamp)
+            # Sort logs by timestamp, ensuring all timestamps are timezone-naive for comparison
+            def get_sortable_timestamp(log_entry):
+                timestamp = log_entry.timestamp
+                # If timestamp is timezone-aware, convert to naive
+                if timestamp.tzinfo is not None:
+                    return timestamp.replace(tzinfo=None)
+                return timestamp
+            
+            sorted_logs = sorted(parsed_logs, key=get_sortable_timestamp)
             
             timeline = []
             for i, log_entry in enumerate(sorted_logs):
@@ -355,10 +377,10 @@ class ReportingAgent(BaseAgent):
 class ForensicOrchestrator:
     """Main orchestrator for the forensic investigation workflow."""
     
-    def __init__(self):
+    def __init__(self, skip_evtx_files=False):
         self.logger = logger.bind(component="orchestrator")
         self.agents = {
-            "parser": LogParserAgent(),
+            "parser": LogParserAgent(skip_evtx_files=skip_evtx_files),
             "analyzer": InitialAnalysisAgent(),
             "enricher": EnrichmentAgent(),
             "reporter": ReportingAgent()
@@ -399,13 +421,14 @@ class ForensicOrchestrator:
             self.logger.error(f"Failed to initialize LangGraph workflow: {e}")
             self.workflow = None
     
-    def investigate(self, log_files: List[str], case_id: str = None) -> ForensicReport:
+    def investigate(self, log_files: List[str], case_id: str = None, skip_rag: bool = False) -> ForensicReport:
         """
         Run complete forensic investigation.
         
         Args:
             log_files: List of log file paths to analyze
             case_id: Optional case ID for tracking
+            skip_rag: Whether to skip RAG enrichment
             
         Returns:
             Complete forensic report
@@ -424,7 +447,8 @@ class ForensicOrchestrator:
             "final_report": None,
             "timeline": [],
             "messages": [],
-            "errors": []
+            "errors": [],
+            "skip_rag": skip_rag
         }
         
         try:
