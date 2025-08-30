@@ -18,6 +18,8 @@ import pandas as pd
 import streamlit as st
 import streamlit.components.v1 as components
 import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 from loguru import logger
 
 try:
@@ -196,6 +198,638 @@ class ReportGenerator:
     def generate_json(self, report: ForensicReport) -> bytes:
         return _pretty_json(report).encode("utf-8")
 
+    def generate_html_report(self, report: ForensicReport) -> str:
+        """Generate a comprehensive HTML report with embedded charts."""
+        html_content = f"""
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Forensic Analysis Report - {getattr(report, 'case_id', 'Case')}</title>
+            <style>
+                body {{ font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }}
+                .header {{ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 30px; }}
+                .metric {{ background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #007bff; }}
+                .section {{ margin: 30px 0; }}
+                .section h2 {{ color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px; }}
+                .ioc-item {{ background: #fff3cd; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #ffc107; }}
+                .mitre-item {{ background: #d1ecf1; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #17a2b8; }}
+                .recommendation {{ background: #d4edda; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #28a745; }}
+                .grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 20px 0; }}
+                .chart-container {{ background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin: 20px 0; }}
+                table {{ width: 100%; border-collapse: collapse; margin: 20px 0; }}
+                th, td {{ padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }}
+                th {{ background-color: #f2f2f2; font-weight: bold; }}
+                .severity-critical {{ color: #dc3545; font-weight: bold; }}
+                .severity-high {{ color: #fd7e14; font-weight: bold; }}
+                .severity-medium {{ color: #ffc107; font-weight: bold; }}
+                .severity-low {{ color: #28a745; font-weight: bold; }}
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>🔍 Forensic AI Log Analyzer Report</h1>
+                <p><strong>Case ID:</strong> {getattr(report, 'case_id', 'N/A')}</p>
+                <p><strong>Generated:</strong> {datetime.utcnow().strftime("%Y-%m-%d %H:%M:%SZ")}</p>
+            </div>
+
+            <div class="section">
+                <h2>📋 Executive Summary</h2>
+                <div class="metric">
+                    {getattr(report, 'executive_summary', 'No summary available.')}
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📊 Key Metrics</h2>
+                <div class="grid">
+                    <div class="metric">
+                        <h3>Total Events</h3>
+                        <p style="font-size: 24px; font-weight: bold; color: #007bff;">{getattr(report, 'total_events', 0):,}</p>
+                    </div>
+                    <div class="metric">
+                        <h3>Severity</h3>
+                        <p style="font-size: 24px; font-weight: bold; color: #dc3545;">{str(getattr(getattr(report.analysis.initial_analysis, 'severity', ''), 'value', 'N/A')).upper() if getattr(report, 'analysis', None) and getattr(report.analysis, 'initial_analysis', None) else 'N/A'}</p>
+                    </div>
+                    <div class="metric">
+                        <h3>Confidence</h3>
+                        <p style="font-size: 24px; font-weight: bold; color: #28a745;">{f"{getattr(getattr(report.analysis.initial_analysis, 'confidence', 0.0), '__float__', lambda: report.analysis.initial_analysis.confidence)():.1%}" if getattr(report, 'analysis', None) and getattr(report.analysis, 'initial_analysis', None) else 'N/A'}</p>
+                    </div>
+                </div>
+            </div>
+        """
+
+        # Add IOCs section
+        iocs = getattr(getattr(report.analysis, 'initial_analysis', {}), 'iocs', []) if getattr(report, 'analysis', None) else []
+        if iocs:
+            html_content += """
+            <div class="section">
+                <h2>🚨 Indicators of Compromise</h2>
+            """
+            for ioc in iocs:
+                conf = getattr(ioc, 'confidence', None)
+                confidence_str = f"{float(conf):.1%}" if conf is not None else "N/A"
+                html_content += f"""
+                <div class="ioc-item">
+                    <h4>{str(getattr(ioc, 'type', '')).upper()}</h4>
+                    <p><strong>Value:</strong> {str(getattr(ioc, 'value', ''))}</p>
+                    <p><strong>Confidence:</strong> {confidence_str}</p>
+                    <p><strong>Context:</strong> {str(getattr(ioc, 'context', ''))}</p>
+                </div>
+                """
+            html_content += "</div>"
+
+        # Add MITRE section
+        mappings = getattr(getattr(report.analysis, 'initial_analysis', {}), 'mitre_mappings', []) if getattr(report, 'analysis', None) else []
+        if mappings:
+            html_content += """
+            <div class="section">
+                <h2>🎯 MITRE ATT&CK Mapping</h2>
+            """
+            for m in mappings:
+                conf = getattr(m, 'confidence', None)
+                confidence_str = f"{float(conf):.1%}" if conf is not None else "N/A"
+                html_content += f"""
+                <div class="mitre-item">
+                    <h4>{getattr(m, 'tactic_name', '')} ({getattr(m, 'tactic_id', '')})</h4>
+                    <p><strong>Technique:</strong> {getattr(m, 'technique_name', 'N/A')} ({getattr(m, 'technique_id', 'N/A')})</p>
+                    <p><strong>Confidence:</strong> {confidence_str}</p>
+                </div>
+                """
+            html_content += "</div>"
+
+        # Add recommendations
+        recs = getattr(getattr(report, 'analysis', {}), 'recommendations', [])
+        if recs:
+            html_content += """
+            <div class="section">
+                <h2>💡 Recommendations</h2>
+            """
+            for i, r in enumerate(recs, 1):
+                html_content += f"""
+                <div class="recommendation">
+                    <p><strong>{i}.</strong> {r}</p>
+                </div>
+                """
+            html_content += "</div>"
+
+        # Add timeline section
+        timeline = getattr(report, 'timeline', []) or []
+        if timeline:
+            html_content += """
+            <div class="section">
+                <h2>⏰ Event Timeline (Recent Events)</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Source</th>
+                            <th>Severity</th>
+                            <th>Event Type</th>
+                            <th>Message</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            """
+            for ev in timeline[:50]:  # Show first 50 events
+                severity_class = f"severity-{ev.get('severity', 'info')}"
+                html_content += f"""
+                    <tr>
+                        <td>{ev.get('timestamp', '')}</td>
+                        <td>{ev.get('source', '')}</td>
+                        <td class="{severity_class}">{ev.get('severity', '').upper()}</td>
+                        <td>{ev.get('event_type', '')}</td>
+                        <td>{ev.get('message', '')[:100]}{'...' if len(str(ev.get('message', ''))) > 100 else ''}</td>
+                    </tr>
+                """
+            html_content += """
+                    </tbody>
+                </table>
+            </div>
+            """
+
+        html_content += """
+        </body>
+        </html>
+        """
+        
+        return html_content
+
+
+# -----------------------------------------------------------------------------
+# Chart Generator
+# -----------------------------------------------------------------------------
+class ChartGenerator:
+    """Generates comprehensive charts and visualizations for forensic analysis."""
+
+    def __init__(self):
+        self.color_scheme = {
+            'critical': '#FF0000',
+            'high': '#FF6B6B', 
+            'medium': '#FFA500',
+            'low': '#FFD700',
+            'info': '#87CEEB',
+            'success': '#32CD32',
+            'warning': '#FFA500',
+            'error': '#DC143C'
+        }
+
+    def generate_severity_distribution(self, timeline_data: List[Dict[str, Any]]) -> go.Figure:
+        """Generate severity distribution chart."""
+        if not timeline_data:
+            return self._create_empty_chart("No timeline data available")
+        
+        # Count severity levels
+        severity_counts = {}
+        for event in timeline_data:
+            severity = event.get('severity', 'unknown').lower()
+            severity_counts[severity] = severity_counts.get(severity, 0) + 1
+        
+        if not severity_counts:
+            return self._create_empty_chart("No severity data found")
+        
+        # Create pie chart
+        fig = go.Figure(data=[go.Pie(
+            labels=list(severity_counts.keys()),
+            values=list(severity_counts.values()),
+            hole=0.4,
+            marker_colors=[self.color_scheme.get(sev, '#808080') for sev in severity_counts.keys()]
+        )])
+        
+        fig.update_layout(
+            title="Event Severity Distribution",
+            title_x=0.5,
+            showlegend=True,
+            height=400,
+            margin=dict(t=50, b=50, l=50, r=50)
+        )
+        
+        return fig
+
+    def generate_timeline_heatmap(self, timeline_data: List[Dict[str, Any]]) -> go.Figure:
+        """Generate timeline heatmap showing event density over time."""
+        if not timeline_data:
+            return self._create_empty_chart("No timeline data available")
+        
+        # Extract timestamps and create hourly bins
+        timestamps = []
+        for event in timeline_data:
+            try:
+                ts = pd.to_datetime(event.get('timestamp', ''))
+                timestamps.append(ts)
+            except:
+                continue
+        
+        if not timestamps:
+            return self._create_empty_chart("No valid timestamps found")
+        
+        # Create hourly bins
+        df = pd.DataFrame({'timestamp': timestamps})
+        df['hour'] = df['timestamp'].dt.hour
+        df['day'] = df['timestamp'].dt.date
+        
+        # Count events per hour per day
+        heatmap_data = df.groupby(['day', 'hour']).size().unstack(fill_value=0)
+        
+        fig = go.Figure(data=go.Heatmap(
+            z=heatmap_data.values,
+            x=heatmap_data.columns,
+            y=heatmap_data.index,
+            colorscale='Reds',
+            showscale=True
+        ))
+        
+        fig.update_layout(
+            title="Event Timeline Heatmap (Events per Hour)",
+            xaxis_title="Hour of Day",
+            yaxis_title="Date",
+            height=400,
+            margin=dict(t=50, b=50, l=50, r=50)
+        )
+        
+        return fig
+
+    def generate_source_analysis(self, timeline_data: List[Dict[str, Any]]) -> go.Figure:
+        """Generate source analysis chart showing events by source."""
+        if not timeline_data:
+            return self._create_empty_chart("No timeline data available")
+        
+        # Count events by source
+        source_counts = {}
+        for event in timeline_data:
+            source = event.get('source', 'unknown')
+            source_counts[source] = source_counts.get(source, 0) + 1
+        
+        if not source_counts:
+            return self._create_empty_chart("No source data found")
+        
+        # Create bar chart
+        sources = list(source_counts.keys())
+        counts = list(source_counts.values())
+        
+        fig = go.Figure(data=[go.Bar(
+            x=sources,
+            y=counts,
+            marker_color='lightblue',
+            text=counts,
+            textposition='auto'
+        )])
+        
+        fig.update_layout(
+            title="Events by Source",
+            xaxis_title="Source",
+            yaxis_title="Event Count",
+            height=400,
+            margin=dict(t=50, b=100, l=50, r=50),
+            xaxis_tickangle=-45
+        )
+        
+        return fig
+
+    def generate_ioc_analysis(self, iocs: List[Any]) -> go.Figure:
+        """Generate IOC analysis chart."""
+        if not iocs:
+            return self._create_empty_chart("No IOCs found")
+        
+        # Extract IOC data
+        ioc_types = {}
+        ioc_confidence = []
+        
+        for ioc in iocs:
+            ioc_type = str(getattr(ioc, 'type', 'unknown')).upper()
+            confidence = float(getattr(ioc, 'confidence', 0.0))
+            
+            ioc_types[ioc_type] = ioc_types.get(ioc_type, 0) + 1
+            ioc_confidence.append(confidence)
+        
+        if not ioc_types:
+            return self._create_empty_chart("No valid IOC data found")
+        
+        # Create subplot with pie chart and histogram
+        fig = make_subplots(
+            rows=1, cols=2,
+            subplot_titles=('IOCs by Type', 'IOC Confidence Distribution'),
+            specs=[[{"type": "pie"}, {"type": "histogram"}]]
+        )
+        
+        # Pie chart
+        fig.add_trace(
+            go.Pie(
+                labels=list(ioc_types.keys()),
+                values=list(ioc_types.values()),
+                hole=0.3
+            ),
+            row=1, col=1
+        )
+        
+        # Histogram
+        fig.add_trace(
+            go.Histogram(
+                x=ioc_confidence,
+                nbinsx=10,
+                marker_color='lightgreen'
+            ),
+            row=1, col=2
+        )
+        
+        fig.update_layout(
+            title="IOC Analysis",
+            height=400,
+            margin=dict(t=50, b=50, l=50, r=50)
+        )
+        
+        return fig
+
+    def generate_mitre_analysis(self, mitre_mappings: List[Any]) -> go.Figure:
+        """Generate MITRE ATT&CK analysis chart."""
+        if not mitre_mappings:
+            return self._create_empty_chart("No MITRE mappings found")
+        
+        # Extract MITRE data
+        tactic_counts = {}
+        technique_counts = {}
+        confidence_scores = []
+        
+        for mapping in mitre_mappings:
+            tactic = str(getattr(mapping, 'tactic_name', 'Unknown'))
+            technique = str(getattr(mapping, 'technique_name', 'Unknown'))
+            confidence = float(getattr(mapping, 'confidence', 0.0))
+            
+            tactic_counts[tactic] = tactic_counts.get(tactic, 0) + 1
+            technique_counts[technique] = technique_counts.get(technique, 0) + 1
+            confidence_scores.append(confidence)
+        
+        if not tactic_counts:
+            return self._create_empty_chart("No valid MITRE data found")
+        
+        # Create subplot
+        fig = make_subplots(
+            rows=2, cols=1,
+            subplot_titles=('MITRE Tactics Distribution', 'MITRE Confidence Distribution'),
+            vertical_spacing=0.1
+        )
+        
+        # Tactics bar chart
+        fig.add_trace(
+            go.Bar(
+                x=list(tactic_counts.keys()),
+                y=list(tactic_counts.values()),
+                marker_color='lightcoral',
+                text=list(tactic_counts.values()),
+                textposition='auto'
+            ),
+            row=1, col=1
+        )
+        
+        # Confidence histogram
+        fig.add_trace(
+            go.Histogram(
+                x=confidence_scores,
+                nbinsx=10,
+                marker_color='lightblue'
+            ),
+            row=2, col=1
+        )
+        
+        fig.update_layout(
+            title="MITRE ATT&CK Analysis",
+            height=600,
+            margin=dict(t=50, b=50, l=50, r=50),
+            xaxis_tickangle=-45
+        )
+        
+        return fig
+
+    def generate_event_timeline(self, timeline_data: List[Dict[str, Any]]) -> go.Figure:
+        """Generate interactive event timeline."""
+        if not timeline_data:
+            return self._create_empty_chart("No timeline data available")
+        
+        # Prepare data
+        timestamps = []
+        sources = []
+        severities = []
+        messages = []
+        
+        for event in timeline_data:
+            try:
+                ts = pd.to_datetime(event.get('timestamp', ''))
+                timestamps.append(ts)
+                sources.append(event.get('source', 'unknown'))
+                severities.append(event.get('severity', 'info'))
+                messages.append(event.get('message', '')[:100] + '...' if len(str(event.get('message', ''))) > 100 else event.get('message', ''))
+            except:
+                continue
+        
+        if not timestamps:
+            return self._create_empty_chart("No valid timestamps found")
+        
+        # Create scatter plot
+        fig = go.Figure()
+        
+        # Add traces for each severity level
+        severity_levels = ['critical', 'high', 'medium', 'low', 'info']
+        for severity in severity_levels:
+            mask = [s == severity for s in severities]
+            if any(mask):
+                fig.add_trace(go.Scatter(
+                    x=[timestamps[i] for i in range(len(timestamps)) if mask[i]],
+                    y=[sources[i] for i in range(len(sources)) if mask[i]],
+                    mode='markers',
+                    name=severity.upper(),
+                    marker=dict(
+                        size=10,
+                        color=self.color_scheme.get(severity, '#808080'),
+                        opacity=0.7
+                    ),
+                    text=[messages[i] for i in range(len(messages)) if mask[i]],
+                    hovertemplate='<b>%{text}</b><br>Time: %{x}<br>Source: %{y}<br>Severity: ' + severity.upper() + '<extra></extra>'
+                ))
+        
+        fig.update_layout(
+            title="Event Timeline",
+            xaxis_title="Time",
+            yaxis_title="Source",
+            height=500,
+            margin=dict(t=50, b=50, l=50, r=50),
+            hovermode='closest'
+        )
+        
+        return fig
+
+    def generate_attack_chain_visualization(self, attack_chain: List[str]) -> go.Figure:
+        """Generate attack chain visualization."""
+        if not attack_chain:
+            return self._create_empty_chart("No attack chain data available")
+        
+        # Create sankey diagram for attack flow
+        fig = go.Figure(data=[go.Sankey(
+            node=dict(
+                pad=15,
+                thickness=20,
+                line=dict(color="black", width=0.5),
+                label=attack_chain,
+                color="blue"
+            ),
+            link=dict(
+                source=[i for i in range(len(attack_chain)-1)],
+                target=[i+1 for i in range(len(attack_chain)-1)],
+                value=[1] * (len(attack_chain)-1)
+            )
+        )])
+        
+        fig.update_layout(
+            title="Attack Chain Flow",
+            font_size=10,
+            height=400,
+            margin=dict(t=50, b=50, l=50, r=50)
+        )
+        
+        return fig
+
+    def generate_comprehensive_dashboard(self, report: ForensicReport) -> List[go.Figure]:
+        """Generate comprehensive dashboard with all charts."""
+        charts = []
+        
+        # Get data from report
+        timeline_data = getattr(report, 'timeline', []) or []
+        iocs = getattr(getattr(report.analysis, 'initial_analysis', {}), 'iocs', []) if getattr(report, 'analysis', None) else []
+        mitre_mappings = getattr(getattr(report.analysis, 'initial_analysis', {}), 'mitre_mappings', []) if getattr(report, 'analysis', None) else []
+        attack_chain = getattr(getattr(report, 'analysis', {}), 'attack_chain', []) if getattr(report, 'analysis', None) else []
+        
+        # Generate charts
+        charts.append(self.generate_severity_distribution(timeline_data))
+        charts.append(self.generate_timeline_heatmap(timeline_data))
+        charts.append(self.generate_source_analysis(timeline_data))
+        charts.append(self.generate_event_timeline(timeline_data))
+        
+        if iocs:
+            charts.append(self.generate_ioc_analysis(iocs))
+        
+        if mitre_mappings:
+            charts.append(self.generate_mitre_analysis(mitre_mappings))
+        
+        if attack_chain:
+            charts.append(self.generate_attack_chain_visualization(attack_chain))
+        
+        return charts
+
+    def generate_event_type_analysis(self, timeline_data: List[Dict[str, Any]]) -> go.Figure:
+        """Generate event type analysis chart."""
+        if not timeline_data:
+            return self._create_empty_chart("No timeline data available")
+        
+        # Count events by type
+        event_type_counts = {}
+        for event in timeline_data:
+            event_type = event.get('event_type', 'unknown')
+            event_type_counts[event_type] = event_type_counts.get(event_type, 0) + 1
+        
+        if not event_type_counts:
+            return self._create_empty_chart("No event type data found")
+        
+        # Create horizontal bar chart
+        event_types = list(event_type_counts.keys())
+        counts = list(event_type_counts.values())
+        
+        fig = go.Figure(data=[go.Bar(
+            y=event_types,
+            x=counts,
+            orientation='h',
+            marker_color='lightcoral',
+            text=counts,
+            textposition='auto'
+        )])
+        
+        fig.update_layout(
+            title="Events by Type",
+            xaxis_title="Event Count",
+            yaxis_title="Event Type",
+            height=400,
+            margin=dict(t=50, b=50, l=150, r=50)  # Extra left margin for long event type names
+        )
+        
+        return fig
+
+    def generate_confidence_analysis(self, report: ForensicReport) -> go.Figure:
+        """Generate confidence analysis across different analysis components."""
+        confidence_data = {}
+        
+        # Get confidence from different sources
+        if getattr(report, 'analysis', None) and getattr(report.analysis, 'initial_analysis', None):
+            initial_conf = float(getattr(report.analysis.initial_analysis, 'confidence', 0.0))
+            confidence_data['Initial Analysis'] = initial_conf
+        
+        # Get IOC confidence scores
+        iocs = getattr(getattr(report.analysis, 'initial_analysis', {}), 'iocs', []) if getattr(report, 'analysis', None) else []
+        if iocs:
+            ioc_confidences = [float(getattr(ioc, 'confidence', 0.0)) for ioc in iocs if getattr(ioc, 'confidence', None) is not None]
+            if ioc_confidences:
+                confidence_data['Average IOC Confidence'] = sum(ioc_confidences) / len(ioc_confidences)
+        
+        # Get MITRE confidence scores
+        mitre_mappings = getattr(getattr(report.analysis, 'initial_analysis', {}), 'mitre_mappings', []) if getattr(report, 'analysis', None) else []
+        if mitre_mappings:
+            mitre_confidences = [float(mapping.confidence) for mapping in mitre_mappings if getattr(mapping, 'confidence', None) is not None]
+            if mitre_confidences:
+                confidence_data['Average MITRE Confidence'] = sum(mitre_confidences) / len(mitre_confidences)
+        
+        if not confidence_data:
+            return self._create_empty_chart("No confidence data available")
+        
+        # Create gauge chart
+        fig = go.Figure()
+        
+        for i, (component, confidence) in enumerate(confidence_data.items()):
+            fig.add_trace(go.Indicator(
+                mode="gauge+number+delta",
+                value=confidence * 100,  # Convert to percentage
+                domain={'x': [0, 1], 'y': [0, 1]},
+                title={'text': component},
+                delta={'reference': 50},
+                gauge={
+                    'axis': {'range': [None, 100]},
+                    'bar': {'color': "darkblue"},
+                    'steps': [
+                        {'range': [0, 50], 'color': "lightgray"},
+                        {'range': [50, 80], 'color': "yellow"},
+                        {'range': [80, 100], 'color': "green"}
+                    ],
+                    'threshold': {
+                        'line': {'color': "red", 'width': 4},
+                        'thickness': 0.75,
+                        'value': 90
+                    }
+                }
+            ))
+        
+        fig.update_layout(
+            title="Analysis Confidence Overview",
+            height=300 * len(confidence_data),
+            margin=dict(t=50, b=50, l=50, r=50)
+        )
+        
+        return fig
+
+    def _create_empty_chart(self, message: str) -> go.Figure:
+        """Create an empty chart with a message."""
+        fig = go.Figure()
+        fig.add_annotation(
+            text=message,
+            xref="paper", yref="paper",
+            x=0.5, y=0.5,
+            showarrow=False,
+            font=dict(size=16, color="gray")
+        )
+        fig.update_layout(
+            xaxis=dict(visible=False),
+            yaxis=dict(visible=False),
+            height=300,
+            margin=dict(t=50, b=50, l=50, r=50)
+        )
+        return fig
+
 
 # -----------------------------------------------------------------------------
 # Streamlit App
@@ -206,6 +840,7 @@ class ForensicDashboard:
     def __init__(self):
         self.orchestrator = ForensicOrchestrator()
         self.report_generator = ReportGenerator()
+        self.chart_generator = ChartGenerator()
 
         # Configure Streamlit page
         st.set_page_config(
@@ -223,10 +858,11 @@ class ForensicDashboard:
         self._render_sidebar()
 
         # Tabs
-        tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
+        tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs([
             "Upload & Analyze",
             "Analysis Results",
             "Timeline View",
+            "Dashboard",
             "Reports",
             "Semantic Search",
             "Saved Results",
@@ -240,12 +876,14 @@ class ForensicDashboard:
         with tab3:
             self._render_timeline_tab()
         with tab4:
-            self._render_reports_tab()
+            self._render_dashboard_tab()
         with tab5:
-            self._render_semantic_search_tab()
+            self._render_reports_tab()
         with tab6:
-            self._render_saved_results_tab()
+            self._render_semantic_search_tab()
         with tab7:
+            self._render_saved_results_tab()
+        with tab8:
             self._render_file_history_tab()
 
     # ---------------------------------------------
@@ -290,13 +928,40 @@ class ForensicDashboard:
         st.sidebar.subheader("Analysis Settings")
         st.sidebar.slider("Max Log Entries", 100, 50000, Config.MAX_LOG_ENTRIES, key="max_entries")
         st.sidebar.selectbox("Analysis Depth", ["Quick", "Standard", "Deep"], index=1, key="analysis_depth")
-        show_charts = st.sidebar.checkbox("Enable charts (may be slower)", value=False, key="enable_charts")
+        
+        # Visualization settings
+        st.sidebar.subheader("Visualization Settings")
+        show_charts = st.sidebar.checkbox("Enable charts and visualizations", value=True, key="enable_charts")
+        if show_charts:
+            chart_quality = st.sidebar.selectbox(
+                "Chart Quality", 
+                ["Standard", "High Quality"], 
+                index=0,
+                help="Higher quality charts may take longer to render"
+            )
+            st.sidebar.checkbox(
+                "Interactive charts", 
+                value=True, 
+                key="interactive_charts",
+                help="Enable hover effects and zoom in charts"
+            )
 
         # About
         st.sidebar.subheader("About")
         st.sidebar.info(
-            "Forensic AI Log Analyzer v1.0\n\n"
-            "An AI-powered tool for automated security log analysis and incident investigation."
+            "Forensic AI Log Analyzer v2.0\n\n"
+            "Enhanced AI-powered tool for automated security log analysis and incident investigation with comprehensive visualizations and reporting."
+        )
+        
+        # New Features
+        st.sidebar.subheader("✨ New Features")
+        st.sidebar.success(
+            "• Enhanced Charts & Visualizations\n"
+            "• Comprehensive Dashboard\n"
+            "• Professional HTML Reports\n"
+            "• Interactive Timeline Analysis\n"
+            "• Confidence Analysis\n"
+            "• Attack Chain Visualization"
         )
 
     # ---------------------------------------------
@@ -851,9 +1516,7 @@ class ForensicDashboard:
             df_iocs = pd.DataFrame(ioc_data)
             st.dataframe(df_iocs, width='stretch')
 
-            if st.session_state.get("enable_charts") and len(df_iocs) > 0:
-                fig_iocs = px.pie(df_iocs, names="Type", title="IOCs by Type")
-                st.plotly_chart(fig_iocs, width='stretch')
+            # Enhanced IOC visualization is now in the Dashboard tab
         else:
             st.info("No IOCs identified")
 
@@ -901,6 +1564,185 @@ class ForensicDashboard:
                 st.write(f"{i}. {r}")
         else:
             st.info("No specific recommendations generated")
+
+        # Enhanced Charts and Visualizations
+        st.markdown("---")
+        st.subheader("📊 Analysis Visualizations")
+        
+        if st.session_state.get("enable_charts"):
+            # Generate comprehensive charts
+            charts = self.chart_generator.generate_comprehensive_dashboard(report)
+            
+            # Display charts in organized sections
+            if charts:
+                # Severity and Timeline Analysis
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.plotly_chart(charts[0], use_container_width=True)  # Severity distribution
+                with col2:
+                    if len(charts) > 1:
+                        st.plotly_chart(charts[1], use_container_width=True)  # Timeline heatmap
+                
+                # Source Analysis and Event Timeline
+                if len(charts) > 2:
+                    st.plotly_chart(charts[2], use_container_width=True)  # Source analysis
+                
+                if len(charts) > 3:
+                    st.plotly_chart(charts[3], use_container_width=True)  # Event timeline
+                
+                # IOC and MITRE Analysis
+                if len(charts) > 4:
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        st.plotly_chart(charts[4], use_container_width=True)  # IOC analysis
+                    with col2:
+                        if len(charts) > 5:
+                            st.plotly_chart(charts[5], use_container_width=True)  # MITRE analysis
+                
+                # Attack Chain Visualization
+                if len(charts) > 6:
+                    st.plotly_chart(charts[6], use_container_width=True)  # Attack chain
+        else:
+            st.info("Enable charts in the sidebar to view comprehensive visualizations")
+            
+            # Show chart preview
+            with st.expander("Chart Preview"):
+                st.markdown("""
+                **Available Charts:**
+                - **Event Severity Distribution**: Pie chart showing distribution of event severities
+                - **Timeline Heatmap**: Heatmap showing event density over time
+                - **Source Analysis**: Bar chart showing events by source
+                - **Interactive Timeline**: Scatter plot of events over time
+                - **IOC Analysis**: Distribution of IOC types and confidence scores
+                - **MITRE ATT&CK Analysis**: Tactics and techniques distribution
+                - **Attack Chain Flow**: Sankey diagram showing attack progression
+                """)
+
+    # ---------------------------------------------
+    # Dashboard
+    # ---------------------------------------------
+    def _render_dashboard_tab(self):
+        """Render comprehensive dashboard with all visualizations."""
+        if not st.session_state.get("analysis_complete", False):
+            st.info("Run analysis first to view dashboard")
+            return
+
+        report: ForensicReport = st.session_state.get("forensic_report")
+        if not report:
+            st.error("No analysis results available")
+            return
+
+        st.header("📊 Comprehensive Analysis Dashboard")
+        st.markdown("---")
+
+        # Key metrics overview
+        st.subheader("🎯 Key Metrics")
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.metric("Case ID", str(getattr(report, "case_id", "N/A")))
+        with col2:
+            st.metric("Total Events", f"{getattr(report, 'total_events', 0):,}")
+        with col3:
+            sev = (
+                str(getattr(getattr(report.analysis.initial_analysis, "severity", ""), "value", "")).upper()
+                if getattr(report, "analysis", None) and getattr(report.analysis, "initial_analysis", None)
+                else "N/A"
+            )
+            st.metric("Severity", sev)
+        with col4:
+            conf = (
+                f"{float(getattr(report.analysis.initial_analysis, 'confidence', 0.0)):.1%}"
+                if getattr(report, "analysis", None) and getattr(report.analysis, "initial_analysis", None)
+                else "N/A"
+            )
+            st.metric("Confidence", conf)
+
+        # Executive Summary
+        st.subheader("📋 Executive Summary")
+        st.info(str(getattr(report, "executive_summary", "No summary provided.")))
+
+        # Comprehensive Charts
+        st.subheader("📈 Analysis Visualizations")
+        
+        if st.session_state.get("enable_charts"):
+            # Generate all charts
+            charts = self.chart_generator.generate_comprehensive_dashboard(report)
+            
+            if charts:
+                # Overview charts
+                st.markdown("### Event Overview")
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.plotly_chart(charts[0], use_container_width=True)  # Severity distribution
+                with col2:
+                    if len(charts) > 1:
+                        st.plotly_chart(charts[1], use_container_width=True)  # Timeline heatmap
+                
+                # Source and Timeline Analysis
+                st.markdown("### Source and Timeline Analysis")
+                if len(charts) > 2:
+                    st.plotly_chart(charts[2], use_container_width=True)  # Source analysis
+                
+                if len(charts) > 3:
+                    st.plotly_chart(charts[3], use_container_width=True)  # Event timeline
+                
+                # Threat Intelligence
+                st.markdown("### Threat Intelligence Analysis")
+                if len(charts) > 4:
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        st.plotly_chart(charts[4], use_container_width=True)  # IOC analysis
+                    with col2:
+                        if len(charts) > 5:
+                            st.plotly_chart(charts[5], use_container_width=True)  # MITRE analysis
+                
+                # Attack Chain
+                if len(charts) > 6:
+                    st.markdown("### Attack Chain Visualization")
+                    st.plotly_chart(charts[6], use_container_width=True)  # Attack chain
+                
+                # Additional Analysis
+                st.markdown("### Additional Analysis")
+                col1, col2 = st.columns(2)
+                with col1:
+                    event_type_fig = self.chart_generator.generate_event_type_analysis(timeline_data)
+                    st.plotly_chart(event_type_fig, use_container_width=True)
+                
+                with col2:
+                    confidence_fig = self.chart_generator.generate_confidence_analysis(report)
+                    st.plotly_chart(confidence_fig, use_container_width=True)
+        else:
+            st.info("Enable charts in the sidebar to view comprehensive visualizations")
+            
+            # Show what's available
+            with st.expander("Available Dashboard Features"):
+                st.markdown("""
+                **Dashboard Components:**
+                - **Event Severity Distribution**: Visual breakdown of security event severities
+                - **Timeline Heatmap**: Event density analysis over time
+                - **Source Analysis**: Events categorized by source systems
+                - **Interactive Timeline**: Detailed event timeline with filtering
+                - **IOC Analysis**: Distribution and confidence of identified IOCs
+                - **MITRE ATT&CK Mapping**: Tactics and techniques visualization
+                - **Attack Chain Flow**: Visual representation of attack progression
+                """)
+
+        # Quick Actions
+        st.markdown("---")
+        st.subheader("⚡ Quick Actions")
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            if st.button("📥 Download Report", key="dashboard_download"):
+                st.info("Use the Reports tab to download comprehensive reports")
+        
+        with col2:
+            if st.button("🔍 View Timeline", key="dashboard_timeline"):
+                st.info("Switch to Timeline View tab for detailed event analysis")
+        
+        with col3:
+            if st.button("📊 Export Charts", key="dashboard_export"):
+                st.info("Chart export functionality coming soon!")
 
     # ---------------------------------------------
     # Timeline View
@@ -962,17 +1804,23 @@ class ForensicDashboard:
                 df["source"] = "unknown"
 
             if st.session_state.get("enable_charts"):
-                fig = px.scatter(
-                    df,
-                    x="timestamp",
-                    y="source",
-                    color="severity",
-                    size="sequence",
-                    hover_data=[c for c in ["event_type", "message", "event_id"] if c in df.columns],
-                    title="Security Events Timeline",
-                )
-                fig.update_layout(height=600)
-                st.plotly_chart(fig, width='stretch')
+                # Enhanced timeline visualization
+                fig = self.chart_generator.generate_event_timeline(filtered)
+                st.plotly_chart(fig, use_container_width=True)
+                
+                # Additional timeline analysis
+                col1, col2 = st.columns(2)
+                with col1:
+                    severity_fig = self.chart_generator.generate_severity_distribution(filtered)
+                    st.plotly_chart(severity_fig, use_container_width=True)
+                
+                with col2:
+                    source_fig = self.chart_generator.generate_source_analysis(filtered)
+                    st.plotly_chart(source_fig, use_container_width=True)
+                
+                # Timeline heatmap
+                heatmap_fig = self.chart_generator.generate_timeline_heatmap(filtered)
+                st.plotly_chart(heatmap_fig, use_container_width=True)
 
             st.subheader("Event Details")
             events_per_page = 10
@@ -995,7 +1843,7 @@ class ForensicDashboard:
     # Reports
     # ---------------------------------------------
     def _render_reports_tab(self):
-        st.header("Reports")
+        st.header("📄 Report Generation")
 
         if not st.session_state.get("analysis_complete", False):
             st.info("Run an analysis to generate reports")
@@ -1006,36 +1854,167 @@ class ForensicDashboard:
             st.error("No report found in session")
             return
 
-        # Preview JSON
-        st.subheader("Preview (JSON)")
-        st.code(_pretty_json(report), language="json")
-
-        col1, col2 = st.columns(2)
+        # Report Overview
+        st.subheader("📋 Report Overview")
+        col1, col2, col3, col4 = st.columns(4)
         with col1:
-            # DOCX download
+            st.metric("Case ID", str(getattr(report, "case_id", "N/A")))
+        with col2:
+            st.metric("Total Events", f"{getattr(report, 'total_events', 0):,}")
+        with col3:
+            sev = (
+                str(getattr(getattr(report.analysis.initial_analysis, "severity", ""), "value", "")).upper()
+                if getattr(report, "analysis", None) and getattr(report.analysis, "initial_analysis", None)
+                else "N/A"
+            )
+            st.metric("Severity", sev)
+        with col4:
+            conf = (
+                f"{float(getattr(report.analysis.initial_analysis, 'confidence', 0.0)):.1%}"
+                if getattr(report, "analysis", None) and getattr(report.analysis, "initial_analysis", None)
+                else "N/A"
+            )
+            st.metric("Confidence", conf)
+
+        # Executive Summary
+        st.subheader("📝 Executive Summary")
+        st.info(str(getattr(report, "executive_summary", "No summary provided.")))
+
+        # Report Generation Options
+        st.markdown("---")
+        st.subheader("📤 Download Reports")
+        
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            st.markdown("### 📄 Word Document Report")
+            st.markdown("""
+            **Includes:**
+            - Executive summary
+            - Key metrics and findings
+            - IOCs and MITRE mappings
+            - Timeline analysis
+            - Recommendations
+            - Professional formatting
+            """)
+            
             if Document is not None:
                 try:
                     docx_bytes = self.report_generator.generate_docx(report)
                     st.download_button(
-                        label="Download Word Report (.docx)",
+                        label="📥 Download Word Report (.docx)",
                         data=docx_bytes,
-                        file_name=f"forensic_report_{getattr(report, 'case_id', 'case')}.docx",
+                        file_name=f"forensic_report_{getattr(report, 'case_id', 'case')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.docx",
                         mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                        width='stretch',
+                        use_container_width=True,
                     )
-                except Exception as e:  # pragma: no cover
+                except Exception as e:
                     st.error(f"Failed to generate DOCX: {e}")
             else:
                 st.warning("python-docx not installed. Cannot generate Word report.")
+        
         with col2:
+            st.markdown("### 📊 JSON Data Export")
+            st.markdown("""
+            **Includes:**
+            - Complete analysis data
+            - Raw findings and metadata
+            - Machine-readable format
+            - For integration with other tools
+            """)
+            
             json_bytes = self.report_generator.generate_json(report)
             st.download_button(
-                label="Download Full JSON",
+                label="📥 Download JSON Data",
                 data=json_bytes,
-                file_name=f"forensic_report_{getattr(report, 'case_id', 'case')}.json",
+                file_name=f"forensic_data_{getattr(report, 'case_id', 'case')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
                 mime="application/json",
-                width='stretch',
+                use_container_width=True,
             )
+        
+        with col3:
+            st.markdown("### 🌐 HTML Report")
+            st.markdown("""
+            **Includes:**
+            - Professional web-based report
+            - Interactive elements
+            - Responsive design
+            - Easy to share and view
+            """)
+            
+            html_content = self.report_generator.generate_html_report(report)
+            st.download_button(
+                label="📥 Download HTML Report",
+                data=html_content.encode('utf-8'),
+                file_name=f"forensic_report_{getattr(report, 'case_id', 'case')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.html",
+                mime="text/html",
+                use_container_width=True,
+            )
+
+        # Report Preview
+        st.markdown("---")
+        st.subheader("👀 Report Preview")
+        
+        # Tabs for different preview sections
+        preview_tab1, preview_tab2, preview_tab3 = st.tabs(["Key Findings", "IOCs & MITRE", "Raw Data"])
+        
+        with preview_tab1:
+            st.markdown("### Key Findings")
+            
+            # IOCs Summary
+            iocs = getattr(getattr(report.analysis, 'initial_analysis', {}), 'iocs', []) if getattr(report, 'analysis', None) else []
+            if iocs:
+                st.markdown("**Indicators of Compromise:**")
+                ioc_data = []
+                for ioc in iocs:
+                    ioc_data.append({
+                        "Type": str(getattr(ioc, "type", "")).upper(),
+                        "Value": str(getattr(ioc, "value", "")),
+                        "Confidence": f"{float(getattr(ioc, 'confidence', 0.0)):.1%}" if getattr(ioc, "confidence", None) is not None else "N/A",
+                        "Context": str(getattr(ioc, "context", "")) or "N/A",
+                    })
+                df_iocs = pd.DataFrame(ioc_data)
+                st.dataframe(df_iocs, use_container_width=True)
+            else:
+                st.info("No IOCs identified")
+            
+            # Recommendations
+            recs = getattr(getattr(report, "analysis", {}), "recommendations", [])
+            if recs:
+                st.markdown("**Recommendations:**")
+                for i, r in enumerate(recs, 1):
+                    st.write(f"{i}. {r}")
+            else:
+                st.info("No specific recommendations generated")
+        
+        with preview_tab2:
+            st.markdown("### MITRE ATT&CK Mappings")
+            mitre = getattr(getattr(report.analysis, 'initial_analysis', {}), 'mitre_mappings', []) if getattr(report, 'analysis', None) else []
+            if mitre:
+                mitre_rows = []
+                for m in mitre:
+                    mitre_rows.append({
+                        "Tactic ID": getattr(m, "tactic_id", ""),
+                        "Tactic": getattr(m, "tactic_name", ""),
+                        "Technique ID": getattr(m, "technique_id", "N/A"),
+                        "Technique": getattr(m, "technique_name", "N/A"),
+                        "Confidence": f"{float(getattr(m, 'confidence', 0.0)):.1%}" if getattr(m, "confidence", None) is not None else "N/A",
+                    })
+                df_mitre = pd.DataFrame(mitre_rows)
+                st.dataframe(df_mitre, use_container_width=True)
+            else:
+                st.info("No MITRE ATT&CK mappings identified")
+        
+        with preview_tab3:
+            st.markdown("### Raw Analysis Data")
+            with st.expander("Complete JSON Data", expanded=False):
+                st.code(_pretty_json(report), language="json")
+
+        # Chart Export (if enabled)
+        if st.session_state.get("enable_charts"):
+            st.markdown("---")
+            st.subheader("📈 Chart Export")
+            st.info("Chart export functionality coming soon! This will allow you to download all visualizations as images or interactive HTML files.")
 
     # ---------------------------------------------
     # Semantic Search
